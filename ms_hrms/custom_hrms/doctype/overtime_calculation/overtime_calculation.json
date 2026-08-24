@@ -1,0 +1,300 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "creation": "2026-08-23 13:56:49.636114",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_s1cf",
+  "amended_from",
+  "company",
+  "column_break_zqtj",
+  "apply_to",
+  "employee",
+  "employee_group",
+  "designation",
+  "department",
+  "calculation_period",
+  "calculation_period_column",
+  "payroll_period",
+  "from_date",
+  "to_date",
+  "overtime_policy_column",
+  "overtime_policy",
+  "policy_status",
+  "calculation_basis",
+  "summary_section",
+  "total_employees",
+  "total_actual_hours",
+  "column_break_xane",
+  "total_requests",
+  "total_calculated_hours",
+  "column_break_jrlr",
+  "total_requested_hours",
+  "total_overtime_amount",
+  "overtime_details_section",
+  "overtime_details",
+  "processing_section",
+  "status",
+  "column_break_wpsk",
+  "processed_on",
+  "processed_by",
+  "section_break_wogz",
+  "description",
+  "notes",
+  "connections"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_s1cf",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Overtime Calculation",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "apply_to",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Apply To",
+   "options": "All Employees\nDepartment\nDesignation\nEmployee Group\nEmployee",
+   "reqd": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation"
+  },
+  {
+   "fieldname": "employee_group",
+   "fieldtype": "Link",
+   "label": "Employee Group",
+   "options": "Employee Group"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "column_break_zqtj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "calculation_period",
+   "fieldtype": "Section Break",
+   "label": "Calculation Period"
+  },
+  {
+   "fieldname": "calculation_period_column",
+   "fieldtype": "Column Break",
+   "label": "Calculation Period"
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "From Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "To Date"
+  },
+  {
+   "fieldname": "overtime_policy_column",
+   "fieldtype": "Column Break",
+   "label": "Overtime Policy"
+  },
+  {
+   "fieldname": "overtime_policy",
+   "fieldtype": "Link",
+   "label": "Overtime Policy",
+   "options": "Overtime Policy",
+   "reqd": 1
+  },
+  {
+   "fieldname": "policy_status",
+   "fieldtype": "Data",
+   "label": "Policy Status",
+   "read_only": 1
+  },
+  {
+   "fieldname": "calculation_basis",
+   "fieldtype": "Data",
+   "label": "Calculation Basis",
+   "read_only": 1
+  },
+  {
+   "fieldname": "summary_section",
+   "fieldtype": "Section Break",
+   "label": "Summary"
+  },
+  {
+   "fieldname": "total_employees",
+   "fieldtype": "Int",
+   "label": "Total Employees",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_xane",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_requests",
+   "fieldtype": "Int",
+   "label": "Total Requests",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_jrlr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_requested_hours",
+   "fieldtype": "Float",
+   "label": "Total Requested Hours",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_actual_hours",
+   "fieldtype": "Float",
+   "label": "Total Actual Hours",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_calculated_hours",
+   "fieldtype": "Float",
+   "label": "Total Calculated Hours",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_overtime_amount",
+   "fieldtype": "Currency",
+   "label": "Total Overtime Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "overtime_details_section",
+   "fieldtype": "Section Break",
+   "label": "Overtime Details"
+  },
+  {
+   "fieldname": "overtime_details",
+   "fieldtype": "Table",
+   "label": "Overtime Details",
+   "options": "Overtime Calculation Detail"
+  },
+  {
+   "fieldname": "processing_section",
+   "fieldtype": "Section Break",
+   "label": "Processing"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nCalculated\nProcessed\nCancelled",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_wpsk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "processed_on",
+   "fieldtype": "Datetime",
+   "label": "Processed On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "processed_by",
+   "fieldtype": "Link",
+   "label": "Processed By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_wogz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Text Editor",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "connections",
+   "fieldtype": "Tab Break",
+   "label": "Connections"
+  },
+  {
+   "fieldname": "payroll_period",
+   "fieldtype": "Link",
+   "label": "Payroll Period",
+   "options": "Payroll Period",
+   "reqd": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-08-23 21:02:10.846015",
+ "modified_by": "Administrator",
+ "module": "Custom Hrms",
+ "name": "Overtime Calculation",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}

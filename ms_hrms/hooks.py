@@ -138,6 +138,13 @@ app_license = "mit"
 # ---------------
 # Hook on document methods and events
 
+doc_events = {
+	"Additional Salary": {
+		"on_trash": "ms_hrms.custom_hrms.doctype.overtime_calculation.overtime_calculation.clear_additional_salary_links",
+	},
+}
+ignore_links_on_delete = ["Overtime Calculation Detail"]
+auto_cancel_exempted_doctypes = ["Additional Salary"]
 # doc_events = {
 # 	"*": {
 # 		"on_update": "method",

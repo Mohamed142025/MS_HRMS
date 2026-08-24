@@ -1,0 +1,224 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "creation": "2026-08-23 16:58:13.027696",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "employee_information_section",
+  "employee",
+  "department",
+  "column_break_gbad",
+  "employee_name",
+  "designation",
+  "overtime_request_section",
+  "overtime_request",
+  "overtime_type",
+  "column_break_umxt",
+  "overtime_date",
+  "from_time",
+  "to_time",
+  "hours_section",
+  "requested_hours",
+  "calculated_hours",
+  "column_break_fgub",
+  "actual_hours",
+  "dvertime_duration",
+  "calculation_section",
+  "multiplier",
+  "overtime_amount",
+  "column_break_guhg",
+  "hourly_rate",
+  "payroll_section",
+  "salary_component",
+  "processed",
+  "column_break_hrjb",
+  "additional_salary"
+ ],
+ "fields": [
+  {
+   "fieldname": "employee_information_section",
+   "fieldtype": "Section Break",
+   "label": "Employee Information"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee",
+   "read_only": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_gbad",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "overtime_request_section",
+   "fieldtype": "Section Break",
+   "label": "Overtime Request"
+  },
+  {
+   "fieldname": "overtime_request",
+   "fieldtype": "Link",
+   "label": "Overtime Request",
+   "options": "Overtime Request",
+   "read_only": 1
+  },
+  {
+   "fieldname": "overtime_type",
+   "fieldtype": "Data",
+   "label": "Overtime Type",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_umxt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "overtime_date",
+   "fieldtype": "Date",
+   "label": "Overtime Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "from_time",
+   "fieldtype": "Time",
+   "label": "From Time",
+   "read_only": 1
+  },
+  {
+   "fieldname": "to_time",
+   "fieldtype": "Time",
+   "label": "To Time",
+   "read_only": 1
+  },
+  {
+   "fieldname": "hours_section",
+   "fieldtype": "Section Break",
+   "label": "Hours"
+  },
+  {
+   "fieldname": "requested_hours",
+   "fieldtype": "Float",
+   "label": "Requested Hours",
+   "read_only": 1
+  },
+  {
+   "fieldname": "calculated_hours",
+   "fieldtype": "Float",
+   "label": "Calculated Hours",
+   "read_only": 1
+  },
+  {
+   "fieldname": "dvertime_duration",
+   "fieldtype": "Duration",
+   "in_list_view": 1,
+   "label": "Overtime Duration",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_fgub",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "actual_hours",
+   "fieldtype": "Float",
+   "label": "Actual Hours",
+   "read_only": 1
+  },
+  {
+   "fieldname": "calculation_section",
+   "fieldtype": "Section Break",
+   "label": "Calculation"
+  },
+  {
+   "fieldname": "multiplier",
+   "fieldtype": "Float",
+   "label": "Multiplier",
+   "read_only": 1
+  },
+  {
+   "fieldname": "overtime_amount",
+   "fieldtype": "Currency",
+   "label": "Overtime Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_guhg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "hourly_rate",
+   "fieldtype": "Currency",
+   "label": "Hourly Rate",
+   "read_only": 1
+  },
+  {
+   "fieldname": "payroll_section",
+   "fieldtype": "Section Break",
+   "label": "Payroll"
+  },
+  {
+   "fieldname": "salary_component",
+   "fieldtype": "Link",
+   "label": "Salary Component",
+   "options": "Salary Component",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_hrjb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "processed",
+   "fieldtype": "Check",
+   "label": "Processed",
+   "read_only": 1
+  },
+  {
+   "fieldname": "additional_salary",
+   "fieldtype": "Link",
+   "label": "Additional Salary",
+   "options": "Additional Salary",
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-08-25 01:26:58.961318",
+ "modified_by": "Administrator",
+ "module": "Custom Hrms",
+ "name": "Overtime Calculation Detail",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

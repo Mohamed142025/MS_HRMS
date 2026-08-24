@@ -1,0 +1,277 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "autoname": "field:policy_name",
+ "creation": "2026-08-23 12:16:47.405065",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "basic_information",
+  "policy_name",
+  "company",
+  "status",
+  "column_break_dxwx",
+  "effective_from",
+  "effective_to",
+  "applicability",
+  "apply_to",
+  "department",
+  "designation",
+  "column_break_msnm",
+  "employee_group",
+  "employee",
+  "priority",
+  "calculation_settings",
+  "calculation_basis",
+  "calculation_salary_component",
+  "fixed_hourly_rate",
+  "column_break_pgak",
+  "minimum_overtime",
+  "maximum_overtime",
+  "salary_component",
+  "allow_fractional_hours",
+  "rounding_settings_section",
+  "enable_rounding",
+  "column_break_zvop",
+  "rounding_rule",
+  "column_break_hotf",
+  "rounding_interval",
+  "overtime_rules_section",
+  "overtime_rules_column",
+  "overtime_policy_rule",
+  "additional_settings_section",
+  "description",
+  "column_break_sevh",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "policy_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Policy Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_dxwx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nActive\nInactive",
+   "reqd": 1
+  },
+  {
+   "fieldname": "effective_from",
+   "fieldtype": "Date",
+   "label": "Effective From",
+   "reqd": 1
+  },
+  {
+   "fieldname": "effective_to",
+   "fieldtype": "Date",
+   "label": "Effective To"
+  },
+  {
+   "fieldname": "apply_to",
+   "fieldtype": "Select",
+   "label": "Apply To",
+   "options": "All Employees\nDepartment\nDesignation\nEmployee Group\nEmployee"
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Department"
+  },
+  {
+   "fieldname": "column_break_msnm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "employee_group",
+   "fieldtype": "Link",
+   "label": "Employee Group",
+   "options": "Employee Group"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "priority",
+   "fieldtype": "Int",
+   "label": "Priority"
+  },
+  {
+   "fieldname": "calculation_basis",
+   "fieldtype": "Select",
+   "label": "Calculation Basis",
+   "options": "Basic Salary\nGross Salary\nSalary Component\nFixed Hourly Rate"
+  },
+  {
+   "fieldname": "salary_component",
+   "fieldtype": "Link",
+   "label": "Salary Component",
+   "options": "Salary Component"
+  },
+  {
+   "default": "0",
+   "fieldname": "allow_fractional_hours",
+   "fieldtype": "Check",
+   "label": "Allow Fractional Hours"
+  },
+  {
+   "fieldname": "column_break_pgak",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "minimum_overtime",
+   "fieldtype": "Float",
+   "label": "Minimum Overtime"
+  },
+  {
+   "fieldname": "maximum_overtime",
+   "fieldtype": "Float",
+   "label": "Maximum Overtime"
+  },
+  {
+   "fieldname": "fixed_hourly_rate",
+   "fieldtype": "Currency",
+   "label": "Fixed Hourly Rate"
+  },
+  {
+   "fieldname": "calculation_settings",
+   "fieldtype": "Section Break",
+   "label": "Calculation Settings"
+  },
+  {
+   "fieldname": "applicability",
+   "fieldtype": "Section Break",
+   "label": "Applicability"
+  },
+  {
+   "fieldname": "basic_information",
+   "fieldtype": "Section Break",
+   "label": "Basic Information"
+  },
+  {
+   "fieldname": "rounding_settings_section",
+   "fieldtype": "Section Break",
+   "label": "Rounding Settings"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_rounding",
+   "fieldtype": "Check",
+   "label": "Enable Rounding"
+  },
+  {
+   "fieldname": "column_break_zvop",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "rounding_rule",
+   "fieldtype": "Select",
+   "label": "Rounding Rule",
+   "options": "Nearest\nRound Up\nRound Down"
+  },
+  {
+   "fieldname": "column_break_hotf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "rounding_interval",
+   "fieldtype": "Float",
+   "label": "Rounding Interval"
+  },
+  {
+   "fieldname": "overtime_rules_section",
+   "fieldtype": "Section Break",
+   "label": "Overtime Rules"
+  },
+  {
+   "fieldname": "overtime_rules_column",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "overtime_policy_rule",
+   "fieldtype": "Table",
+   "label": "Overtime Policy Rule",
+   "options": "Overtime Policy Rule"
+  },
+  {
+   "fieldname": "additional_settings_section",
+   "fieldtype": "Section Break",
+   "label": "Additional Settings"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "column_break_sevh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Text Editor",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "calculation_salary_component",
+   "fieldtype": "Link",
+   "label": "Calculation Salary Component",
+   "options": "Salary Component"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-08-23 19:32:14.269841",
+ "modified_by": "Administrator",
+ "module": "Custom Hrms",
+ "name": "Overtime Policy",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

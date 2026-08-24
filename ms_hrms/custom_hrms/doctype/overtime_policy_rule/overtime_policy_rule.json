@@ -1,0 +1,65 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "creation": "2026-08-23 12:46:11.557562",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "overtime_type",
+  "multiplier",
+  "enabled",
+  "column_break_dvsx",
+  "from_hour",
+  "to_hour"
+ ],
+ "fields": [
+  {
+   "fieldname": "overtime_type",
+   "fieldtype": "Select",
+   "label": "Overtime Type",
+   "options": "Normal Working Day\nWeekly Off\nPublic Holiday"
+  },
+  {
+   "fieldname": "multiplier",
+   "fieldtype": "Float",
+   "label": "Multiplier"
+  },
+  {
+   "default": "0",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled"
+  },
+  {
+   "fieldname": "column_break_dvsx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "from_hour",
+   "fieldtype": "Float",
+   "label": "From Hour"
+  },
+  {
+   "fieldname": "to_hour",
+   "fieldtype": "Float",
+   "label": "To Hour"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-08-23 12:49:02.176588",
+ "modified_by": "Administrator",
+ "module": "Custom Hrms",
+ "name": "Overtime Policy Rule",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}
