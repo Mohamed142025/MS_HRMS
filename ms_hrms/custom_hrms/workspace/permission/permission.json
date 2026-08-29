@@ -1,0 +1,59 @@
+{
+ "app": "ms_hrms",
+ "charts": [],
+ "content": "[{\"id\":\"qThejuhInq\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Welcome to the permission workspace</span>\",\"col\":12}},{\"id\":\"egtYLoZiI0\",\"type\":\"paragraph\",\"data\":{\"text\":\"Click on \\n\\t\\t\\t\\n\\t\\t\\t\\n\\t\\t to edit\",\"col\":12}},{\"id\":\"aUt8Db-ak0\",\"type\":\"card\",\"data\":{\"card_name\":\"policy\",\"col\":4}}]",
+ "creation": "2026-08-29 09:47:34.486643",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "hide_custom": 0,
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "permission",
+ "link_type": "DocType",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "policy",
+   "link_count": 2,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Overtime Policy",
+   "link_count": 0,
+   "link_to": "Overtime Policy",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Permission Policy",
+   "link_count": 0,
+   "link_to": "Permission Policy",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-08-29 09:59:38.910331",
+ "modified_by": "Administrator",
+ "module": "Custom Hrms",
+ "name": "permission",
+ "number_cards": [],
+ "owner": "Administrator",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 0.0,
+ "shortcuts": [],
+ "title": "permission",
+ "type": "Workspace"
+}

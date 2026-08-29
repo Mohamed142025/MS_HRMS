@@ -1,0 +1,193 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "autoname": "policy_name",
+ "creation": "2026-08-28 17:38:39.516435",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "basic_information_section",
+  "policy_name",
+  "is_active",
+  "column_break_snga",
+  "company",
+  "applies_to_section",
+  "applies_to",
+  "column_break_asxn",
+  "department",
+  "designation",
+  "employee_grade",
+  "employee",
+  "permission_limits_section",
+  "max_permissions_per_day",
+  "max_hours_per_day",
+  "column_break_cqzy",
+  "max_permissions_per_month",
+  "max_hours_per_month",
+  "duration_limits_section",
+  "min_permission_duration",
+  "column_break_xfem",
+  "max_permission_duration"
+ ],
+ "fields": [
+  {
+   "fieldname": "basic_information_section",
+   "fieldtype": "Section Break",
+   "label": "Basic Information"
+  },
+  {
+   "fieldname": "policy_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Policy Name",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Is Active"
+  },
+  {
+   "fieldname": "column_break_snga",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "applies_to_section",
+   "fieldtype": "Section Break",
+   "label": "Applies To"
+  },
+  {
+   "fieldname": "applies_to",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Applies To",
+   "options": "All Employees\nDepartment\nDesignation\nEmployee Grade\nEmployee",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_asxn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.applies_to == \"Department\"",
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "depends_on": "eval:doc.applies_to == \"Designation\"",
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation"
+  },
+  {
+   "depends_on": "eval:doc.applies_to == \"Employee Grade\"",
+   "fieldname": "employee_grade",
+   "fieldtype": "Link",
+   "label": "Employee Grade",
+   "options": "Employee Grade"
+  },
+  {
+   "depends_on": "eval:doc.applies_to == \"Employee\"",
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "permission_limits_section",
+   "fieldtype": "Section Break",
+   "label": "Permission Limits"
+  },
+  {
+   "default": "0",
+   "fieldname": "max_permissions_per_day",
+   "fieldtype": "Int",
+   "label": "Maximum Permissions Per Day"
+  },
+  {
+   "default": "0",
+   "fieldname": "max_hours_per_day",
+   "fieldtype": "Float",
+   "label": "Maximum Hours Per Day"
+  },
+  {
+   "fieldname": "column_break_cqzy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "max_permissions_per_month",
+   "fieldtype": "Int",
+   "label": "Maximum Permissions Per Month"
+  },
+  {
+   "default": "0",
+   "fieldname": "max_hours_per_month",
+   "fieldtype": "Float",
+   "label": "Maximum Hours Per Month"
+  },
+  {
+   "fieldname": "duration_limits_section",
+   "fieldtype": "Section Break",
+   "label": "Duration Limits"
+  },
+  {
+   "default": "0",
+   "fieldname": "min_permission_duration",
+   "fieldtype": "Duration",
+   "label": "Minimum Permission Duration"
+  },
+  {
+   "fieldname": "column_break_xfem",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "max_permission_duration",
+   "fieldtype": "Duration",
+   "label": "Maximum Permission Duration"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-08-28 17:38:39.516435",
+ "modified_by": "Administrator",
+ "module": "Custom Hrms",
+ "name": "Permission Policy",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
