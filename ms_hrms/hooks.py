@@ -116,6 +116,13 @@ app_license = "mit"
 
 # after_build = "ms_hrms.build.after_build"
 
+fixtures = [
+    {"doctype": "Custom Field", "filters": [
+        ["dt", "in", ["Employee Checkin", "Department"]],
+        ["fieldname", "in", ["custom_permission_request", "custom_permission_approver", "custom_overtime_approver"]],
+    ]},
+]
+
 # Desk Notifications
 # ------------------
 # See frappe.core.notifications.get_notification_config

@@ -1,0 +1,32 @@
+[
+    {
+        "doctype": "Custom Field",
+        "name": "Employee Checkin-custom_permission_request",
+        "dt": "Employee Checkin",
+        "fieldname": "custom_permission_request",
+        "label": "Permission Request",
+        "fieldtype": "Link",
+        "options": "Permission Request",
+        "read_only": 1
+    },
+    {
+        "doctype": "Custom Field",
+        "name": "Department-custom_permission_approver",
+        "dt": "Department",
+        "fieldname": "custom_permission_approver",
+        "label": "Permission Approver",
+        "fieldtype": "Table",
+        "options": "Department Approver",
+        "insert_after": "expense_approvers"
+    },
+    {
+        "doctype": "Custom Field",
+        "name": "Department-custom_overtime_approver",
+        "dt": "Department",
+        "fieldname": "custom_overtime_approver",
+        "label": "Overtime Approver",
+        "fieldtype": "Table",
+        "options": "Department Approver",
+        "insert_after": "custom_permission_approver"
+    }
+]
