@@ -1,0 +1,17 @@
+{
+ "aggregate_function_based_on": "",
+ "doctype": "Number Card",
+ "document_type": "Overtime Policy",
+ "dynamic_filters_json": "[[\"Overtime Policy\",\"company\",\"=\",\"frappe.defaults.get_user_default(\\\"Company\\\")\"]]",
+ "filters_json": "[[\"Overtime Policy\",\"status\",\"=\",\"Active\"]]",
+ "function": "Count",
+ "idx": 0,
+ "is_public": 1,
+ "is_standard": 1,
+ "label": "Active Overtime Policies",
+ "module": "Custom Hrms",
+ "name": "Active Overtime Policies",
+ "show_percentage_stats": 0,
+ "stats_time_interval": "Monthly",
+ "type": "Document Type"
+}

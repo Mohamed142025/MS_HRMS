@@ -1,0 +1,17 @@
+{
+ "aggregate_function_based_on": "grand_total",
+ "doctype": "Number Card",
+ "document_type": "Attendance Penalty Processing",
+ "dynamic_filters_json": "[]",
+ "filters_json": "[[\"Attendance Penalty Processing\",\"docstatus\",\"=\",\"1\"],[\"Attendance Penalty Processing\",\"posting_date\",\"Timespan\",\"this month\"]]",
+ "function": "Sum",
+ "idx": 0,
+ "is_public": 1,
+ "is_standard": 1,
+ "label": "Attendance Deductions (This Month)",
+ "module": "Custom Hrms",
+ "name": "Attendance Deductions (This Month)",
+ "show_percentage_stats": 1,
+ "stats_time_interval": "Monthly",
+ "type": "Document Type"
+}

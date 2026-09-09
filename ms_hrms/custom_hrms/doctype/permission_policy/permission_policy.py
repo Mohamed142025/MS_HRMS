@@ -54,6 +54,15 @@ class PermissionPolicy(Document):
                 title=_("Invalid Duration Limits"),
             )
 
+        if minimum and maximum and minimum > maximum:
+            frappe.throw(
+                _(
+                    "Minimum Permission Duration cannot exceed "
+                    "Maximum Permission Duration."
+                ),
+                title=_("Invalid Duration Limits"),
+            )
+
     @staticmethod
     def duration_to_seconds(value):
         """Convert a Duration value to seconds."""
@@ -102,15 +111,6 @@ class PermissionPolicy(Document):
             ),
             title=_("Invalid Duration Value"),
         )
-
-        if minimum and maximum and minimum > maximum:
-            frappe.throw(
-                _(
-                    "Minimum Permission Duration cannot exceed "
-                    "Maximum Permission Duration."
-                ),
-                title=_("Invalid Duration Limits"),
-            )
 
     # =========================================================================
     # Scope Validation

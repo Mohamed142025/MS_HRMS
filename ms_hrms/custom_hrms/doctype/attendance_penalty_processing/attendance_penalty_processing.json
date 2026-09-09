@@ -1,0 +1,171 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "creation": "2026-09-08 00:00:00",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "posting_date",
+        "payroll_period",
+        "from_date",
+        "to_date",
+        "apply_on",
+        "department",
+        "employee",
+        "policy",
+        "status",
+        "column_break_totals",
+        "total_entry_deduction",
+        "total_exit_deduction",
+        "grand_total",
+        "additional_salary",
+        "additional_salary_references",
+        "additional_salary_links",
+        "get_attendance",
+        "details"
+    ],
+    "fields": [
+        {
+            "default": "Today",
+            "fieldname": "posting_date",
+            "fieldtype": "Date",
+            "label": "Posting Date",
+            "reqd": 1
+        },
+        {
+            "fieldname": "payroll_period",
+            "fieldtype": "Link",
+            "label": "Payroll Period",
+            "options": "Payroll Period",
+            "reqd": 1
+        },
+        {
+            "fieldname": "from_date",
+            "fieldtype": "Date",
+            "label": "From Date",
+            "reqd": 1
+        },
+        {
+            "fieldname": "to_date",
+            "fieldtype": "Date",
+            "label": "To Date",
+            "reqd": 1
+        },
+        {
+            "fieldname": "apply_on",
+            "fieldtype": "Select",
+            "label": "Apply On",
+            "options": "All Employees\nDepartment\nEmployee",
+            "reqd": 1
+        },
+        {
+            "depends_on": "eval:doc.apply_on == 'Department'",
+            "fieldname": "department",
+            "fieldtype": "Link",
+            "label": "Department",
+            "options": "Department"
+        },
+        {
+            "depends_on": "eval:doc.apply_on == 'Employee'",
+            "fieldname": "employee",
+            "fieldtype": "Link",
+            "label": "Employee",
+            "options": "Employee"
+        },
+        {
+            "fieldname": "policy",
+            "fieldtype": "Link",
+            "label": "Policy",
+            "options": "Attendance Penalty Policy"
+        },
+        {
+            "default": "Draft",
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "label": "Status",
+            "options": "Draft\nCalculated\nSubmitted\nCancelled",
+            "read_only": 1
+        },
+        {
+            "fieldname": "column_break_totals",
+            "fieldtype": "Column Break"
+        },
+        {
+            "default": "0",
+            "fieldname": "total_entry_deduction",
+            "fieldtype": "Currency",
+            "label": "Total Entry Deduction",
+            "read_only": 1
+        },
+        {
+            "default": "0",
+            "fieldname": "total_exit_deduction",
+            "fieldtype": "Currency",
+            "label": "Total Exit Deduction",
+            "read_only": 1
+        },
+        {
+            "default": "0",
+            "fieldname": "grand_total",
+            "fieldtype": "Currency",
+            "label": "Grand Total",
+            "read_only": 1
+        },
+        {
+            "fieldname": "additional_salary",
+            "fieldtype": "Link",
+            "label": "Additional Salary",
+            "options": "Additional Salary",
+            "read_only": 1
+        },
+        {
+            "fieldname": "additional_salary_references",
+            "fieldtype": "Long Text",
+            "hidden": 1,
+            "label": "Additional Salary References",
+            "read_only": 1
+        },
+        {
+            "depends_on": "eval:doc.additional_salary_references",
+            "fieldname": "additional_salary_links",
+            "fieldtype": "HTML",
+            "label": "Generated Additional Salaries"
+        },
+        {
+            "fieldname": "get_attendance",
+            "fieldtype": "Button",
+            "label": "Get Attendance",
+            "button_color": "Primary"
+        },
+        {
+            "fieldname": "details",
+            "fieldtype": "Table",
+            "label": "Details",
+            "options": "Attendance Penalty Detail",
+            "reqd": 1
+        }
+    ],
+    "is_submittable": 1,
+    "module": "Custom Hrms",
+    "name": "Attendance Penalty Processing",
+    "permissions": [
+        {
+            "role": "HR Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1,
+            "submit": 1
+        },
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1,
+            "submit": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC"
+}

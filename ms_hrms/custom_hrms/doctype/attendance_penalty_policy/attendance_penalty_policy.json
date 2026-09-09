@@ -1,0 +1,158 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "autoname": "field:policy_name",
+    "creation": "2026-09-08 00:00:00",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "policy_name",
+        "enabled",
+        "apply_on",
+        "department",
+        "employee",
+        "reset_period",
+        "entry_grace_period",
+        "exit_grace_period",
+        "deduction_based_on",
+        "salary_component",
+        "deduction_salary_component",
+        "salary_divisor",
+        "working_hours_per_day",
+        "entry_rules",
+        "exit_rules"
+    ],
+    "fields": [
+        {
+            "fieldname": "policy_name",
+            "fieldtype": "Data",
+            "label": "Policy Name",
+            "reqd": 1,
+            "unique": 1
+        },
+        {
+            "default": "1",
+            "fieldname": "enabled",
+            "fieldtype": "Check",
+            "label": "Enabled"
+        },
+        {
+            "fieldname": "apply_on",
+            "fieldtype": "Select",
+            "label": "Apply On",
+            "options": "All Employees\nDepartment\nEmployee",
+            "reqd": 1
+        },
+        {
+            "depends_on": "eval:doc.apply_on == 'Department'",
+            "fieldname": "department",
+            "fieldtype": "Link",
+            "label": "Department",
+            "options": "Department"
+        },
+        {
+            "depends_on": "eval:doc.apply_on == 'Employee'",
+            "fieldname": "employee",
+            "fieldtype": "Link",
+            "label": "Employee",
+            "options": "Employee"
+        },
+        {
+            "default": "Monthly",
+            "fieldname": "reset_period",
+            "fieldtype": "Select",
+            "label": "Reset Period",
+            "options": "Monthly\nQuarterly\nYearly\nNever",
+            "reqd": 1
+        },
+        {
+            "default": "0",
+            "fieldname": "entry_grace_period",
+            "fieldtype": "Int",
+            "label": "Entry Grace Period"
+        },
+        {
+            "default": "0",
+            "fieldname": "exit_grace_period",
+            "fieldtype": "Int",
+            "label": "Exit Grace Period"
+        },
+        {
+            "default": "0",
+            "fieldname": "allowed_grace_occurrences",
+            "fieldtype": "Int",
+            "label": "Allowed Grace Occurrences",
+            "description": "Shared per employee and Payroll Period. 0 means unlimited."
+        },
+        {
+            "default": "Basic Salary",
+            "fieldname": "deduction_based_on",
+            "fieldtype": "Select",
+            "label": "Deduction Based On",
+            "options": "Basic Salary\nGross Salary\nSalary Component",
+            "reqd": 1
+        },
+        {
+            "depends_on": "eval:doc.deduction_based_on == 'Salary Component'",
+            "fieldname": "salary_component",
+            "fieldtype": "Link",
+            "label": "Salary Basis Component",
+            "options": "Salary Component"
+        },
+        {
+            "fieldname": "deduction_salary_component",
+            "fieldtype": "Link",
+            "label": "Deduction Salary Component",
+            "options": "Salary Component",
+            "description": "The Salary Component used on the generated Additional Salary."
+        },
+        {
+            "default": "30",
+            "fieldname": "salary_divisor",
+            "fieldtype": "Float",
+            "label": "Salary Divisor",
+            "reqd": 1
+        },
+        {
+            "default": "8",
+            "fieldname": "working_hours_per_day",
+            "fieldtype": "Float",
+            "label": "Working Hours Per Day",
+            "reqd": 1
+        },
+        {
+            "fieldname": "entry_rules",
+            "fieldtype": "Table",
+            "label": "Entry Rules",
+            "options": "Attendance Penalty Rule"
+        },
+        {
+            "fieldname": "exit_rules",
+            "fieldtype": "Table",
+            "label": "Exit Rules",
+            "options": "Attendance Penalty Rule"
+        }
+    ],
+    "module": "Custom Hrms",
+    "name": "Attendance Penalty Policy",
+    "permissions": [
+        {
+            "role": "HR Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1,
+            "submit": 1
+        },
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1,
+            "submit": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC"
+}

@@ -2074,6 +2074,12 @@ def check_duplicate(
     department=None,
 ):
 
+    frappe.has_permission(
+        "Overtime Calculation",
+        "read",
+        throw=True,
+    )
+
     if not company:
         return {
             "exists": False

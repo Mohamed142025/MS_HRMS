@@ -1,7 +1,15 @@
 {
  "app": "ms_hrms",
  "charts": [],
- "content": "[{\"id\":\"qThejuhInq\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Welcome to the permission workspace</span>\",\"col\":12}},{\"id\":\"egtYLoZiI0\",\"type\":\"paragraph\",\"data\":{\"text\":\"Click on \\n\\t\\t\\t\\n\\t\\t\\t\\n\\t\\t to edit\",\"col\":12}},{\"id\":\"aUt8Db-ak0\",\"type\":\"card\",\"data\":{\"card_name\":\"policy\",\"col\":4}}]",
+ "number_cards": [
+  {"label": "Pending Overtime Requests", "number_card_name": "Pending Overtime Requests"},
+  {"label": "Pending Permission Requests", "number_card_name": "Pending Permission Requests"},
+  {"label": "Penalty Processing Awaiting Review", "number_card_name": "Penalty Processing Awaiting Review"},
+  {"label": "Active Overtime Policies", "number_card_name": "Active Overtime Policies"},
+  {"label": "Active Permission Policies", "number_card_name": "Active Permission Policies"},
+  {"label": "Attendance Deductions (This Month)", "number_card_name": "Attendance Deductions (This Month)"}
+ ],
+ "content": "[{\"id\":\"qThejuhInq\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Custom HR</span>\",\"col\":12}},{\"id\":\"egtYLoZiI0\",\"type\":\"paragraph\",\"data\":{\"text\":\"Overtime, permission requests, and attendance penalty management.\",\"col\":12}},{\"id\":\"ovHeader001\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h5\\\">Overview</span>\",\"col\":12}},{\"id\":\"ncPendOT001\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Pending Overtime Requests\",\"col\":4}},{\"id\":\"ncPendPR001\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Pending Permission Requests\",\"col\":4}},{\"id\":\"ncPenRev001\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Penalty Processing Awaiting Review\",\"col\":4}},{\"id\":\"ncActOT001\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Active Overtime Policies\",\"col\":4}},{\"id\":\"ncActPP001\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Active Permission Policies\",\"col\":4}},{\"id\":\"ncAttDed001\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Attendance Deductions (This Month)\",\"col\":4}},{\"id\":\"spacer00001\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"mgHeader001\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h5\\\">Manage</span>\",\"col\":12}},{\"id\":\"aUt8Db-ak0\",\"type\":\"card\",\"data\":{\"card_name\":\"Overtime\",\"col\":4}},{\"id\":\"bVu9Ec-bl1\",\"type\":\"card\",\"data\":{\"card_name\":\"Permission\",\"col\":4}},{\"id\":\"cWv0Fd-cm2\",\"type\":\"card\",\"data\":{\"card_name\":\"Attendance Penalty\",\"col\":4}}]",
  "creation": "2026-08-29 09:47:34.486643",
  "custom_blocks": [],
  "docstatus": 0,
@@ -17,8 +25,8 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "policy",
-   "link_count": 2,
+   "label": "Overtime",
+   "link_count": 3,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
@@ -36,19 +44,96 @@
   {
    "hidden": 0,
    "is_query_report": 0,
+   "label": "Overtime Request",
+   "link_count": 0,
+   "link_to": "Overtime Request",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Overtime Calculation",
+   "link_count": 0,
+   "link_to": "Overtime Calculation",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Permission",
+   "link_count": 2,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
    "label": "Permission Policy",
    "link_count": 0,
    "link_to": "Permission Policy",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Permission Request",
+   "link_count": 0,
+   "link_to": "Permission Request",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Attendance Penalty",
+   "link_count": 2,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Attendance Penalty Policy",
+   "link_count": 0,
+   "link_to": "Attendance Penalty Policy",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Attendance Penalty Processing",
+   "link_count": 0,
+   "link_to": "Attendance Penalty Processing",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Additional Salary",
+   "link_count": 0,
+   "link_to": "Additional Salary",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2026-08-30 15:21:40.061236",
+ "modified": "2026-09-08 00:00:00.000000",
  "modified_by": "Administrator",
  "module": "Custom Hrms",
  "name": "Custom HR",
- "number_cards": [],
  "owner": "Administrator",
  "public": 1,
  "quick_lists": [],

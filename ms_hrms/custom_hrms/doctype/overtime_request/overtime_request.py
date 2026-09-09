@@ -509,15 +509,20 @@ class OvertimeRequest(Document):
 
         # ---------------------------------------------------------------------
         # Get Previous Document
+        #
+        # A new Overtime Request has no previous document, so it is
+        # treated as if its previous Status was Draft. This closes a
+        # self-approval gap where a new document could otherwise be
+        # inserted with Status already set to Approved, bypassing the
+        # Overtime Approver check below entirely.
         # ---------------------------------------------------------------------
 
         previous_doc = self.get_doc_before_save()
 
-        if not previous_doc:
-            return
-
-        previous_status = previous_doc.get(
-            self.STATUS_FIELD
+        previous_status = (
+            previous_doc.get(self.STATUS_FIELD)
+            if previous_doc
+            else self.STATUS_DRAFT
         )
 
         current_status = self.get(
@@ -536,6 +541,13 @@ class OvertimeRequest(Document):
         # ---------------------------------------------------------------------
 
         if frappe.session.user == "Administrator":
+            return
+
+        # ---------------------------------------------------------------------
+        # Any Employee May Submit Their Own Request For Approval
+        # ---------------------------------------------------------------------
+
+        if current_status == self.STATUS_PENDING_APPROVAL:
             return
 
         # ---------------------------------------------------------------------

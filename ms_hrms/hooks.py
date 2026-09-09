@@ -1,5 +1,5 @@
 app_name = "ms_hrms"
-app_title = "Ms Hrms"
+app_title = "Custom HR"
 app_publisher = "Mohamed Sayed"
 app_description = "it is app a custom Hrms"
 app_email = "Mohameddbs53@gmail.com"
@@ -11,15 +11,14 @@ app_license = "mit"
 # required_apps = []
 
 # Each item in the list will be shown as an app in the apps page
-# add_to_apps_screen = [
-# 	{
-# 		"name": "ms_hrms",
-# 		"logo": "/assets/ms_hrms/logo.png",
-# 		"title": "Ms Hrms",
-# 		"route": "/ms_hrms",
-# 		"has_permission": "ms_hrms.api.permission.has_app_permission"
-# 	}
-# ]
+add_to_apps_screen = [
+	{
+		"name": "ms_hrms",
+		"logo": "/assets/ms_hrms/images/ms_hrms-logo.svg",
+		"title": "Custom HR",
+		"route": "/desk/custom-hr",
+	}
+]
 
 # Includes in <head>
 # ------------------
@@ -43,7 +42,9 @@ app_license = "mit"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+doctype_js = {
+    "Attendance Penalty Processing": "custom_hrms/doctype/attendance_penalty_processing/attendance_penalty_processing.js",
+}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -150,7 +151,7 @@ doc_events = {
 		"on_trash": "ms_hrms.custom_hrms.doctype.overtime_calculation.overtime_calculation.clear_additional_salary_links",
 	},
 }
-ignore_links_on_delete = ["Overtime Calculation Detail"]
+ignore_links_on_delete = ["Overtime Calculation Detail", "Attendance Penalty Detail"]
 auto_cancel_exempted_doctypes = ["Additional Salary"]
 # doc_events = {
 # 	"*": {

@@ -1,0 +1,161 @@
+{
+    "actions": [],
+    "doctype": "DocType",
+    "editable_grid": 1,
+    "engine": "InnoDB",
+    "field_order": [
+        "employee",
+        "attendance",
+        "attendance_date",
+        "payroll_period",
+        "shift_type",
+        "shift_start",
+        "shift_end",
+        "checkin_time",
+        "checkout_time",
+        "penalty_type",
+        "actual_minutes",
+        "grace_period",
+        "counted_minutes",
+        "occurrence_number",
+        "deduction_type",
+        "deduction_value",
+        "deduction_amount",
+        "policy",
+        "review_required",
+        "penalty_processing",
+        "remarks"
+    ],
+    "fields": [
+        {
+            "fieldname": "employee",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "label": "Employee",
+            "options": "Employee"
+        },
+        {
+            "fieldname": "attendance",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "label": "Attendance",
+            "options": "Attendance"
+        },
+        {
+            "fieldname": "attendance_date",
+            "fieldtype": "Date",
+            "in_list_view": 1,
+            "label": "Attendance Date"
+        },
+        {
+            "fieldname": "payroll_period",
+            "fieldtype": "Link",
+            "in_list_view": 1,
+            "label": "Payroll Period",
+            "options": "Payroll Period"
+        },
+        {
+            "fieldname": "shift_type",
+            "fieldtype": "Link",
+            "label": "Shift Type",
+            "options": "Shift Type"
+        },
+        {
+            "fieldname": "shift_start",
+            "fieldtype": "Datetime",
+            "label": "Shift Start"
+        },
+        {
+            "fieldname": "shift_end",
+            "fieldtype": "Datetime",
+            "label": "Shift End"
+        },
+        {
+            "fieldname": "checkin_time",
+            "fieldtype": "Datetime",
+            "label": "Checkin Time"
+        },
+        {
+            "fieldname": "checkout_time",
+            "fieldtype": "Datetime",
+            "label": "Checkout Time"
+        },
+        {
+            "fieldname": "penalty_type",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "label": "Penalty Type",
+            "options": "Late Entry\nEarly Exit",
+            "reqd": 1
+        },
+        {
+            "fieldname": "actual_minutes",
+            "fieldtype": "Int",
+            "in_list_view": 1,
+            "label": "Actual Minutes"
+        },
+        {
+            "fieldname": "grace_period",
+            "fieldtype": "Int",
+            "in_list_view": 1,
+            "label": "Grace Period"
+        },
+        {
+            "fieldname": "counted_minutes",
+            "fieldtype": "Int",
+            "label": "Counted Minutes"
+        },
+        {
+            "fieldname": "occurrence_number",
+            "fieldtype": "Int",
+            "in_list_view": 1,
+            "label": "Occurrence Number"
+        },
+        {
+            "fieldname": "deduction_type",
+            "fieldtype": "Select",
+            "in_list_view": 1,
+            "label": "Deduction Type",
+            "options": "No Deduction\nMinutes\nHour\nQuarter Day\nHalf Day\nFull Day\nReview Required"
+        },
+        {
+            "fieldname": "deduction_value",
+            "fieldtype": "Float",
+            "in_list_view": 1,
+            "label": "Deduction Value"
+        },
+        {
+            "fieldname": "deduction_amount",
+            "fieldtype": "Currency",
+            "in_list_view": 1,
+            "label": "Deduction Amount"
+        },
+        {
+            "fieldname": "policy",
+            "fieldtype": "Link",
+            "label": "Policy",
+            "options": "Attendance Penalty Policy"
+        },
+        {
+            "fieldname": "review_required",
+            "fieldtype": "Check",
+            "in_list_view": 1,
+            "label": "Review Required"
+        },
+        {
+            "fieldname": "penalty_processing",
+            "fieldtype": "Link",
+            "label": "Penalty Processing",
+            "options": "Attendance Penalty Processing"
+        },
+        {
+            "fieldname": "remarks",
+            "fieldtype": "Small Text",
+            "label": "Remarks"
+        }
+    ],
+    "istable": 1,
+    "module": "Custom Hrms",
+    "name": "Attendance Penalty Detail",
+    "permissions": []
+}

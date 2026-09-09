@@ -2,6 +2,28 @@
 
 it is app a custom Hrms
 
+## Attendance Penalty Policy
+
+This app includes an ERPNext 16 workflow for late entry and early exit penalties.
+It supports independent grace periods and counters, scoped policies, configurable
+rules, HR review, and Additional Salary integration without modifying ERPNext core.
+
+Full user and developer documentation is available in:
+
+```text
+docs/attendance_penalty.md
+```
+
+The feature is activated on a site by installing the app and running migration:
+
+```bash
+bench --site <site> install-app hrms
+bench --site <site> install-app ms_hrms --force
+bench --site <site> migrate
+bench build --app ms_hrms
+bench --site <site> clear-cache
+```
+
 ### Installation
 
 You can install this app using the [bench](https://github.com/frappe/bench) CLI:

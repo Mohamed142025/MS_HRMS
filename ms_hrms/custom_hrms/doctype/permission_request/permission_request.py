@@ -124,6 +124,11 @@ class PermissionRequest(Document):
         OUT at from_time
         IN at to_time
 
+    If an already Approved request is later edited (Employee,
+    Permission Type, Permission Date, From Time or To Time),
+    its Employee Checkins are deleted and re-created so they
+    always match the current values on the request.
+
     Cancellation
     ------------
     When a Permission Request becomes Cancelled,
@@ -229,6 +234,16 @@ class PermissionRequest(Document):
         Approved:
             Create Employee Checkins.
 
+        Already Approved, but Employee / Permission Type / Permission
+        Date / From Time / To Time changed:
+            Re-create Employee Checkins so their time always matches
+            the current values on the Permission Request.
+
+            Without this, editing an already Approved request (e.g. a
+            correction to From Time / To Time) would silently leave
+            the previously created Employee Checkin at its old time,
+            out of sync with the Permission Request.
+
         Cancelled:
             Delete Employee Checkins created by this Permission Request.
         """
@@ -238,6 +253,10 @@ class PermissionRequest(Document):
         # ---------------------------------------------------------------------
 
         if self.has_been_approved():
+            self.create_employee_checkins()
+
+        elif self.is_approved() and self.has_checkin_relevant_fields_changed():
+            self.delete_employee_checkins()
             self.create_employee_checkins()
 
         # ---------------------------------------------------------------------
@@ -1416,7 +1435,7 @@ class PermissionRequest(Document):
             3600,
         )
 
-        minutes, _ = divmod(
+        minutes, _seconds = divmod(
             remainder,
             60,
         )
@@ -1519,6 +1538,47 @@ class PermissionRequest(Document):
         ).strip()
 
         return previous_status != "Cancelled"
+
+    def is_approved(self):
+        """
+        Return True when the current status is Approved.
+        """
+
+        return str(
+            self.status or ""
+        ).strip() == "Approved"
+
+    def has_checkin_relevant_fields_changed(self):
+        """
+        Return True when a field that affects Employee Checkin
+        creation changed compared to the last saved version.
+
+        Checked fields:
+
+            Employee
+            Permission Type
+            Permission Date
+            From Time
+            To Time
+        """
+
+        previous_doc = self.get_doc_before_save()
+
+        if not previous_doc:
+            return False
+
+        checkin_relevant_fields = (
+            "employee",
+            "permission_type",
+            "permission_date",
+            "from_time",
+            "to_time",
+        )
+
+        return any(
+            self.get(field) != previous_doc.get(field)
+            for field in checkin_relevant_fields
+        )
 
     # =========================================================================
     # Employee Checkin

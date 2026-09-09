@@ -1,0 +1,17 @@
+{
+ "aggregate_function_based_on": "",
+ "doctype": "Number Card",
+ "document_type": "Permission Policy",
+ "dynamic_filters_json": "[[\"Permission Policy\",\"company\",\"=\",\"frappe.defaults.get_user_default(\\\"Company\\\")\"]]",
+ "filters_json": "[[\"Permission Policy\",\"is_active\",\"=\",1]]",
+ "function": "Count",
+ "idx": 0,
+ "is_public": 1,
+ "is_standard": 1,
+ "label": "Active Permission Policies",
+ "module": "Custom Hrms",
+ "name": "Active Permission Policies",
+ "show_percentage_stats": 0,
+ "stats_time_interval": "Monthly",
+ "type": "Document Type"
+}
