@@ -1,0 +1,261 @@
+{
+ "actions": [],
+ "creation": "2026-09-27 15:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "import_file",
+  "date_order",
+  "column_break_head",
+  "status",
+  "code_column",
+  "time_column",
+  "preview_section",
+  "preview_html",
+  "result_section",
+  "from_time",
+  "to_time",
+  "total_punches",
+  "imported",
+  "column_break_result",
+  "duplicates",
+  "collapsed",
+  "pending",
+  "absents_corrected",
+  "column_break_by",
+  "imported_by",
+  "imported_on",
+  "codes_section",
+  "codes",
+  "log_section",
+  "import_log",
+  "pending_rows"
+ ],
+ "fields": [
+  {
+   "fieldname": "import_file",
+   "fieldtype": "Attach",
+   "label": "ملف البصمة (Excel أو CSV)",
+   "reqd": 1,
+   "description": "الشيت زي ما الجهاز بيطلّعه: كود البصمة، والتاريخ والوقت."
+  },
+  {
+   "fieldname": "date_order",
+   "fieldtype": "Select",
+   "label": "ترتيب التاريخ",
+   "options": "تلقائي\nشهر/يوم/سنة\nيوم/شهر/سنة",
+   "default": "تلقائي",
+   "description": "تلقائي: بيتعرف من الملف نفسه (أي رقم أكبر من 12 بيحدد مكان اليوم)."
+  },
+  {
+   "fieldname": "column_break_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "الحالة",
+   "options": "مسودة\nجاري الاستيراد\nتم الاستيراد\nمستني أكواد",
+   "default": "مسودة",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "code_column",
+   "fieldtype": "Data",
+   "label": "عمود الكود",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "time_column",
+   "fieldtype": "Data",
+   "label": "عمود التاريخ والوقت",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "preview_section",
+   "fieldtype": "Section Break",
+   "label": "المعاينة",
+   "depends_on": "eval:doc.status=='مسودة' && !doc.__islocal"
+  },
+  {
+   "fieldname": "preview_html",
+   "fieldtype": "HTML",
+   "label": "المعاينة"
+  },
+  {
+   "fieldname": "result_section",
+   "fieldtype": "Section Break",
+   "label": "النتيجة",
+   "depends_on": "eval:doc.status!='مسودة'"
+  },
+  {
+   "fieldname": "from_time",
+   "fieldtype": "Datetime",
+   "label": "من",
+   "in_list_view": 1,
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "to_time",
+   "fieldtype": "Datetime",
+   "label": "إلى",
+   "in_list_view": 1,
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "total_punches",
+   "fieldtype": "Int",
+   "label": "بصمات الشيت",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "imported",
+   "fieldtype": "Int",
+   "label": "اترفع",
+   "in_list_view": 1,
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "column_break_result",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "duplicates",
+   "fieldtype": "Int",
+   "label": "موجود قبل كده (اتخطى)",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "collapsed",
+   "fieldtype": "Int",
+   "label": "مكرر خلال دقيقتين (اتشال)",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "pending",
+   "fieldtype": "Int",
+   "label": "مستني (أكواد مش مربوطة)",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "absents_corrected",
+   "fieldtype": "Int",
+   "label": "غياب اتصحح",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "column_break_by",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "imported_by",
+   "fieldtype": "Link",
+   "label": "رفعه",
+   "options": "User",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "imported_on",
+   "fieldtype": "Datetime",
+   "label": "وقت الرفع",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "codes_section",
+   "fieldtype": "Section Break",
+   "label": "أكواد مش مربوطة بموظف",
+   "depends_on": "eval:(doc.codes || []).length"
+  },
+  {
+   "fieldname": "codes",
+   "fieldtype": "Table",
+   "label": "الأكواد",
+   "options": "Biometric Import Code",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "log_section",
+   "fieldtype": "Section Break",
+   "label": "السجل",
+   "depends_on": "import_log",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "import_log",
+   "fieldtype": "Long Text",
+   "label": "السجل",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "pending_rows",
+   "fieldtype": "Long Text",
+   "label": "البصمات المستنية",
+   "hidden": 1,
+   "read_only": 1,
+   "no_copy": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-09-27 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Custom Hrms",
+ "name": "Biometric Import",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "create": 1,
+   "read": 1,
+   "write": 1,
+   "delete": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  },
+  {
+   "role": "HR Manager",
+   "create": 1,
+   "read": 1,
+   "write": 1,
+   "delete": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  },
+  {
+   "role": "HR User",
+   "create": 1,
+   "read": 1,
+   "write": 1,
+   "report": 1,
+   "print": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "autoname": "BIO-.YYYY.-.#####",
+ "naming_rule": "Expression (old style)",
+ "track_changes": 1
+}

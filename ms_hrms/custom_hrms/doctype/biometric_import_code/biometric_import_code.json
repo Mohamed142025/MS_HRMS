@@ -1,0 +1,86 @@
+{
+ "actions": [],
+ "creation": "2026-09-27 15:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "device_code",
+  "punches",
+  "first_punch",
+  "last_punch",
+  "code_status",
+  "employee",
+  "employee_name"
+ ],
+ "fields": [
+  {
+   "fieldname": "device_code",
+   "fieldtype": "Data",
+   "label": "الكود",
+   "in_list_view": 1,
+   "columns": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "punches",
+   "fieldtype": "Int",
+   "label": "البصمات",
+   "in_list_view": 1,
+   "columns": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "first_punch",
+   "fieldtype": "Datetime",
+   "label": "أول بصمة",
+   "in_list_view": 1,
+   "columns": 2,
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_punch",
+   "fieldtype": "Datetime",
+   "label": "آخر بصمة",
+   "in_list_view": 1,
+   "columns": 2,
+   "read_only": 1
+  },
+  {
+   "fieldname": "code_status",
+   "fieldtype": "Select",
+   "label": "الحالة",
+   "options": "مستني\nاترفع\nمتجاهل",
+   "default": "مستني",
+   "in_list_view": 1,
+   "columns": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "الموظف",
+   "options": "Employee",
+   "in_list_view": 1,
+   "columns": 2,
+   "read_only": 1
+  },
+  {
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "اسم الموظف",
+   "fetch_from": "employee.employee_name",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-09-27 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Custom Hrms",
+ "name": "Biometric Import Code",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "istable": 1
+}

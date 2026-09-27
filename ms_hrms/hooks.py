@@ -45,7 +45,7 @@ add_to_apps_screen = [
 doctype_js = {
     "Attendance Penalty Processing": "custom_hrms/doctype/attendance_penalty_processing/attendance_penalty_processing.js",
 }
-# doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
+doctype_list_js = {"Employee Checkin": "public/js/employee_checkin_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
@@ -120,7 +120,7 @@ doctype_js = {
 fixtures = [
     {"doctype": "Custom Field", "filters": [
         ["dt", "in", ["Employee Checkin", "Department"]],
-        ["fieldname", "in", ["custom_permission_request", "custom_permission_approver", "custom_overtime_approver"]],
+        ["fieldname", "in", ["custom_permission_request", "custom_permission_approver", "custom_overtime_approver", "custom_biometric_import"]],
     ]},
 ]
 

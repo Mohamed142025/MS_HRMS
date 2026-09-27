@@ -28,5 +28,19 @@
         "fieldtype": "Table",
         "options": "Department Approver",
         "insert_after": "custom_permission_approver"
+    },
+    {
+        "doctype": "Custom Field",
+        "name": "Employee Checkin-custom_biometric_import",
+        "dt": "Employee Checkin",
+        "fieldname": "custom_biometric_import",
+        "label": "Biometric Import",
+        "fieldtype": "Link",
+        "options": "Biometric Import",
+        "insert_after": "device_id",
+        "read_only": 1,
+        "no_copy": 1,
+        "search_index": 1,
+        "module": "Custom Hrms"
     }
 ]
