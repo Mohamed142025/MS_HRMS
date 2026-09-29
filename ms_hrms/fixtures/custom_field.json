@@ -42,5 +42,29 @@
         "no_copy": 1,
         "search_index": 1,
         "module": "Custom Hrms"
+    },
+    {
+        "doctype": "Custom Field",
+        "name": "Employee-custom_permission_approver",
+        "dt": "Employee",
+        "fieldname": "custom_permission_approver",
+        "label": "Permission Request Approver",
+        "fieldtype": "Link",
+        "options": "User",
+        "insert_after": "leave_approver",
+        "description": "Approves this employee's Permission Requests. When empty, the department's Permission Approvers do.",
+        "module": "Custom Hrms"
+    },
+    {
+        "doctype": "Custom Field",
+        "name": "Employee-custom_overtime_approver",
+        "dt": "Employee",
+        "fieldname": "custom_overtime_approver",
+        "label": "Overtime Approver",
+        "fieldtype": "Link",
+        "options": "User",
+        "insert_after": "shift_request_approver",
+        "description": "Approves this employee's Overtime Requests. When empty, the department's Overtime Approvers do.",
+        "module": "Custom Hrms"
     }
 ]

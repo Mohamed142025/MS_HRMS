@@ -572,53 +572,24 @@ class PermissionRequest(Document):
 
     def is_department_approver(self):
         """
-        Check whether current User is configured as an approver
-        for the Employee's Department.
+        Check whether current User approves this Employee's Permission
+        Requests: the Employee's own Permission Request Approver or, when
+        none is set, an approver on the Employee's Department
+        (ms_hrms.request_approvers).
         """
+
+        from ms_hrms.request_approvers import is_approver
 
         current_user = frappe.session.user
 
         if not current_user or current_user == "Guest":
             return False
 
-        if not self.employee:
-            return False
-
-        department = frappe.db.get_value(
-            "Employee",
+        return is_approver(
+            "Permission Request",
             self.employee,
-            "department",
+            current_user,
         )
-
-        if not department:
-            return False
-
-        approver_exists = frappe.db.sql(
-            """
-            SELECT
-                dpa.name
-
-            FROM `tabDepartment Approver` AS dpa
-
-            INNER JOIN `tabDepartment` AS department
-                ON department.name = dpa.parent
-
-            WHERE
-                dpa.parenttype = 'Department'
-                AND dpa.parentfield = 'custom_permission_approver'
-                AND department.name = %(department)s
-                AND dpa.approver = %(user)s
-
-            LIMIT 1
-            """,
-            {
-                "department": department,
-                "user": current_user,
-            },
-            as_dict=True,
-        )
-
-        return bool(approver_exists)
 
     # =========================================================================
     # Permission Policy Resolver

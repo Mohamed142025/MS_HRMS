@@ -1,0 +1,62 @@
+@import "frappe-ui/src/style.css";
+
+ion-modal {
+	--height: auto;
+}
+
+input:disabled {
+	--webkit-text-fill-color: var(--tw-text-color);
+	opacity: 0.9; /* required on iOS */
+	color: var(--tw-text-color);
+}
+
+/* For Webkit-based browsers (Chrome, Safari and Opera) */
+input::-webkit-date-and-time-value {
+	text-align: start;
+}
+
+/* Right-to-left languages: the page gets dir="rtl" from the server (ms_hrms.pwa).
+   Arrows that point "forward" or "back" turn around with the reading direction. */
+[dir="rtl"] :is(
+		.feather-chevron-right,
+		.feather-chevron-left,
+		.feather-arrow-right,
+		.feather-arrow-left,
+		.feather-arrow-right-circle,
+		.feather-arrow-left-circle,
+		.feather-chevrons-right,
+		.feather-chevrons-left
+	) {
+	transform: scaleX(-1);
+}
+
+/* Select boxes draw their arrow on the right; it moves to the left with the text. */
+[dir="rtl"] select.form-select {
+	background-position: left 0.5rem center;
+	padding-left: 2.5rem;
+	padding-right: 0.75rem;
+}
+
+/* Text fields follow the reading direction; numbers, dates and times stay left to right. */
+[dir="rtl"] :is(input, textarea, select) {
+	text-align: start;
+}
+
+[dir="rtl"] :is(input[type="number"], input[type="date"], input[type="time"], input[type="email"], input[type="tel"]) {
+	direction: ltr;
+	text-align: end;
+}
+
+body {
+	-webkit-tap-highlight-color: transparent;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+	display: none;
+}
+
+/* For IE, Edge and Firefox */
+.hide-scrollbar {
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
+}

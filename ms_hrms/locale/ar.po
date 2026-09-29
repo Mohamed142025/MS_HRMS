@@ -1,0 +1,1348 @@
+# Arabic translations for ms_hrms: the employee PWA (frontend/) and the labels of the
+# documents it shows, where Frappe, ERPNext and Frappe HR have none yet. Apps installed
+# later take precedence, so an entry here also fills the same text on the desk.
+msgid ""
+msgstr ""
+"Project-Id-Version: ms_hrms\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Actions"
+msgstr "الإجراءات"
+
+msgid "Add Expense"
+msgstr "إضافة مصروف"
+
+msgid "Add Tax"
+msgstr "إضافة ضريبة"
+
+msgid "Apply Filters"
+msgstr "تطبيق الفلاتر"
+
+msgid "Approval"
+msgstr "الاعتماد"
+
+msgid "Approve"
+msgstr "اعتماد"
+
+msgid "Approved"
+msgstr "معتمد"
+
+msgid "Are you sure you want to delete the attachment"
+msgstr "هل أنت متأكد من حذف المرفق"
+
+msgid "Are you sure you want to delete the {0}"
+msgstr "هل أنت متأكد من حذف {0}"
+
+msgid "Attachments"
+msgstr "المرفقات"
+
+msgid "Attendance Calendar"
+msgstr "تقويم الحضور"
+
+msgid "Attendance Request History"
+msgstr "سجل طلبات الحضور"
+
+msgid "Cancelled"
+msgstr "ملغي"
+
+msgid "Check In"
+msgstr "تسجيل الحضور"
+
+msgid "Check Out"
+msgstr "تسجيل الانصراف"
+
+msgid "Check-in"
+msgstr "حضور"
+
+msgid "Check-out"
+msgstr "انصراف"
+
+msgid "Claim an Expense"
+msgstr "مطالبة بمصروفات"
+
+msgid "Clear All"
+msgstr "مسح الكل"
+
+msgid "Close"
+msgstr "إغلاق"
+
+msgid "Company Information"
+msgstr "بيانات الشركة"
+
+msgid "Confirm {0}"
+msgstr "تأكيد {0}"
+
+msgid "Current Password"
+msgstr "كلمة المرور الحالية"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Delete Attachment"
+msgstr "حذف المرفق"
+
+msgid "Delete {0}"
+msgstr "حذف {0}"
+
+msgid "Department"
+msgstr "القسم"
+
+msgid "Disabling Push Notifications..."
+msgstr "جارٍ إيقاف الإشعارات..."
+
+msgid "Document {0} failed!"
+msgstr "فشل {0} المستند!"
+
+msgid "Document {0} successfully!"
+msgstr "تم تحديث المستند بنجاح ({0})"
+
+msgid "Download PDF"
+msgstr "تنزيل PDF"
+
+msgid "Draft"
+msgstr "مسودة"
+
+msgid "Edit Expense Item"
+msgstr "تعديل بند المصروف"
+
+msgid "Edit Expense Tax"
+msgstr "تعديل ضريبة المصروف"
+
+msgid "Employee Advance Balance"
+msgstr "رصيد سلف الموظف"
+
+msgid "Employee Checkin History"
+msgstr "سجل الحضور والانصراف"
+
+msgid "Enable Push Notifications"
+msgstr "تفعيل الإشعارات"
+
+msgid "Enabling Push Notifications..."
+msgstr "جارٍ تفعيل الإشعارات..."
+
+msgid "End Date"
+msgstr "تاريخ الانتهاء"
+
+msgid "Enter your email address and we'll send you a link to reset your password."
+msgstr "أدخل بريدك الإلكتروني وسنرسل لك رابطاً لإعادة تعيين كلمة المرور."
+
+msgid "Enter {0}"
+msgstr "أدخل {0}"
+
+msgid "Error"
+msgstr "خطأ"
+
+msgid "Error creating {0}"
+msgstr "حدث خطأ أثناء إنشاء {0}"
+
+msgid "Error deleting {0}"
+msgstr "حدث خطأ أثناء حذف {0}"
+
+msgid "Error downloading PDF"
+msgstr "حدث خطأ أثناء تنزيل ملف PDF"
+
+msgid "Error updating {0}"
+msgstr "حدث خطأ أثناء تحديث {0}"
+
+msgid "Expense Claim Summary"
+msgstr "ملخص مطالبات المصروفات"
+
+msgid "Expense Claims"
+msgstr "مطالبات المصروفات"
+
+msgid "Expense Item"
+msgstr "بند المصروف"
+
+msgid "Expense Tax"
+msgstr "ضريبة المصروف"
+
+msgid "Failed to send reset link"
+msgstr "تعذّر إرسال رابط إعادة التعيين"
+
+msgid "Failed to update password"
+msgstr "تعذّر تحديث كلمة المرور"
+
+msgid "File Preview"
+msgstr "معاينة الملف"
+
+msgid "Filters"
+msgstr "الفلاتر"
+
+msgid "Friday"
+msgstr "الجمعة"
+
+msgid "Saturday"
+msgstr "السبت"
+
+msgid "Sunday"
+msgstr "الأحد"
+
+msgid "Monday"
+msgstr "الإثنين"
+
+msgid "Tuesday"
+msgstr "الثلاثاء"
+
+msgid "Wednesday"
+msgstr "الأربعاء"
+
+msgid "Thursday"
+msgstr "الخميس"
+
+msgid "From Date"
+msgstr "من تاريخ"
+
+msgid "To Date"
+msgstr "إلى تاريخ"
+
+msgid "Geolocation is not supported by your current browser"
+msgstr "المتصفح الحالي لا يدعم تحديد الموقع"
+
+msgid "Get the app on your device for easy access & a better experience!"
+msgstr "ثبّت التطبيق على جهازك لوصول أسهل وتجربة أفضل!"
+
+msgid "Get the app on your iPhone for easy access & a better experience"
+msgstr "ثبّت التطبيق على الآيفون لوصول أسهل وتجربة أفضل"
+
+msgid "Go to Login"
+msgstr "الذهاب لتسجيل الدخول"
+
+msgid "Go to Reset Password page"
+msgstr "الذهاب لصفحة إعادة تعيين كلمة المرور"
+
+msgid "Hey, {0} 👋"
+msgstr "أهلاً، {0} 👋"
+
+msgid "Install"
+msgstr "تثبيت"
+
+msgid "Install {0}"
+msgstr "تثبيت {0}"
+
+msgid "Last {0} was at {1}"
+msgstr "آخر {0} كان في {1}"
+
+msgid "Latitude: {0}°"
+msgstr "خط العرض: {0}°"
+
+msgid "Longitude: {0}°"
+msgstr "خط الطول: {0}°"
+
+msgid "Leave History"
+msgstr "سجل الإجازات"
+
+msgid "Leaves & Holidays"
+msgstr "الإجازات والعطلات"
+
+msgid "Load more"
+msgstr "تحميل المزيد"
+
+msgid "Locating..."
+msgstr "جارٍ تحديد الموقع..."
+
+msgid "Log Out"
+msgstr "تسجيل الخروج"
+
+msgid "Login Failed"
+msgstr "فشل تسجيل الدخول"
+
+msgid "Login to {0}"
+msgstr "تسجيل الدخول إلى {0}"
+
+msgid "Mark all as read"
+msgstr "تحديد الكل كمقروء"
+
+msgid "My Advances"
+msgstr "سلفي"
+
+msgid "My Claims"
+msgstr "مطالباتي"
+
+msgid "My Leaves"
+msgstr "إجازاتي"
+
+msgid "My Requests"
+msgstr "طلباتي"
+
+msgid "New"
+msgstr "جديد"
+
+msgid "New Expense Item"
+msgstr "بند مصروف جديد"
+
+msgid "New Expense Tax"
+msgstr "ضريبة مصروف جديدة"
+
+msgid "New passwords do not match"
+msgstr "كلمتا المرور الجديدتان غير متطابقتين"
+
+msgid "No"
+msgstr "لا"
+
+msgid "No active employee found associated with the email ID {0}. Try logging in with your employee email ID or contact your HR manager for access."
+msgstr "لا يوجد موظف نشط مرتبط بالبريد الإلكتروني {0}. سجّل الدخول ببريد الموظف أو تواصل مع مدير الموارد البشرية لمنحك الصلاحية."
+
+msgid "No advances found"
+msgstr "لا توجد سلف"
+
+msgid "No expenses added"
+msgstr "لم تُضَف مصروفات"
+
+msgid "No login methods are available. Please contact your administrator."
+msgstr "لا توجد طرق متاحة لتسجيل الدخول. تواصل مع مسؤول النظام."
+
+msgid "No salary slips found"
+msgstr "لا توجد قسائم رواتب"
+
+msgid "No taxes added"
+msgstr "لم تُضَف ضرائب"
+
+msgid "No {0} added"
+msgstr "لم يُضَف {0}"
+
+msgid "No {0} found"
+msgstr "لا يوجد {0}"
+
+msgid "OTP Code"
+msgstr "رمز التحقق"
+
+msgid "OTP Verification"
+msgstr "التحقق برمز لمرة واحدة"
+
+msgid "Open"
+msgstr "مفتوح"
+
+msgid "Overtime"
+msgstr "العمل الإضافي"
+
+msgid "Overtime Request"
+msgstr "طلب عمل إضافي"
+
+msgid "Overtime Requests"
+msgstr "طلبات العمل الإضافي"
+
+msgid "Partly Claimed and Returned"
+msgstr "مُسوّى جزئياً ومُسترد"
+
+msgid "Password reset link has been sent to your email."
+msgstr "تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني."
+
+msgid "Pending"
+msgstr "قيد الانتظار"
+
+msgid "Permanently cancel {0}"
+msgstr "إلغاء {0} نهائياً"
+
+msgid "Permanently submit {0}"
+msgstr "تسجيل {0} نهائياً"
+
+msgid "Permission Request"
+msgstr "طلب إذن"
+
+msgid "Permission Requests"
+msgstr "طلبات الإذن"
+
+msgid "Please enter a valid email address"
+msgstr "أدخل بريداً إلكترونياً صحيحاً"
+
+msgid "Please enter your email address"
+msgstr "أدخل بريدك الإلكتروني"
+
+msgid "Please fill all fields"
+msgstr "املأ جميع الحقول"
+
+msgid "Profile"
+msgstr "الملف الشخصي"
+
+msgid "Push Notification permission denied"
+msgstr "تم رفض إذن الإشعارات"
+
+msgid "Push notifications disabled"
+msgstr "تم إيقاف الإشعارات"
+
+msgid "Push notifications have been disabled on your site"
+msgstr "الإشعارات موقوفة على هذا الموقع"
+
+msgid "Quick Links"
+msgstr "روابط سريعة"
+
+msgid "Recent Attendance Requests"
+msgstr "أحدث طلبات الحضور"
+
+msgid "Recent Expenses"
+msgstr "أحدث المصروفات"
+
+msgid "Recent Leaves"
+msgstr "أحدث الإجازات"
+
+msgid "Recent Shift Requests"
+msgstr "أحدث طلبات الورديات"
+
+msgid "Reject"
+msgstr "رفض"
+
+msgid "Rejected"
+msgstr "مرفوض"
+
+msgid "Rejection"
+msgstr "الرفض"
+
+msgid "Request Attendance"
+msgstr "طلب حضور"
+
+msgid "Request Leave"
+msgstr "طلب إجازة"
+
+msgid "Request a Leave"
+msgstr "طلب إجازة"
+
+msgid "Request a Shift"
+msgstr "طلب وردية"
+
+msgid "Request an Advance"
+msgstr "طلب سلفة"
+
+msgid "Returned"
+msgstr "مُسترد"
+
+msgid "Salary Information"
+msgstr "بيانات الراتب"
+
+msgid "Salary Slips"
+msgstr "قسائم الرواتب"
+
+msgid "Select Payroll Period"
+msgstr "اختر فترة الرواتب"
+
+msgid "Send Reset Link"
+msgstr "إرسال رابط إعادة التعيين"
+
+msgid "Settings"
+msgstr "الإعدادات"
+
+msgid "Settle against Advances"
+msgstr "التسوية من السلف"
+
+msgid "Shift Assignment History"
+msgstr "سجل تعيينات الورديات"
+
+msgid "Start Date"
+msgstr "تاريخ البدء"
+
+msgid "Status"
+msgstr "الحالة"
+
+msgid "Submit"
+msgstr "تسجيل نهائي"
+
+msgid "Save"
+msgstr "حفظ"
+
+msgid "Success"
+msgstr "تم بنجاح"
+
+msgid "Taxes & Charges"
+msgstr "الضرائب والرسوم"
+
+msgid "Team Advances"
+msgstr "سلف الفريق"
+
+msgid "Team Claims"
+msgstr "مطالبات الفريق"
+
+msgid "Team Leaves"
+msgstr "إجازات الفريق"
+
+msgid "Team Requests"
+msgstr "طلبات الفريق"
+
+msgid "Unclaimed Amount"
+msgstr "المبلغ غير المُطالَب به"
+
+msgid "Upcoming Holidays"
+msgstr "العطلات القادمة"
+
+msgid "Upcoming Shifts"
+msgstr "الورديات القادمة"
+
+msgid "Update Expense"
+msgstr "تحديث المصروف"
+
+msgid "Update Password"
+msgstr "تحديث كلمة المرور"
+
+msgid "Update Tax"
+msgstr "تحديث الضريبة"
+
+msgid "Upload images or documents"
+msgstr "ارفع صوراً أو مستندات"
+
+msgid "Uploading..."
+msgstr "جارٍ الرفع..."
+
+msgid "View Leave History"
+msgstr "عرض سجل الإجازات"
+
+msgid "View Salary Slips"
+msgstr "عرض قسائم الرواتب"
+
+msgid "Year To Date"
+msgstr "منذ بداية السنة"
+
+msgid "You have no advances"
+msgstr "ليس لديك سلف"
+
+msgid "You have no leaves allocated"
+msgstr "لا توجد إجازات مخصصة لك"
+
+msgid "You have no notifications"
+msgstr "ليس لديك إشعارات"
+
+msgid "You have no requests"
+msgstr "ليس لديك طلبات"
+
+msgid "You have no upcoming holidays"
+msgstr "لا توجد عطلات قادمة"
+
+msgid "You have no upcoming shifts"
+msgstr "لا توجد ورديات قادمة"
+
+msgid "Your password has been updated."
+msgstr "تم تحديث كلمة المرور."
+
+msgid "Your password has expired. Please reset your password to continue"
+msgstr "انتهت صلاحية كلمة المرور. أعد تعيينها للمتابعة"
+
+msgid "cancellation"
+msgstr "إلغاء"
+
+msgid "submission"
+msgstr "تسجيل"
+
+msgid "{0} & {1} more"
+msgstr "{0} و{1} أخرى"
+
+msgid "{0} Unread"
+msgstr "{0} غير مقروءة"
+
+msgid "{0} balance"
+msgstr "رصيد {0}"
+
+msgid "{0} deleted successfully!"
+msgstr "تم حذف {0} بنجاح!"
+
+msgid "{0} failed!"
+msgstr "فشل {0}!"
+
+msgid "{0} successful!"
+msgstr "تم {0} بنجاح!"
+
+msgid "{0} successfully!"
+msgstr "تم التحديث بنجاح: {0}"
+
+msgid "{0} updated successfully!"
+msgstr "تم تحديث {0} بنجاح!"
+
+msgid "{0}d"
+msgstr "{0} يوم"
+
+msgid "Everyday HR operations at your fingertips"
+msgstr "كل عمليات الموارد البشرية اليومية في متناول يدك"
+
+msgid "Language not available: {0}"
+msgstr "اللغة غير متاحة: {0}"
+
+msgid "Abbr"
+msgstr "الاختصار"
+
+msgid "Account Head"
+msgstr "رأس الحساب"
+
+msgid "Accounting Details"
+msgstr "البيانات المحاسبية"
+
+msgid "Accrual Component"
+msgstr "مكوّن الاستحقاق"
+
+msgid "Accrued Benefits"
+msgstr "المزايا المستحقة"
+
+msgid "Active"
+msgstr "نشط"
+
+msgid "Actual Overtime Duration"
+msgstr "مدة العمل الإضافي الفعلية"
+
+msgid "Address"
+msgstr "العنوان"
+
+msgid "Advance Account"
+msgstr "حساب السلف"
+
+msgid "Advance Paid"
+msgstr "السلفة المدفوعة"
+
+msgid "Advance Paid (Company Currency)"
+msgstr "السلفة المدفوعة (بعملة الشركة)"
+
+msgid "Advances"
+msgstr "السلف"
+
+msgid "Allocated Amount (Company Currency)"
+msgstr "المبلغ المخصص (بعملة الشركة)"
+
+msgid "Amended From"
+msgstr "معدّل من"
+
+msgid "Annual Taxable Amount"
+msgstr "المبلغ الخاضع للضريبة سنوياً"
+
+msgid "Approval Date"
+msgstr "تاريخ الاعتماد"
+
+msgid "Approval Remarks"
+msgstr "ملاحظات الاعتماد"
+
+msgid "Approved By"
+msgstr "معتمد من"
+
+msgid "Approvers"
+msgstr "مسؤولو الاعتماد"
+
+msgid "Bank Account No"
+msgstr "رقم الحساب البنكي"
+
+msgid "Bank Name"
+msgstr "اسم البنك"
+
+msgid "CTC"
+msgstr "إجمالي تكلفة الموظف"
+
+msgid "Company Details"
+msgstr "بيانات الشركة"
+
+msgid "Component"
+msgstr "المكوّن"
+
+msgid "Component properties and references"
+msgstr "خصائص المكوّن ومراجعه"
+
+msgid "Condition"
+msgstr "الشرط"
+
+msgid "Connections"
+msgstr "الارتباطات"
+
+msgid "Create User Automatically"
+msgstr "إنشاء مستخدم تلقائياً"
+
+msgid "Currency"
+msgstr "العملة"
+
+msgid "Current Month Income Tax"
+msgstr "ضريبة الدخل للشهر الحالي"
+
+msgid "Daily"
+msgstr "يومي"
+
+msgid "Dashboard"
+msgstr "لوحة المعلومات"
+
+msgid "Date of Birth"
+msgstr "تاريخ الميلاد"
+
+msgid "Date of Joining"
+msgstr "تاريخ التعيين"
+
+msgid "Dates & Reason"
+msgstr "التواريخ والسبب"
+
+msgid "Deductions before tax calculation"
+msgstr "الخصومات قبل احتساب الضريبة"
+
+msgid "Default Shift"
+msgstr "الوردية الافتراضية"
+
+msgid "Description"
+msgstr "الوصف"
+
+msgid "Designation"
+msgstr "المسمى الوظيفي"
+
+msgid "Do Not Include in Accounting Entries"
+msgstr "عدم إدراجه في القيود المحاسبية"
+
+msgid "Duration"
+msgstr "المدة"
+
+msgid "During Working Hours"
+msgstr "خلال ساعات العمل"
+
+msgid "Early Leave"
+msgstr "انصراف مبكر"
+
+msgid "Earned Leave Schedule"
+msgstr "جدول الإجازات المكتسبة"
+
+msgid "Earnings & Deductions"
+msgstr "الاستحقاقات والخصومات"
+
+msgid "Employee Advance"
+msgstr "سلفة موظف"
+
+msgid "Employee Advance Account"
+msgstr "حساب سلف الموظفين"
+
+msgid "Employee Info"
+msgstr "بيانات الموظف"
+
+msgid "Employee Information"
+msgstr "بيانات الموظف"
+
+msgid "Employment Type"
+msgstr "نوع التوظيف"
+
+msgid "Encashment Date"
+msgstr "تاريخ الصرف النقدي"
+
+msgid "Exchange Rate"
+msgstr "سعر الصرف"
+
+msgid "Expense Approver"
+msgstr "مسؤول اعتماد المصروفات"
+
+msgid "Expense Claim"
+msgstr "مطالبة مصروفات"
+
+msgid "Expenses & Advances"
+msgstr "المصروفات والسلف"
+
+msgid "Feedback"
+msgstr "التقييم"
+
+msgid "Fetch Geolocation"
+msgstr "جلب الموقع الجغرافي"
+
+msgid "From Employee"
+msgstr "من الموظف"
+
+msgid "Future Income Tax"
+msgstr "ضريبة الدخل المستقبلية"
+
+msgid "Gain Loss Account"
+msgstr "حساب الأرباح والخسائر"
+
+msgid "Grade"
+msgstr "الدرجة"
+
+msgid "Gross Pay (Company Currency)"
+msgstr "إجمالي الراتب (بعملة الشركة)"
+
+msgid "Gross Year To Date"
+msgstr "الإجمالي منذ بداية السنة"
+
+msgid "Gross Year To Date(Company Currency)"
+msgstr "الإجمالي منذ بداية السنة (بعملة الشركة)"
+
+msgid "Health Insurance"
+msgstr "التأمين الصحي"
+
+msgid "Health Insurance No"
+msgstr "رقم التأمين الصحي"
+
+msgid "Health Insurance Provider"
+msgstr "شركة التأمين الصحي"
+
+msgid "Hour Rate"
+msgstr "أجر الساعة"
+
+msgid "Hour Rate (Company Currency)"
+msgstr "أجر الساعة (بعملة الشركة)"
+
+msgid "Include Holidays"
+msgstr "تشمل العطلات"
+
+msgid "Income Tax Breakup"
+msgstr "تفاصيل ضريبة الدخل"
+
+msgid "Income Tax Deducted Till Date"
+msgstr "ضريبة الدخل المخصومة حتى تاريخه"
+
+msgid "Income from Other Sources"
+msgstr "الدخل من مصادر أخرى"
+
+msgid "Is Paid"
+msgstr "مدفوع"
+
+msgid "Is Recurring Additional Salary"
+msgstr "راتب إضافي متكرر"
+
+msgid "Job Applicant"
+msgstr "المتقدم للوظيفة"
+
+msgid "Late Arrival"
+msgstr "تأخير في الحضور"
+
+msgid "Leave Approver"
+msgstr "مسؤول اعتماد الإجازة"
+
+msgid "Leave Details"
+msgstr "تفاصيل الإجازة"
+
+msgid "Leave Policy Assignment"
+msgstr "تعيين سياسة الإجازات"
+
+msgid "Location"
+msgstr "الموقع"
+
+msgid "MICR Code"
+msgstr "رمز MICR"
+
+msgid "Month To Date"
+msgstr "منذ بداية الشهر"
+
+msgid "Month To Date(Company Currency)"
+msgstr "منذ بداية الشهر (بعملة الشركة)"
+
+msgid "Monthly"
+msgstr "شهري"
+
+msgid "More Info"
+msgstr "معلومات إضافية"
+
+msgid "Net Pay (Company Currency)"
+msgstr "صافي الراتب (بعملة الشركة)"
+
+msgid "Net Pay Info"
+msgstr "بيانات صافي الراتب"
+
+msgid "Non Taxable Earnings"
+msgstr "استحقاقات غير خاضعة للضريبة"
+
+msgid "Normal Working Day"
+msgstr "يوم عمل عادي"
+
+msgid "Offer Date"
+msgstr "تاريخ العرض"
+
+msgid "Other Details"
+msgstr "تفاصيل أخرى"
+
+msgid "Overtime Date"
+msgstr "تاريخ العمل الإضافي"
+
+msgid "Overtime Details"
+msgstr "تفاصيل العمل الإضافي"
+
+msgid "Overtime Type"
+msgstr "نوع العمل الإضافي"
+
+msgid "Overview"
+msgstr "نظرة عامة"
+
+msgid "Owned"
+msgstr "مملوك"
+
+msgid "Passport Number"
+msgstr "رقم جواز السفر"
+
+msgid "Payment Days Calculation Help"
+msgstr "مساعدة احتساب أيام الدفع"
+
+msgid "Payroll Cost Center"
+msgstr "مركز تكلفة الرواتب"
+
+msgid "Payroll Entry"
+msgstr "قيد الرواتب"
+
+msgid "Payroll Info"
+msgstr "بيانات الرواتب"
+
+msgid "Permission Date"
+msgstr "تاريخ الإذن"
+
+msgid "Permission Details"
+msgstr "تفاصيل الإذن"
+
+msgid "Permission Policy"
+msgstr "سياسة الأذونات"
+
+msgid "Permission Type"
+msgstr "نوع الإذن"
+
+msgid "Project"
+msgstr "المشروع"
+
+msgid "Project / Cost"
+msgstr "المشروع / التكلفة"
+
+msgid "Provident Fund Account"
+msgstr "حساب صندوق الادخار"
+
+msgid "Public Holiday"
+msgstr "عطلة رسمية"
+
+msgid "Purpose & Amount"
+msgstr "الغرض والمبلغ"
+
+msgid "Reason"
+msgstr "السبب"
+
+msgid "Reference Name"
+msgstr "اسم المرجع"
+
+msgid "Relieving Date"
+msgstr "تاريخ إنهاء الخدمة"
+
+msgid "Repay Unclaimed Amount from Salary"
+msgstr "استرداد المبلغ غير المُطالَب به من الراتب"
+
+msgid "Requested Hours"
+msgstr "الساعات المطلوبة"
+
+msgid "Resignation Letter Date"
+msgstr "تاريخ خطاب الاستقالة"
+
+msgid "Rounded Total (Company Currency)"
+msgstr "الإجمالي المقرّب (بعملة الشركة)"
+
+msgid "Salary Slip"
+msgstr "قسيمة الراتب"
+
+msgid "Salary Withholding"
+msgstr "حجز الراتب"
+
+msgid "Sanctioned Amount"
+msgstr "المبلغ المعتمد"
+
+msgid "Sanctioned Amount (Company Currency)"
+msgstr "المبلغ المعتمد (بعملة الشركة)"
+
+msgid "Series"
+msgstr "السلسلة"
+
+msgid "Shift Details"
+msgstr "تفاصيل الوردية"
+
+msgid "Shift Location"
+msgstr "موقع الوردية"
+
+msgid "Shift Request Approver"
+msgstr "مسؤول اعتماد الورديات"
+
+msgid "Shift Schedule Assignment"
+msgstr "تعيين جدول الورديات"
+
+msgid "Shift Timings"
+msgstr "مواعيد الوردية"
+
+msgid "Standard Working Hours"
+msgstr "ساعات العمل القياسية"
+
+msgid "Status for Other Half"
+msgstr "حالة النصف الآخر"
+
+msgid "Submitted"
+msgstr "مُسجّل نهائياً"
+
+msgid "Suspended"
+msgstr "موقوف"
+
+msgid "Task"
+msgstr "المهمة"
+
+msgid "Tax Exemption Declaration"
+msgstr "إقرار الإعفاء الضريبي"
+
+msgid "Timesheet Details"
+msgstr "تفاصيل سجل الوقت"
+
+msgid "Total"
+msgstr "الإجمالي"
+
+msgid "Total Advance Amount (Company Currency)"
+msgstr "إجمالي مبلغ السلف (بعملة الشركة)"
+
+msgid "Total Claimed Amount (Company Currency)"
+msgstr "إجمالي المبلغ المُطالَب به (بعملة الشركة)"
+
+msgid "Total Deduction (Company Currency)"
+msgstr "إجمالي الخصم (بعملة الشركة)"
+
+msgid "Total Earnings"
+msgstr "إجمالي الاستحقاقات"
+
+msgid "Total Exchange Gain/Loss"
+msgstr "إجمالي ربح/خسارة الصرف"
+
+msgid "Total Income Tax"
+msgstr "إجمالي ضريبة الدخل"
+
+msgid "Total Sanctioned Amount (Company Currency)"
+msgstr "إجمالي المبلغ المعتمد (بعملة الشركة)"
+
+msgid "Total Taxes and Charges"
+msgstr "إجمالي الضرائب والرسوم"
+
+msgid "Total Working Hours"
+msgstr "إجمالي ساعات العمل"
+
+msgid "Total in words (Company Currency)"
+msgstr "الإجمالي بالحروف (بعملة الشركة)"
+
+msgid "Totals"
+msgstr "الإجماليات"
+
+msgid "Unclaimed Amount (Company Currency)"
+msgstr "المبلغ غير المُطالَب به (بعملة الشركة)"
+
+msgid "User Details"
+msgstr "بيانات المستخدم"
+
+msgid "Weekly"
+msgstr "أسبوعي"
+
+msgid "Withheld"
+msgstr "محجوز"
+
+msgid "Year To Date(Company Currency)"
+msgstr "منذ بداية السنة (بعملة الشركة)"
+msgid "check-in"
+msgstr "تسجيل حضور"
+
+msgid "check-out"
+msgstr "تسجيل انصراف"
+
+msgid "{0} on {1}"
+msgstr "{0} يوم {1}"
+
+msgid "{0} yesterday"
+msgstr "{0} أمس"
+
+msgid "View List"
+msgstr "عرض القائمة"
+
+msgid "User"
+msgstr "المستخدم"
+
+msgid "Select {0}"
+msgstr "اختر {0}"
+
+msgid "New {0}"
+msgstr "إنشاء {0}"
+
+msgid "Confirm"
+msgstr "تأكيد"
+
+msgid "Verify"
+msgstr "تحقق"
+
+msgid "Dismiss"
+msgstr "تجاهل"
+
+msgid "Approver"
+msgstr "مسؤول الاعتماد"
+
+msgid "Approval Status"
+msgstr "حالة الاعتماد"
+
+msgid "Leave Approver Name"
+msgstr "اسم مسؤول اعتماد الإجازة"
+
+msgid "Pending Approval"
+msgstr "بانتظار الاعتماد"
+
+msgid "Sanctioned"
+msgstr "معتمد"
+
+msgid "Claimed"
+msgstr "مُطالَب به"
+
+msgid "Partially Paid"
+msgstr "مدفوع جزئياً"
+
+msgid "Returned Amount"
+msgstr "المبلغ المسترد"
+
+msgid "Unsubscribed"
+msgstr "غير مشترك"
+
+msgid "Attendance Marked"
+msgstr "تم تسجيل الحضور"
+
+msgid "Leave Application"
+msgstr "طلب إجازة"
+
+msgid "Leave Type"
+msgstr "نوع الإجازة"
+
+msgid "Leaves"
+msgstr "الإجازات"
+
+msgid "Leave Balance"
+msgstr "رصيد الإجازات"
+
+msgid "Leave Balance Before Application"
+msgstr "رصيد الإجازات قبل الطلب"
+
+msgid "Leave Without Pay"
+msgstr "إجازة بدون راتب"
+
+msgid "Total Leave Days"
+msgstr "إجمالي أيام الإجازة"
+
+msgid "Leave Encashed?"
+msgstr "صرف بدل نقدي للإجازة؟"
+
+msgid "Expenses"
+msgstr "المصروفات"
+
+msgid "Expense Claim Detail"
+msgstr "تفاصيل مطالبة المصروفات"
+
+msgid "Expense Claim Type"
+msgstr "نوع المصروف"
+
+msgid "Expense Claim Advance"
+msgstr "سلف مطالبة المصروفات"
+
+msgid "Expense Date"
+msgstr "تاريخ المصروف"
+
+msgid "Expense Taxes and Charges"
+msgstr "ضرائب ورسوم المصروفات"
+
+msgid "Shift"
+msgstr "الوردية"
+
+msgid "Shift Assignment"
+msgstr "تعيين وردية"
+
+msgid "Shift Request"
+msgstr "طلب وردية"
+
+msgid "Shift Type"
+msgstr "نوع الوردية"
+
+msgid "Employee Checkin"
+msgstr "تسجيل الحضور والانصراف"
+
+msgid "IN"
+msgstr "دخول"
+
+msgid "OUT"
+msgstr "خروج"
+
+msgid "Log Type"
+msgstr "نوع الحركة"
+
+msgid "Password"
+msgstr "كلمة المرور"
+
+msgid "Login"
+msgstr "تسجيل الدخول"
+
+msgid "Notifications"
+msgstr "الإشعارات"
+
+msgid "User ID"
+msgstr "معرّف المستخدم"
+
+msgid "Menu"
+msgstr "القائمة"
+
+msgid "Amount"
+msgstr "المبلغ"
+
+msgid "Amount (Company Currency)"
+msgstr "المبلغ (بعملة الشركة)"
+
+msgid "Rate"
+msgstr "السعر"
+
+msgid "Advance Amount"
+msgstr "مبلغ السلفة"
+
+msgid "Pending Amount"
+msgstr "المبلغ المعلّق"
+
+msgid "Paid Amount (Company Currency)"
+msgstr "المبلغ المدفوع (بعملة الشركة)"
+
+msgid "Total (Company Currency)"
+msgstr "الإجمالي (بعملة الشركة)"
+
+msgid "Grand Total"
+msgstr "الإجمالي الكلي"
+
+msgid "Grand Total (Company Currency)"
+msgstr "الإجمالي الكلي (بعملة الشركة)"
+
+msgid "Total Sanctioned Amount"
+msgstr "إجمالي المبلغ المعتمد"
+
+msgid "Total Advance Amount"
+msgstr "إجمالي مبلغ السلف"
+
+msgid "Total Taxes and Charges (Company Currency)"
+msgstr "إجمالي الضرائب والرسوم (بعملة الشركة)"
+
+msgid "Total Amount Reimbursed"
+msgstr "إجمالي المبلغ المصروف للموظف"
+
+msgid "Total Deduction"
+msgstr "إجمالي الخصم"
+
+msgid "Total Claimed Amount"
+msgstr "إجمالي المبلغ المُطالَب به"
+
+msgid "Rounded Total"
+msgstr "الإجمالي المقرّب"
+
+msgid "Total in words"
+msgstr "الإجمالي بالحروف"
+
+msgid "Deductions"
+msgstr "الخصومات"
+
+msgid "Earnings"
+msgstr "الاستحقاقات"
+
+msgid "Gross Pay"
+msgstr "إجمالي الراتب"
+
+msgid "Payment Days"
+msgstr "أيام الاستحقاق"
+
+msgid "Payroll Period"
+msgstr "فترة الرواتب"
+
+msgid "Salary Mode"
+msgstr "طريقة صرف الراتب"
+
+msgid "Payment Entry"
+msgstr "قيد الدفع"
+
+msgid "Journal Entry"
+msgstr "قيد يومية"
+
+msgid "Salary Slip Based on Timesheet"
+msgstr "قسيمة راتب حسب سجل الوقت"
+
+msgid "Salary Slip Timesheet"
+msgstr "سجل وقت قسيمة الراتب"
+
+msgid "Exchange Gain/Loss"
+msgstr "أرباح/خسائر فروق العملة"
+
+msgid "Clearance Date"
+msgstr "تاريخ التسوية"
+
+msgid "Deduct Tax For Unsubmitted Tax Exemption Proof"
+msgstr "خصم الضريبة عند عدم تقديم إثبات الإعفاء"
+
+msgid "Standard Tax Exemption Amount"
+msgstr "مبلغ الإعفاء الضريبي القياسي"
+
+msgid "Fortnightly"
+msgstr "كل أسبوعين"
+
+msgid "Company"
+msgstr "الشركة"
+
+msgid "Branch"
+msgstr "الفرع"
+
+msgid "Bank"
+msgstr "البنك"
+
+msgid "Cash"
+msgstr "نقدي"
+
+msgid "Bank / Cash Account"
+msgstr "حساب البنك / النقدية"
+
+msgid "Bank A/C No."
+msgstr "رقم الحساب البنكي"
+
+msgid "IBAN"
+msgstr "رقم الآيبان (IBAN)"
+
+msgid "Letter Head"
+msgstr "ترويسة الخطاب"
+
+msgid "Employee Details"
+msgstr "بيانات الموظف"
+
+msgid "Emergency Contact"
+msgstr "جهة الاتصال للطوارئ"
+
+msgid "Emergency Contact Name"
+msgstr "اسم جهة الاتصال للطوارئ"
+
+msgid "Emergency Phone"
+msgstr "هاتف الطوارئ"
+
+msgid "Personal Email"
+msgstr "البريد الإلكتروني الشخصي"
+
+msgid "Gender"
+msgstr "الجنس"
+
+msgid "Relation"
+msgstr "صلة القرابة"
+
+msgid "Left"
+msgstr "ترك العمل"
+
+msgid "Widowed"
+msgstr "أرمل"
+
+msgid "Reports to"
+msgstr "المدير المباشر"
+
+msgid "Notice (days)"
+msgstr "مدة الإخطار (بالأيام)"
+
+msgid "History In Company"
+msgstr "السجل داخل الشركة"
+
+msgid "Explanation"
+msgstr "توضيح"
+
+msgid "Exit Interview Held On"
+msgstr "تاريخ مقابلة ترك العمل"
+
+msgid "Valid Up To"
+msgstr "صالح حتى"
+
+msgid "Remark"
+msgstr "ملاحظة"
+
+msgid "Time"
+msgstr "الوقت"
+
+msgid "Purpose"
+msgstr "الغرض"
+
+msgid "Vehicle Log"
+msgstr "سجل المركبة"
+
+msgid "Permission Request Approver"
+msgstr "مسؤول اعتماد طلبات الإذن"
+
+msgid "Overtime Approver"
+msgstr "مسؤول اعتماد العمل الإضافي"
+
+msgid "Permission Approver"
+msgstr "مسؤول اعتماد الأذونات"
+
+msgid "Approves this employee's Permission Requests. When empty, the department's Permission Approvers do."
+msgstr "يعتمد طلبات الإذن لهذا الموظف. إذا تُرك فارغاً يعتمدها مسؤولو اعتماد الأذونات في القسم."
+
+msgid "Approves this employee's Overtime Requests. When empty, the department's Overtime Approvers do."
+msgstr "يعتمد طلبات العمل الإضافي لهذا الموظف. إذا تُرك فارغاً يعتمدها مسؤولو اعتماد العمل الإضافي في القسم."
+

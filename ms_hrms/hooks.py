@@ -17,8 +17,29 @@ add_to_apps_screen = [
 		"logo": "/assets/ms_hrms/images/ms_hrms-logo.svg",
 		"title": "Custom HR",
 		"route": "/desk/custom-hr",
+		# Also decides who sees the "HR" desktop icon, which belongs to this app (hr_app).
+		"has_permission": "hrms.hr.utils.check_app_permission",
 	}
 ]
+
+# The employee PWA at /hrms: ms_hrms' own build, served ahead of Frappe HR's (pwa.py).
+page_renderer = ["ms_hrms.pwa.PWAPage"]
+
+after_migrate = ["ms_hrms.hr_app.after_migrate"]
+
+# The desk's app switcher opens HR Setup for Frappe HR (hr_app).
+boot_session = ["ms_hrms.hr_app.boot_session"]
+
+# Permission and Overtime Requests: each employee sees their own and those they approve
+# (request_approvers).
+permission_query_conditions = {
+	"Permission Request": "ms_hrms.request_approvers.permission_request_condition",
+	"Overtime Request": "ms_hrms.request_approvers.overtime_request_condition",
+}
+has_permission = {
+	"Permission Request": "ms_hrms.request_approvers.has_permission",
+	"Overtime Request": "ms_hrms.request_approvers.has_permission",
+}
 
 # Includes in <head>
 # ------------------
@@ -119,7 +140,7 @@ doctype_list_js = {"Employee Checkin": "public/js/employee_checkin_list.js"}
 
 fixtures = [
     {"doctype": "Custom Field", "filters": [
-        ["dt", "in", ["Employee Checkin", "Department"]],
+        ["dt", "in", ["Employee Checkin", "Department", "Employee"]],
         ["fieldname", "in", ["custom_permission_request", "custom_permission_approver", "custom_overtime_approver", "custom_biometric_import"]],
     ]},
 ]

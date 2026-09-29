@@ -14,8 +14,9 @@ class OvertimeRequest(Document):
     2. Ensure the selected Employee belongs to the logged-in User.
     3. Validate overtime request information.
     4. Calculate requested overtime hours.
-    5. Authorize Status changes based on:
-           Department.custom_overtime_approver
+    5. Authorize Status changes by the Employee's Overtime Approver or,
+       when none is set, Department.custom_overtime_approver
+       (ms_hrms.request_approvers).
     6. Prevent submitting Draft requests.
     7. Maintain approval audit information:
            approved_by
@@ -34,8 +35,6 @@ class OvertimeRequest(Document):
     STATUS_CANCELLED = "Cancelled"
 
     STATUS_FIELD = "status"
-
-    APPROVER_FIELD = "custom_overtime_approver"
 
     APPROVED_BY_FIELD = "approved_by"
     APPROVAL_DATE_FIELD = "approval_date"
@@ -571,178 +570,23 @@ class OvertimeRequest(Document):
 
     def is_overtime_approver(self):
         """
-        Check whether the current user exists inside:
-
-            Department.custom_overtime_approver
+        Check whether the current user approves this Employee's Overtime
+        Requests: the Employee's own Overtime Approver or, when none is
+        set, an approver in Department.custom_overtime_approver
+        (ms_hrms.request_approvers).
         """
+
+        from ms_hrms.request_approvers import is_approver
 
         current_user = frappe.session.user
 
-        # ---------------------------------------------------------------------
-        # Session Validation
-        # ---------------------------------------------------------------------
-
-        if not current_user:
+        if not current_user or current_user == "Guest":
             return False
 
-        if current_user == "Guest":
-            return False
-
-        # ---------------------------------------------------------------------
-        # Department Validation
-        # ---------------------------------------------------------------------
-
-        if not self.department:
-            return False
-
-        # ---------------------------------------------------------------------
-        # Department Metadata
-        # ---------------------------------------------------------------------
-
-        department_meta = frappe.get_meta(
-            "Department"
-        )
-
-        approver_field = department_meta.get_field(
-            self.APPROVER_FIELD
-        )
-
-        if not approver_field:
-
-            frappe.throw(
-                _(
-                    "Department does not contain the field "
-                    "'{0}'."
-                ).format(
-                    frappe.bold(
-                        self.APPROVER_FIELD
-                    )
-                )
-            )
-
-        # ---------------------------------------------------------------------
-        # Validate Table Field
-        # ---------------------------------------------------------------------
-
-        if approver_field.fieldtype != "Table":
-
-            frappe.throw(
-                _(
-                    "Department.{0} must be a Table field."
-                ).format(
-                    frappe.bold(
-                        self.APPROVER_FIELD
-                    )
-                )
-            )
-
-        # ---------------------------------------------------------------------
-        # Child DocType
-        # ---------------------------------------------------------------------
-
-        child_doctype = approver_field.options
-
-        if not child_doctype:
-
-            frappe.throw(
-                _(
-                    "No Child DocType is configured for "
-                    "Department.{0}."
-                ).format(
-                    self.APPROVER_FIELD
-                )
-            )
-
-        # ---------------------------------------------------------------------
-        # Child Metadata
-        # ---------------------------------------------------------------------
-
-        child_meta = frappe.get_meta(
-            child_doctype
-        )
-
-        # ---------------------------------------------------------------------
-        # Find User Field
-        # ---------------------------------------------------------------------
-
-        user_field = None
-
-        preferred_fields = (
-            "user",
-            "approver",
-            "approver_user",
-            "employee_user",
-            "custom_user",
-        )
-
-        # ---------------------------------------------------------------------
-        # Preferred Fields
-        # ---------------------------------------------------------------------
-
-        for fieldname in preferred_fields:
-
-            field = child_meta.get_field(
-                fieldname
-            )
-
-            if (
-                field
-                and field.fieldtype == "Link"
-                and field.options == "User"
-            ):
-
-                user_field = field
-                break
-
-        # ---------------------------------------------------------------------
-        # Automatic Detection
-        # ---------------------------------------------------------------------
-
-        if not user_field:
-
-            for field in child_meta.fields:
-
-                if (
-                    field.fieldtype == "Link"
-                    and field.options == "User"
-                ):
-
-                    user_field = field
-                    break
-
-        # ---------------------------------------------------------------------
-        # User Field Not Found
-        # ---------------------------------------------------------------------
-
-        if not user_field:
-
-            frappe.throw(
-                _(
-                    "The Child DocType {0} does not contain "
-                    "a Link field to User."
-                ).format(
-                    frappe.bold(
-                        child_doctype
-                    )
-                )
-            )
-
-        # ---------------------------------------------------------------------
-        # Check Current User
-        # ---------------------------------------------------------------------
-
-        filters = {
-            "parent": self.department,
-            "parenttype": "Department",
-            "parentfield": self.APPROVER_FIELD,
-            user_field.fieldname: current_user,
-        }
-
-        return bool(
-            frappe.db.exists(
-                child_doctype,
-                filters
-            )
+        return is_approver(
+            "Overtime Request",
+            self.employee,
+            current_user,
         )
 
     # =========================================================================

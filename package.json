@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "name": "ms_hrms",
+  "description": "Custom HR: the employee PWA served at /hrms",
+  "scripts": {
+    "postinstall": "cd frontend && yarn install --check-files",
+    "dev-pwa": "cd frontend && yarn dev",
+    "build": "cd frontend && yarn build"
+  }
+}
