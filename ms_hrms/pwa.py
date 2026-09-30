@@ -56,6 +56,7 @@ def get_context():
 		"favicon": f"{PWA_IMAGES}/favicon-196.png",
 		"theme_color": brand.theme_color,
 		"status_bar_style": "black-translucent" if brand.dark_header else "default",
+		"splash_dark": brand.dark_header,
 		"include_css": [bundled_asset(path) for path in frappe.get_hooks("ms_hrms_pwa_include_css")],
 	}
 

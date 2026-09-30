@@ -33,6 +33,16 @@ const routes = [
 				component: () => import("@/views/attendance/Dashboard.vue"),
 			},
 			{
+				path: "/requests",
+				name: "Requests",
+				component: () => import("@/views/Requests.vue"),
+			},
+			{
+				path: "/approvals",
+				name: "Approvals",
+				component: () => import("@/views/Approvals.vue"),
+			},
+			{
 				path: "/dashboard/leaves",
 				name: "LeavesDashboard",
 				component: () => import("@/views/leave/Dashboard.vue"),
@@ -58,6 +68,11 @@ const routes = [
 		path: "/forgot-password",
 		name: "ForgotPassword",
 		component: () => import("@/views/ForgotPassword.vue"),
+	},
+	{
+		path: "/insights",
+		name: "Insights",
+		component: () => import("@/views/Insights.vue"),
 	},
 	{
 		path: "/profile",

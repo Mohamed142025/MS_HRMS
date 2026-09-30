@@ -1,68 +1,71 @@
 <template>
-	<!-- ms-tab-* classes are the hooks for themes (ms_hrms_pwa_include_css). -->
-	<ion-tab-bar
-		slot="bottom"
-		class="ms-tab-bar bg-white shadow-md sm:w-96 py-2 pb-2 standalone:pb-safe-bottom"
-	>
+	<!-- The main tabs on Roots green, with the "new request" button in the middle.
+	     ms-tabbar and ms-tab are also hooks for themes (ms_hrms_pwa_include_css). -->
+	<ion-tab-bar slot="bottom" class="ms-tabbar">
 		<ion-tab-button
-			v-for="item in tabItems"
-			:key="item.title"
-			:tab="item.title"
+			v-for="item in tabs.slice(0, 2)"
+			:key="item.tab"
+			:tab="item.tab"
 			:href="item.route"
-			:class="[
-				'ms-tab-button bg-white text-xs space-y-1.5 !hover:border-gray-300 !hover:text-gray-700 transition active:scale-95',
-				route.path === item.route
-					? 'is-selected border-gray-900 text-gray-800 font-semibold'
-					: 'text-gray-600 font-normal',
-			]"
+			class="ms-tab"
+			:class="isActive(item) && 'is-active'"
 		>
-			<component :is="item.icon" class="h-5 w-5" />
-			<div>{{ item.title }}</div>
+			<span class="ms-tab-inner">
+				<AppIcon :name="item.icon" />
+				<span>{{ item.title }}</span>
+			</span>
+		</ion-tab-button>
+
+		<button type="button" class="ms-tab-fab" :aria-label="__('New request')" @click="newRequestSheet.open = true">
+			<AppIcon name="plus" :size="26" :stroke-width="2.4" />
+		</button>
+
+		<ion-tab-button
+			v-for="item in tabs.slice(2)"
+			:key="item.tab"
+			:tab="item.tab"
+			:href="item.route"
+			class="ms-tab"
+			:class="isActive(item) && 'is-active'"
+		>
+			<span class="ms-tab-inner">
+				<AppIcon :name="item.icon" />
+				<span>{{ item.title }}</span>
+			</span>
 		</ion-tab-button>
 	</ion-tab-bar>
 </template>
 
 <script setup>
-import { useRoute } from "vue-router"
-
-import { IonTabBar, IonTabButton, IonLabel } from "@ionic/vue"
-
-import HomeIcon from "@/components/icons/HomeIcon.vue"
-import LeaveIcon from "@/components/icons/LeaveIcon.vue"
-import ExpenseIcon from "@/components/icons/ExpenseIcon.vue"
-import SalaryIcon from "@/components/icons/SalaryIcon.vue"
-import AttendanceIcon from "@/components/icons/AttendanceIcon.vue"
 import { inject } from "vue"
+import { useRoute } from "vue-router"
+import { IonTabBar, IonTabButton } from "@ionic/vue"
+
+import AppIcon from "@/components/ui/AppIcon.vue"
+import { newRequestSheet } from "@/data/ui"
 
 const __ = inject("$translate")
-
 const route = useRoute()
 
-const tabItems = [
+// Each tab also stays lit on the screens reached from it.
+const tabs = [
+	{ tab: "home", icon: "home", title: __("Home"), route: "/home", paths: ["/home"] },
+	{ tab: "attendance", icon: "clock", title: __("Attendance"), route: "/dashboard/attendance", paths: ["/dashboard/attendance"] },
 	{
-		icon: HomeIcon,
-		title: __("Home"),
-		route: "/home",
+		tab: "requests",
+		icon: "clipboard",
+		title: __("Requests"),
+		route: "/requests",
+		paths: ["/requests", "/approvals", "/dashboard/leaves"],
 	},
 	{
-		icon: AttendanceIcon,
-		title: __("Attendance"),
-		route: "/dashboard/attendance",
-	},
-	{
-		icon: LeaveIcon,
-		title: __("Leaves"),
-		route: "/dashboard/leaves",
-	},
-	{
-		icon: ExpenseIcon,
-		title: __("Expenses"),
-		route: "/dashboard/expense-claims",
-	},
-	{
-		icon: SalaryIcon,
-		title: __("Salary"),
+		tab: "finance",
+		icon: "wallet",
+		title: __("Finance"),
 		route: "/dashboard/salary-slips",
+		paths: ["/dashboard/salary-slips", "/dashboard/expense-claims"],
 	},
 ]
+
+const isActive = (item) => item.paths.some((path) => route.path.startsWith(path))
 </script>

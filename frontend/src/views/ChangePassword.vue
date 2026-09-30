@@ -1,23 +1,12 @@
 <template>
 	<ion-page>
 		<ion-content :fullscreen="true">
-			<div class="flex flex-col h-full w-full">
-				<div class="w-full h-full bg-white sm:w-96 flex flex-col">
-					<header
-						class="flex flex-row bg-white shadow-sm py-4 px-3 items-center sticky top-0 z-[1000]"
-					>
-						<Button
-							variant="ghost"
-							class="!ps-0 hover:bg-white"
-							@click="router.back()"
-						>
-							<FeatherIcon name="chevron-left" class="h-5 w-5" />
-						</Button>
-						<h2 class="text-xl font-semibold text-gray-900">{{ __("Change Password") }}</h2>
-					</header>
+			<div class="ms-form flex h-full w-full flex-col bg-brand-sand">
+				<div class="flex h-full w-full flex-col">
+					<SubHeader :title="__('Change Password')" fallback="/profile" />
 
-					<div class="bg-white grow overflow-y-auto">
-						<form class="flex flex-col space-y-4 p-4" @submit.prevent="submitPasswordChange">
+					<div class="grow overflow-y-auto pb-6">
+						<form class="ms-card mx-4 mt-4 flex flex-col space-y-4 p-4" @submit.prevent="submitPasswordChange">
 							<Input
 								:label="__('Current Password') + ' *'"
 								type="password"
@@ -43,11 +32,11 @@
 					</div>
 
 					<div
-						class="px-4 pt-4 pb-4 standalone:pb-safe-bottom sm:w-96 bg-white sticky bottom-0 w-full drop-shadow-xl z-40 border-t rounded-t-lg"
+						class="sticky bottom-0 z-40 w-full border-t border-brand-roots/[.08] bg-white px-4 pb-[max(16px,env(safe-area-inset-bottom))] pt-3.5"
 					>
 						<ErrorMessage class="mb-2" :message="changePasswordError" />
 						<Button
-							class="w-full rounded py-5 text-base disabled:bg-gray-700 disabled:text-white"
+							class="w-full !h-14 !rounded-[18px] !text-base !font-bold disabled:bg-gray-700 disabled:text-white"
 							:loading="updatePasswordResource.loading"
 							variant="solid"
 							@click="submitPasswordChange"
@@ -63,6 +52,7 @@
 
 <script setup>
 import { IonPage, IonContent } from "@ionic/vue"
+import SubHeader from "@/components/ui/SubHeader.vue"
 import { useRouter } from "vue-router"
 import { FeatherIcon, toast, createResource, Input, ErrorMessage, Button } from "frappe-ui"
 

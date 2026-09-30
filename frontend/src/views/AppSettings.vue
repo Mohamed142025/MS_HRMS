@@ -1,91 +1,57 @@
 <template>
 	<ion-page>
-		<ion-content class="ion-padding">
-			<div class="flex flex-col h-screen w-screen">
-				<div class="w-full sm:w-96">
-					<header
-						class="flex flex-row bg-white shadow-sm py-4 px-3 items-center justify-between border-b sticky top-0 z-10"
-					>
-						<div class="flex flex-row items-center">
-							<Button
-								variant="ghost"
-								class="!ps-0 hover:bg-white"
-								@click="router.back()"
-							>
-								<FeatherIcon name="chevron-left" class="h-5 w-5" />
-							</Button>
-							<h2 class="text-xl font-semibold text-gray-900">{{ __("Settings") }} </h2>
-						</div>
-					</header>
+		<ion-content :fullscreen="true">
+			<SubHeader :title="__('Settings')" fallback="/profile" />
 
-					<div class="flex flex-col gap-5 my-4 w-full p-4">
-						<div class="flex flex-col bg-white rounded">
-							<div
-								class="flex flex-row cursor-pointer flex-start p-4 items-center justify-between border-b"
-							>
-								<router-link
-									:to="{ name: 'ChangePassword' }"
-									class="flex flex-row items-center justify-between w-full"
-								>
-									<div class="flex flex-row items-center gap-3 grow">
-										<FeatherIcon
-											name="lock"
-											class="h-5 w-5 text-gray-500"
-										/>
-										<div class="text-base font-normal text-gray-800">
-											{{ __("Change Password") }}
-										</div>
-									</div>
-									<FeatherIcon
-										name="chevron-right"
-										class="h-5 w-5 text-gray-500"
-									/>
-								</router-link>
-							</div>
-						</div>
+			<div class="ms-card mx-4 mt-4 px-3.5">
+				<router-link :to="{ name: 'ChangePassword' }" class="ms-list-row">
+					<span class="ms-icon-tile h-[38px] w-[38px] rounded-xl bg-brand-sand text-brand-emerald"><AppIcon name="lock" :size="20" /></span>
+					<span class="grow text-[15px] font-medium text-brand-ink">{{ __("Change Password") }}</span>
+					<AppIcon name="forward" :size="18" class="text-brand-muted" />
+				</router-link>
 
-						<!-- The user's own language: the app reloads in it, direction included. -->
-						<div v-if="languages.length > 1" class="ms-settings-language flex flex-col bg-white rounded">
-							<label class="flex flex-row items-center justify-between gap-3 p-4">
-								<span class="flex flex-row items-center gap-3 grow">
-									<FeatherIcon name="globe" class="h-5 w-5 text-gray-500" />
-									<span class="text-base font-normal text-gray-800">{{ __("Language") }}</span>
-								</span>
-								<select
-									class="form-select rounded border-gray-300 bg-gray-100 py-1.5 text-base text-gray-800"
-									:value="currentLanguage"
-									:disabled="changingLanguage"
-									@change="changeLanguage($event.target.value)"
-								>
-									<option v-for="language in languages" :key="language.value" :value="language.value">
-										{{ language.label }}
-									</option>
-								</select>
-							</label>
-						</div>
-
-						<div class="flex flex-col bg-white rounded">
-							<Switch
-								size="md"
-								:label="__('Enable Push Notifications')"
-								:class="description ? 'p-2' : ''"
-								:model-value="pushNotificationState"
-								:disabled="disablePushSetting"
-								:description="description"
-								@update:model-value="togglePushNotifications"
-							/>
-						</div>
-
-						<div
-							v-if="isLoading"
-							class="flex -mt-2 items-center justify-center gap-2"
+				<!-- The user's own language: the app reloads in it, direction included. -->
+				<div v-if="languages.length > 1" class="ms-list-row ms-settings-language">
+					<span class="ms-icon-tile h-[38px] w-[38px] rounded-xl bg-brand-sand text-brand-emerald"><AppIcon name="globe" :size="20" /></span>
+					<span class="grow text-[15px] font-medium text-brand-ink">{{ __("Language") }}</span>
+					<span role="radiogroup" :aria-label="__('Language')" class="flex gap-0.5 rounded-xl bg-brand-sand p-[3px]">
+						<button
+							v-for="option in languages"
+							:key="option.value"
+							type="button"
+							role="radio"
+							:aria-checked="option.value === language.current"
+							class="h-[34px] rounded-[10px] px-3 text-[13px] font-semibold"
+							:class="option.value === language.current ? 'bg-brand-roots text-brand-sand' : 'text-brand-ink/80'"
+							:disabled="language.changing.value"
+							@click="language.change(option.value)"
 						>
-							<LoadingIndicator class="w-3 h-3 text-gray-800" />
-							<span class="text-gray-900 text-sm">
-								{{ pushNotificationState ? __("Disabling Push Notifications...") : __("Enabling Push Notifications...") }}
-							</span>
-						</div>
-					</div>
+							{{ option.label }}
+						</button>
+					</span>
+				</div>
+
+				<div class="ms-list-row">
+					<span class="ms-icon-tile h-[38px] w-[38px] rounded-xl bg-brand-sand text-brand-emerald"><AppIcon name="bell" :size="20" /></span>
+					<span class="min-w-0 grow">
+						<span class="block text-[15px] font-medium text-brand-ink">{{ __("Enable Push Notifications") }}</span>
+						<span v-if="push.description.value" class="block text-xs text-brand-muted">{{ push.description.value }}</span>
+						<span v-if="push.loading.value" class="block text-xs text-brand-muted">
+							{{ push.enabled.value ? __("Disabling Push Notifications...") : __("Enabling Push Notifications...") }}
+						</span>
+					</span>
+					<button
+						type="button"
+						role="switch"
+						:aria-checked="Boolean(push.enabled.value)"
+						:aria-label="__('Enable Push Notifications')"
+						class="relative h-8 w-[52px] shrink-0 rounded-full transition disabled:opacity-50"
+						:class="push.enabled.value ? 'bg-brand-emerald' : 'bg-brand-roots/[.18]'"
+						:disabled="push.disabled.value"
+						@click="push.toggle(!push.enabled.value)"
+					>
+						<span class="absolute top-[3px] h-[26px] w-[26px] rounded-full bg-white shadow transition-all" :class="push.enabled.value ? 'end-[3px]' : 'start-[3px]'" />
+					</button>
 				</div>
 			</div>
 		</ion-content>
@@ -94,123 +60,13 @@
 
 <script setup>
 import { IonPage, IonContent } from "@ionic/vue"
-import { useRouter } from "vue-router"
-import { FeatherIcon, Switch, toast, LoadingIndicator, Button, call } from "frappe-ui"
 
-import { computed, inject, ref } from "vue"
-
-import { arePushNotificationsEnabled } from "@/data/notifications"
+import SubHeader from "@/components/ui/SubHeader.vue"
+import AppIcon from "@/components/ui/AppIcon.vue"
 import { languages } from "@/data/brand"
+import { usePushNotifications } from "@/composables/pushNotifications"
+import { useLanguage } from "@/composables/language"
 
-const __ = inject("$translate")
-const router = useRouter()
-
-const pushNotificationState = ref(
-	window.frappePushNotification?.isNotificationEnabled()
-)
-const isLoading = ref(false)
-
-const currentLanguage = window.frappe?.boot?.lang
-const changingLanguage = ref(false)
-
-function changeLanguage(language) {
-	if (language === currentLanguage) return
-	changingLanguage.value = true
-	call("ms_hrms.pwa.set_language", { language })
-		.then(() => window.location.reload())
-		.catch((error) => {
-			changingLanguage.value = false
-			toast({
-				title: __("Error"),
-				text: error.messages?.[0] || error.message,
-				icon: "alert-circle",
-				position: "bottom-center",
-				iconClasses: "text-red-500",
-			})
-		})
-}
-
-const disablePushSetting = computed(() => {
-	return (
-		!(
-			window.frappe?.boot.push_relay_server_url &&
-			arePushNotificationsEnabled.data
-		) || isLoading.value
-	)
-})
-
-const description = computed(() => {
-	return !(
-		window.frappe?.boot.push_relay_server_url &&
-		arePushNotificationsEnabled.data
-	)
-		? __("Push notifications have been disabled on your site")
-		: ""
-})
-
-const togglePushNotifications = (newValue) => {
-	if (newValue) {
-		enablePushNotifications()
-	} else {
-		isLoading.value = true
-		window.frappePushNotification
-			.disableNotification()
-			.then(() => {
-				pushNotificationState.value = false
-				toast({
-					title: __("Success"),
-					text: __("Push notifications disabled"),
-					icon: "check-circle",
-					position: "bottom-center",
-					iconClasses: "text-green-500",
-				})
-			})
-			.catch((error) => {
-				toast({
-					title: __("Error"),
-					text: __(error.message),
-					icon: "alert-circle",
-					position: "bottom-center",
-					iconClasses: "text-red-500",
-				})
-			})
-			.finally(() => {
-				isLoading.value = false
-			})
-	}
-}
-const enablePushNotifications = () => {
-	isLoading.value = true
-
-	window.frappePushNotification
-		.enableNotification()
-		.then((data) => {
-			if (data.permission_granted) {
-				pushNotificationState.value = true
-			} else {
-				toast({
-					title: __("Error"),
-					text: __("Push Notification permission denied"),
-					icon: "alert-circle",
-					position: "bottom-center",
-					iconClasses: "text-red-500",
-				})
-				pushNotificationState.value = false
-			}
-		})
-		.catch((error) => {
-			toast({
-				title: __("Error"),
-				text: __(error.message),
-				icon: "alert-circle",
-				position: "bottom-center",
-				iconClasses: "text-red-500",
-			})
-			pushNotificationState.value = false
-		})
-		.finally(() => {
-			isLoading.value = false
-		})
-}
-
+const push = usePushNotifications()
+const language = useLanguage()
 </script>

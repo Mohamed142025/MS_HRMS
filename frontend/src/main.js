@@ -124,7 +124,16 @@ router.isReady().then(async () => {
 	await translationsPlugin.isReady();
 	registerServiceWorker()
 	app.mount("#app")
+	hideSplash()
 })
+
+// The launch screen in index.html fades out once the first screen is up.
+function hideSplash() {
+	const splash = document.getElementById("ms-splash")
+	if (!splash) return
+	requestAnimationFrame(() => splash.classList.add("is-hidden"))
+	setTimeout(() => splash.remove(), 400)
+}
 
 router.beforeEach(async (to, _, next) => {
 	let isLoggedIn = session.isLoggedIn

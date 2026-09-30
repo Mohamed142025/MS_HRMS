@@ -1,38 +1,39 @@
 <template>
 	<ion-header class="ion-no-border">
-		<div class="w-full sm:w-96">
+		<div class="w-full bg-brand-sand">
 			<div
-				class="flex flex-row bg-white shadow-sm py-4 px-3 items-center justify-between border-b"
+				class="flex flex-row items-center justify-between gap-3 px-4 pb-3 pt-[max(16px,env(safe-area-inset-top))]"
 			>
-				<div class="flex flex-row items-center">
-					<Button variant="ghost" class="!px-1 me-1 hover:bg-white" @click="router.back()">
-						<FeatherIcon name="chevron-left" class="h-5 w-5" />
-					</Button>
-					<h2 class="text-xl font-semibold text-gray-900">{{ pageTitle }}</h2>
+				<div class="flex min-w-0 flex-row items-center gap-3">
+					<button type="button" class="ms-icon-button" :aria-label="__('Back')" @click="goBack">
+						<AppIcon name="back" />
+					</button>
+					<h2 class="truncate text-[22px] font-bold text-brand-ink">{{ pageTitle }}</h2>
 				</div>
 
-				<div class="flex flex-row gap-2">
-					<Button
+				<div class="flex shrink-0 flex-row items-center gap-2">
+					<button
 						id="show-filter-modal"
-						icon="filter"
-						variant="subtle"
-						:class="[
-							areFiltersApplied
-								? '!border !border-gray-800 !bg-white !text-gray-900 !font-semibold'
-								: '',
-						]"
-					/>
+						type="button"
+						class="ms-icon-button"
+						:class="areFiltersApplied && '!bg-brand-roots !text-brand-sand'"
+						:aria-label="__('Filter')"
+					>
+						<AppIcon name="sliders" :size="20" />
+					</button>
 					<router-link
 						v-if="createPermission?.data?.has_permission && props.doctype != 'Employee Checkin'"
 						:to="{ name: `${props.doctype.replace(/\s+/g, '')}FormView` }"
 						v-slot="{ navigate }"
 					>
-						<Button variant="solid" class="me-2" @click="navigate">
-							<template #prefix>
-								<FeatherIcon name="plus" class="w-4" />
-							</template>
+						<button
+							type="button"
+							class="flex h-11 items-center gap-1.5 rounded-[14px] bg-brand-emerald px-3.5 text-sm font-bold text-white"
+							@click="navigate"
+						>
+							<AppIcon name="plus" :size="18" :stroke-width="2.2" />
 							{{ __("New", null, props.doctype) }}
-						</Button>
+						</button>
 					</router-link>
 				</div>
 			</div>
@@ -45,7 +46,7 @@
 		</ion-refresher>
 
 		<div
-			class="flex flex-col items-center mb-7 p-4 h-full w-full sm:w-96 overflow-y-auto"
+			class="flex flex-col items-center mb-7 px-4 pb-4 h-full w-full overflow-y-auto"
 			ref="scrollContainer"
 			@scroll="() => handleScroll()"
 		>
@@ -58,11 +59,11 @@
 				/>
 
 				<div
-					class="flex flex-col bg-white rounded mt-5"
+					class="ms-card mt-4 flex flex-col"
 					v-if="!documents.loading && documents.data?.length"
 				>
 					<div
-						class="p-3.5 items-center justify-between border-b cursor-pointer"
+						class="cursor-pointer items-center justify-between border-b border-brand-roots/[.08] px-3.5 py-3 last:border-b-0"
 						v-for="link in documents.data"
 						:key="link.name"
 					>
@@ -131,6 +132,7 @@
 
 <script setup>
 import { useRouter } from "vue-router"
+import AppIcon from "@/components/ui/AppIcon.vue"
 import { inject, ref, markRaw, watch, computed, reactive, onMounted } from "vue"
 import {
 	modalController,
@@ -204,6 +206,11 @@ const listItemComponent = {
 }
 
 const router = useRouter()
+
+function goBack() {
+	if (window.history.state?.back) router.back()
+	else router.replace("/home")
+}
 const dayjs = inject("$dayjs")
 const socket = inject("$socket")
 const employee = inject("$employee")

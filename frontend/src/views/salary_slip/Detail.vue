@@ -1,168 +1,125 @@
 <template>
 	<ion-page>
 		<ion-content :fullscreen="true">
-			<FormView
-				v-if="formFields.data"
-				doctype="Salary Slip"
-				v-model="salarySlip"
-				:fields="formFields.data"
-				:id="props.id"
-				:tabbedView="true"
-				:tabs="tabs"
-				:showFormButton="false"
-			>
-				<!-- Child Tables -->
-				<template #earnings="{ isFormReadOnly }">
-					<SalaryDetailTable
-						type="Earnings"
-						:salarySlip="salarySlip"
-						:isReadOnly="isFormReadOnly"
-					/>
-				</template>
-
-				<template #deductions="{ isFormReadOnly }">
-					<SalaryDetailTable
-						type="Deductions"
-						:salarySlip="salarySlip"
-						:isReadOnly="isFormReadOnly"
-					/>
-				</template>
-
-				<template #formButton>
-					<ErrorMessage :message="downloadError" class="mt-2" />
-					<Button
-						class="w-full rounded py-5 text-base disabled:bg-gray-700 disabled:text-white"
-						@click="downloadPDF"
-						variant="solid"
-						:loading="loading"
+			<SubHeader :title="title" :subtitle="props.id" fallback="/dashboard/salary-slips">
+				<template #actions>
+					<button
+						type="button"
+						class="ms-icon-button"
+						:aria-label="privacy.hidden ? __('Show amounts') : __('Hide amounts')"
+						:aria-pressed="privacy.hidden"
+						@click="privacy.toggle()"
 					>
-						{{ __("Download PDF") }}
-					</Button>
+						<AppIcon :name="privacy.hidden ? 'eye-off' : 'eye'" :size="20" />
+					</button>
 				</template>
-			</FormView>
+			</SubHeader>
+
+			<div v-if="!slip" class="ms-caption p-10 text-center">{{ __("Loading...") }}</div>
+			<template v-else>
+				<section class="ms-card mx-4 mt-4 grid grid-cols-3 gap-2 p-3 text-center" :aria-label="__('Details')">
+					<div v-for="item in facts" :key="item.label" class="rounded-2xl bg-brand-sand px-1 py-2.5">
+						<div class="text-xs text-brand-muted">{{ item.label }}</div>
+						<div class="text-[14px] font-bold text-brand-ink">{{ item.value }}</div>
+					</div>
+				</section>
+
+				<section v-for="part in parts" :key="part.title" class="ms-card mx-4 mt-3 p-4" :aria-label="part.title">
+					<div class="flex items-center justify-between">
+						<h2 class="text-[15.5px] font-bold text-brand-ink">{{ part.title }}</h2>
+						<span class="ms-chip" :class="part.tone">
+							<bdi dir="ltr">{{ part.sign }}{{ amount(part.total) }}</bdi> {{ __(slip.currency) }}
+						</span>
+					</div>
+					<div class="mt-1.5 flex flex-col">
+						<div
+							v-for="row in part.rows"
+							:key="row.name"
+							class="flex justify-between gap-3 border-b border-brand-roots/[.08] py-2.5 text-[14.5px] last:border-b-0"
+						>
+							<span class="text-brand-ink">{{ __(row.salary_component) }}</span>
+							<span class="font-semibold text-brand-ink">{{ amount(row.amount) }}</span>
+						</div>
+						<div v-if="!part.rows.length" class="ms-caption py-2">{{ __("None") }}</div>
+					</div>
+				</section>
+
+				<section class="ms-dark-card mx-4 mb-6 mt-3 p-[18px]" :aria-label="__('Net Pay')">
+					<div class="flex items-center justify-between gap-3">
+						<span class="text-[14px] text-brand-sand/70">{{ __("Net Pay") }}</span>
+						<span class="flex items-baseline gap-1.5">
+							<span class="text-[30px] font-bold">{{ amount(slip.net_pay) }}</span>
+							<span class="text-sm text-brand-sand/70">{{ __(slip.currency) }}</span>
+						</span>
+					</div>
+				</section>
+			</template>
 		</ion-content>
+
+		<ion-footer class="ion-no-border">
+			<div class="border-t border-brand-roots/[.08] bg-white px-4 pb-[max(20px,env(safe-area-inset-bottom))] pt-3.5">
+				<button type="button" class="ms-primary-button" :disabled="downloading || !slip" @click="download(props.id)">
+					<AppIcon name="download" :size="20" :stroke-width="2" />
+					{{ __("Download PDF") }}
+				</button>
+			</div>
+		</ion-footer>
 	</ion-page>
 </template>
 
 <script setup>
-import { ref, watch } from "vue"
-import { IonPage, IonContent } from "@ionic/vue"
+import { computed, inject } from "vue"
+import { IonPage, IonContent, IonFooter } from "@ionic/vue"
+import { createDocumentResource } from "frappe-ui"
 
-import { createResource, ErrorMessage } from "frappe-ui"
+import SubHeader from "@/components/ui/SubHeader.vue"
+import AppIcon from "@/components/ui/AppIcon.vue"
 
-import FormView from "@/components/FormView.vue"
-import SalaryDetailTable from "@/components/SalaryDetailTable.vue"
-
-import { getCompanyCurrency } from "@/data/currencies"
+import { privacy } from "@/data/ui"
+import { formatNumber } from "@/utils/formatters"
+import { useSalarySlipDownload } from "@/composables/salarySlip"
 
 const props = defineProps({
-	id: {
-		type: String,
-		required: true,
-	},
+	id: { type: String, required: true },
 })
 
-const downloadError = ref("")
-const loading = ref(false)
+const __ = inject("$translate")
+const dayjs = inject("$dayjs")
+const { download, downloading } = useSalarySlipDownload()
 
-// reactive object to store form data
-const salarySlip = ref({})
+const document = createDocumentResource({ doctype: "Salary Slip", name: props.id, auto: true })
+const slip = computed(() => document.doc)
 
-// get form fields
-const formFields = createResource({
-	url: "hrms.api.get_doctype_fields",
-	params: { doctype: "Salary Slip" },
-	transform(data) {
-		return getFilteredFields(data)
-	},
+const amount = (value) => (privacy.hidden ? "••••" : formatNumber(value, 2))
+
+const title = computed(() => {
+	if (!slip.value) return __("Salary Slip")
+	const start = dayjs(slip.value.start_date)
+	const end = dayjs(slip.value.end_date)
+	const period = start.isSame(end, "month") ? end.format("MMMM YYYY") : `${start.format("MMM")} – ${end.format("MMM YYYY")}`
+	return __("Salary slip for {0}", [period])
 })
-formFields.reload()
 
-const tabs = [
-	{ name: "Details", lastField: "payment_days" },
-	{ name: "Earnings & Deductions", lastField: "base_total_deduction" },
-	{ name: "Net Pay Info", lastField: "base_total_in_words" },
-	{ name: "Income Tax Breakup", lastField: "total_income_tax" },
-	{ name: "Bank Details", lastField: "bank_account_no" },
-]
+const facts = computed(() => [
+	{ label: __("Period"), value: `${dayjs(slip.value.start_date).format("D MMM")} – ${dayjs(slip.value.end_date).format("D MMM")}` },
+	{ label: __("Payment Days"), value: formatNumber(slip.value.payment_days, 1) },
+	{ label: __("Issue date"), value: dayjs(slip.value.posting_date).format("D MMM YYYY") },
+])
 
-watch(
-	() => salarySlip.value.company,
-	async (company) => {
-		if (!company) return
-
-		const companyCurrency = await getCompanyCurrency(company)
-
-		formFields.data?.map((field) => {
-			if (field.label?.includes("Company Currency")) {
-				if (salarySlip.value.currency === companyCurrency) {
-					// hide base currency fields
-					field.hidden = true
-				} else {
-					// set currency in label
-					field.label = field.label.replace("Company Currency", companyCurrency)
-				}
-			}
-		})
+const parts = computed(() => [
+	{
+		title: __("Earnings"),
+		rows: (slip.value.earnings || []).filter((row) => row.amount),
+		total: slip.value.gross_pay,
+		sign: "+",
+		tone: "bg-state-success/[.12] text-state-success-text",
 	},
-	{ immediate: true }
-)
-
-function getFilteredFields(fields) {
-	const hasTimesheets = salarySlip.value?.timesheets?.length
-	if (hasTimesheets) return fields
-
-	const excludeFields = [
-		"timesheets_section",
-		"timesheets",
-		"total_working_hours",
-		"hour_rate",
-		"base_hour_rate",
-		"help_section",
-		"earning_deduction_sb",
-	]
-	return fields.filter((field) => !excludeFields.includes(field.fieldname))
-}
-
-function downloadPDF() {
-	const salarySlipName = salarySlip.value.name
-	loading.value = true
-
-	let headers = { "X-Frappe-Site-Name": window.location.hostname }
-	if (window.csrf_token) {
-		headers["X-Frappe-CSRF-Token"] = window.csrf_token
-	}
-
-	fetch("/api/method/hrms.api._download_pdf", {
-		method: "POST",
-		headers,
-		body: new URLSearchParams({doctype: "Salary Slip" ,docname: salarySlipName }),
-		responseType: "blob",
-	})
-		.then((response) => {
-			if (response.ok) {
-				return response.blob()
-			} else {
-				downloadError.value = "Failed to download PDF"
-			}
-		})
-		.then((blob) => {
-			if (!blob) return
-			const blobUrl = window.URL.createObjectURL(blob)
-			const link = document.createElement("a")
-			link.href = blobUrl
-			link.download = `${salarySlipName}.pdf`
-			link.click()
-
-			setTimeout(() => {
-				window.URL.revokeObjectURL(blobUrl)
-			}, 3000)
-		})
-		.catch((error) => {
-			downloadError.value = `Failed to download PDF: ${error.message}`
-		})
-		.finally(() => {
-			loading.value = false
-		})
-}
+	{
+		title: __("Deductions"),
+		rows: (slip.value.deductions || []).filter((row) => row.amount),
+		total: slip.value.total_deduction,
+		sign: "−",
+		tone: "bg-state-danger/[.12] text-state-danger-text",
+	},
+])
 </script>

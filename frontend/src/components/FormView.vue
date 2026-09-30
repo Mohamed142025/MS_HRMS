@@ -1,35 +1,29 @@
 <template>
-	<div class="flex flex-col h-full w-full" v-if="isFormReady">
-		<div class="w-full h-full bg-white sm:w-96 flex flex-col">
+	<!-- ms-form: the redesigned form (fields on a white card over Sand); the class also
+	     styles frappe-ui's inputs inside it (main.css). -->
+	<div class="ms-form flex h-full w-full flex-col bg-brand-sand" v-if="isFormReady">
+		<div class="flex h-full w-full flex-col">
 			<header
-				class="flex flex-row bg-white shadow-sm py-4 px-3 items-center sticky top-0 z-[1000]"
+				class="sticky top-0 z-[1000] flex flex-row items-center gap-3 bg-brand-sand px-4 pb-3 pt-[max(16px,env(safe-area-inset-top))]"
 			>
-				<Button
-					variant="ghost"
-					class="!ps-0 hover:bg-white"
-					@click="router.back()"
-				>
-					<FeatherIcon name="chevron-left" class="h-5 w-5" />
-				</Button>
+				<button type="button" class="ms-icon-button" :aria-label="__('Back')" @click="goBack">
+					<AppIcon name="back" />
+				</button>
 				<div
 					v-if="id"
 					class="flex flex-row items-center gap-2 overflow-hidden grow"
 				>
-					<h2
-						class="text-xl font-semibold text-gray-900 whitespace-nowrap overflow-hidden text-ellipsis"
-					>
-						{{ __(props.doctype) }}
-					</h2>
-					<Badge
-						:label="id"
-						class="whitespace-nowrap text-[8px]"
-						variant="outline"
-					/>
+					<div class="min-w-0">
+						<h2 class="truncate text-[20px] font-bold leading-snug text-brand-ink">
+							{{ __(props.doctype) }}
+						</h2>
+						<div dir="ltr" class="truncate text-start text-xs text-brand-muted">{{ id }}</div>
+					</div>
 					<Badge
 						v-if="status"
 						:label="__(status, null, doctype)"
 						:theme="statusColor"
-						class="whitespace-nowrap text-[8px]"
+						class="whitespace-nowrap"
 					/>
 
 					<Dropdown
@@ -54,17 +48,19 @@
 						}"
 					/>
 				</div>
-				<h2 v-else class="text-2xl font-semibold text-gray-900">
+				<h2 v-else class="grow truncate text-[22px] font-bold text-brand-ink">
 					{{ __('New {0}', [__(doctype)], props.doctype) }}
 				</h2>
 			</header>
 
 			<!-- Form -->
-			<div class="bg-white grow overflow-y-auto">
+			<div class="grow overflow-y-auto pb-6">
+				<slot name="top" :formModel="formModel" :isFormReadOnly="isFormReadOnly" />
+
 				<!-- Tabs -->
 				<template v-if="tabbedView">
 					<div
-						class="px-4 sticky top-0 z-[100] bg-white text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700"
+						class="sticky top-0 z-[100] bg-brand-sand px-4 text-center text-sm font-medium text-brand-muted"
 					>
 						<ul class="flex -mb-px overflow-auto hide-scrollbar">
 							<li class="me-2 whitespace-nowrap" v-for="tab in tabs">
@@ -73,8 +69,8 @@
 									class="inline-block py-4 px-2 border-b-2 border-transparent rounded-t-lg"
 									:class="[
 										activeTab === tab.name
-											? '!text-gray-800 !border-gray-800'
-											: 'hover:text-gray-600 hover:border-gray-300',
+											? '!border-brand-emerald font-bold !text-brand-roots'
+											: 'hover:border-brand-roots/[.18]',
 									]"
 								>
 									{{ __(tab.name, null, props.doctype) }}
@@ -86,7 +82,7 @@
 					<template v-for="(fieldList, tabName, index) in tabFields">
 						<div
 							v-show="tabName === activeTab"
-							class="flex flex-col space-y-4 p-4"
+							class="ms-card mx-4 mt-3 flex flex-col space-y-4 p-4"
 						>
 							<template v-for="field in fieldList" :key="field.fieldname">
 								<slot
@@ -134,7 +130,7 @@
 					</template>
 				</template>
 
-				<div class="flex flex-col space-y-4 p-4" v-else>
+				<div class="ms-card mx-4 mt-1 flex flex-col space-y-4 p-4" v-else>
 					<FormField
 						v-for="field in props.fields"
 						:key="field.name"
@@ -152,6 +148,7 @@
 						:errorMessage="field.error_message"
 						:minDate="field.minDate"
 						:maxDate="field.maxDate"
+						:addSectionPadding="field.fieldname !== firstVisibleField"
 					/>
 
 					<!-- Attachment upload -->
@@ -170,13 +167,15 @@
 						@handleFileDelete="handleFileDelete"
 					/>
 				</div>
+
+				<slot name="bottom" :formModel="formModel" :isFormReadOnly="isFormReadOnly" />
 			</div>
 
 			<!-- Form Primary/Secondary Button -->
 			<!-- custom form button eg: Download button in salary slips -->
 			<div
 				v-if="!showFormButton"
-				class="px-4 pt-4 pb-4 standalone:pb-safe-bottom sm:w-96 bg-white sticky bottom-0 w-full drop-shadow-xl z-40 border-t rounded-t-lg"
+				class="sticky bottom-0 z-40 w-full border-t border-brand-roots/[.08] bg-white px-4 pb-[max(16px,env(safe-area-inset-bottom))] pt-3.5"
 			>
 				<slot name="formButton"></slot>
 			</div>
@@ -192,7 +191,7 @@
 			<!-- save/submit/cancel -->
 			<div
 				v-else-if="isFormDirty || (!workflow?.hasWorkflow && formButton)"
-				class="px-4 pt-4 pb-4 standalone:pb-safe-bottom sm:w-96 bg-white sticky bottom-0 w-full drop-shadow-xl z-40 border-t rounded-t-lg"
+				class="sticky bottom-0 z-40 w-full border-t border-brand-roots/[.08] bg-white px-4 pb-[max(16px,env(safe-area-inset-bottom))] pt-3.5"
 			>
 				<ErrorMessage
 					class="mb-2"
@@ -204,7 +203,7 @@
 				/>
 
 				<Button
-					class="w-full rounded py-5 text-base disabled:bg-gray-700 disabled:text-white"
+					class="w-full !h-14 !rounded-[18px] !text-base !font-bold disabled:bg-gray-700 disabled:text-white"
 					:class="formButton === 'Cancel' ? 'shadow' : ''"
 					@click="formButton === 'Save' ? saveForm() : submitOrCancelForm()"
 					:variant="formButton === 'Cancel' ? 'subtle' : 'solid'"
@@ -330,6 +329,7 @@ import {
 	LoadingIndicator,
 } from "frappe-ui"
 import FormField from "@/components/FormField.vue"
+import AppIcon from "@/components/ui/AppIcon.vue"
 import FileUploaderView from "@/components/FileUploaderView.vue"
 import WorkflowActionSheet from "@/components/WorkflowActionSheet.vue"
 
@@ -390,6 +390,11 @@ const emit = defineEmits(["validateForm", "update:modelValue", "formReloaded"])
 const router = useRouter()
 const { downloadPDF } = useDownloadPDF()
 
+function goBack() {
+	if (window.history.state?.back) router.back()
+	else router.replace("/home")
+}
+
 const __ = inject("$translate")
 
 let activeTab = ref(props.tabs?.[0].name)
@@ -446,6 +451,9 @@ watch(
 	},
 	{ immediate: true }
 )
+
+// The first field shown: a section break there needs no divider above it.
+const firstVisibleField = computed(() => props.fields.find((field) => !field.hidden)?.fieldname)
 
 const tabFields = computed(() => {
 	let fieldsByTab = {}

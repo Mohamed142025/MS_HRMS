@@ -1,9 +1,7 @@
 <template>
 	<div
-		class="flex flex-col items-center rounded p-5 text-sm text-gray-600"
-		:class="[
-			props.isTableField ? 'border-2 border-dashed border-gray-300 mt-5' : '',
-		]"
+		class="flex flex-col items-center rounded-[22px] p-6 text-center text-[13.5px] text-brand-muted"
+		:class="props.isTableField ? 'mt-5 border-[1.5px] border-dashed border-brand-roots/[.12]' : ''"
 	>
 		{{ __(props.message) }}
 	</div>

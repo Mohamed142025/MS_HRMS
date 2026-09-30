@@ -5,6 +5,7 @@
 
 		<InstallPrompt />
 	</ion-app>
+	<DesktopPanel />
 </template>
 
 <script setup>
@@ -14,6 +15,7 @@ import { IonApp, IonRouterOutlet } from "@ionic/vue"
 import { Toasts } from "frappe-ui"
 
 import InstallPrompt from "@/components/InstallPrompt.vue"
+import DesktopPanel from "@/components/DesktopPanel.vue"
 import { showNotification } from "@/utils/pushNotifications"
 
 onMounted(() => {

@@ -178,6 +178,69 @@
 		     after the build's own stylesheets in the head, so they take precedence. -->
 		{% for href in include_css %}<link rel="stylesheet" href="{{ href }}" />
 		{% endfor %}
+		<!-- The launch screen: shown until the app has started (main.js removes it). -->
+		<div id="ms-splash" class="{{ 'is-dark' if splash_dark else '' }}" style="--ms-splash-dark: {{ theme_color }}" aria-hidden="true">
+			<img src="/assets/ms_hrms/pwa/icon-192.png" alt="" width="104" height="104" />
+			<div class="ms-splash-title">{{ app_title }}</div>
+			<div class="ms-splash-bars"><span></span><span></span><span></span></div>
+		</div>
+		<style>
+			#ms-splash {
+				position: fixed;
+				inset: 0;
+				z-index: 100000;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 14px;
+				background: #ffffff;
+				color: #16211c;
+				font-family: "MS Arabic", "InterVar", "Inter", system-ui, sans-serif;
+				transition: opacity 0.3s ease;
+			}
+			#ms-splash.is-dark {
+				background: var(--ms-splash-dark, #0e3b2e);
+				color: #f4f1ea;
+			}
+			#ms-splash.is-hidden {
+				opacity: 0;
+				pointer-events: none;
+			}
+			#ms-splash img {
+				border-radius: 28px;
+				margin-top: -40px;
+			}
+			.ms-splash-title {
+				margin-top: 12px;
+				font-size: 30px;
+				font-weight: 700;
+				letter-spacing: 0.5px;
+			}
+			.ms-splash-bars {
+				display: flex;
+				align-items: flex-end;
+				gap: 6px;
+				height: 28px;
+				margin-top: 18px;
+			}
+			.ms-splash-bars span {
+				width: 8px;
+				border-radius: 4px;
+				background: #34d399;
+				animation: ms-splash-rise 1s ease-in-out infinite;
+			}
+			.ms-splash-bars span:nth-child(1) { height: 12px; animation-delay: 0s; }
+			.ms-splash-bars span:nth-child(2) { height: 20px; animation-delay: 0.15s; }
+			.ms-splash-bars span:nth-child(3) { height: 28px; animation-delay: 0.3s; }
+			@keyframes ms-splash-rise {
+				0%, 100% { opacity: 0.45; }
+				50% { opacity: 1; }
+			}
+			@media (prefers-reduced-motion: reduce) {
+				.ms-splash-bars span { animation: none; }
+			}
+		</style>
 		<div id="app"></div>
 		<div id="modals"></div>
 		<div id="popovers"></div>

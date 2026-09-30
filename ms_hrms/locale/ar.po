@@ -1346,3 +1346,669 @@ msgstr "يعتمد طلبات الإذن لهذا الموظف. إذا تُرك 
 msgid "Approves this employee's Overtime Requests. When empty, the department's Overtime Approvers do."
 msgstr "يعتمد طلبات العمل الإضافي لهذا الموظف. إذا تُرك فارغاً يعتمدها مسؤولو اعتماد العمل الإضافي في القسم."
 
+
+# The redesigned app (home, insights, requests, approvals, finance, profile).
+msgid "12 months"
+msgstr "12 شهراً"
+
+msgid "3 months"
+msgstr "3 أشهر"
+
+msgid "A few hours of the workday"
+msgstr "ساعات من يوم العمل"
+
+msgid "All"
+msgstr "الكل"
+
+msgid "All balances"
+msgstr "كل الأرصدة"
+
+msgid "All insights"
+msgstr "كل التحليلات"
+
+msgid "Allocated days"
+msgstr "الأيام المخصصة"
+
+msgid "Android"
+msgstr "أندرويد"
+
+msgid "At work now"
+msgstr "في العمل الآن"
+
+msgid "Attach a photo of the receipt"
+msgstr "صوّر الإيصال وأرفقه"
+
+msgid "Attendance pattern"
+msgstr "نمط الحضور"
+
+msgid "Attendance rate"
+msgstr "نسبة الحضور"
+
+msgid "Average arrival"
+msgstr "متوسط الحضور"
+
+msgid "Average working hours"
+msgstr "متوسط ساعات العمل"
+
+msgid "Average {0} h/day"
+msgstr "متوسط {0} س/يوم"
+
+msgid "Awaiting approval"
+msgstr "بانتظار الاعتماد"
+
+msgid "Awaiting your approval · {0}"
+msgstr "بانتظار موافقتك · {0}"
+
+msgid "Back"
+msgstr "رجوع"
+
+msgid "Balance after this request: {0}"
+msgstr "رصيدك بعد الطلب: {0}"
+
+msgid "By expense type"
+msgstr "حسب نوع المصروف"
+
+msgid "Change your working hours"
+msgstr "تغيير مواعيد العمل"
+
+msgid "Check in, request leave, and follow your salary and your insights from your phone, or right here."
+msgstr "سجّل حضورك، واطلب إجازتك، وتابع راتبك وتحليلاتك من موبايلك أو من هنا مباشرة."
+
+msgid "Check-in log"
+msgstr "سجل البصمات"
+
+msgid "Checked in"
+msgstr "سجّلت حضورك"
+
+msgid "Checked out"
+msgstr "انصرفت"
+
+msgid "Choose the type of request"
+msgstr "اختر نوع الطلب"
+
+msgid "Choose “Add to Home Screen”"
+msgstr "اختر «إضافة إلى الشاشة الرئيسية»"
+
+msgid "Choose “Install app” or “Add to Home screen”"
+msgstr "اختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية»"
+
+msgid "Coming up"
+msgstr "القادم"
+
+msgid "Confirm, and it appears as {0}"
+msgstr "أكّد، وسيظهر باسم {0}"
+
+msgid "Days off from work"
+msgstr "أيام راحة من العمل"
+
+msgid "Days present"
+msgstr "أيام الحضور"
+
+msgid "Decision saved"
+msgstr "تم حفظ القرار"
+
+msgid "Discipline index"
+msgstr "مؤشر الانضباط"
+
+msgid "Done"
+msgstr "تم"
+
+msgid "EGP"
+msgstr "ج.م"
+
+msgid "Each dot is a working day. The line is the start of your shift."
+msgstr "كل نقطة يوم عمل، والخط بداية ورديتك."
+
+msgid "Earlier"
+msgstr "أقدم"
+
+msgid "Early exits"
+msgstr "انصراف مبكر"
+
+msgid "Everything about your work, in your pocket."
+msgstr "كل ما يخص عملك، في جيبك."
+
+msgid "Excellent"
+msgstr "ممتاز"
+
+msgid "Expenses & advances"
+msgstr "المصروفات والسلف"
+
+msgid "Expired"
+msgstr "منتهية"
+
+msgid "Failed to download PDF: {0}"
+msgstr "تعذّر تنزيل PDF: {0}"
+
+msgid "Fair"
+msgstr "مقبول"
+
+msgid "Faster to open than the browser"
+msgstr "أسرع في الفتح من المتصفح"
+
+msgid "Filter"
+msgstr "تصفية"
+
+msgid "Finance"
+msgstr "المالية"
+
+msgid "For approval"
+msgstr "للموافقة"
+
+msgid "Forgot to check in or out?"
+msgstr "نسيت تسجيل الحضور أو الانصراف؟"
+
+msgid "Good"
+msgstr "جيد"
+
+msgid "Good evening"
+msgstr "مساء الخير"
+
+msgid "Good morning"
+msgstr "صباح الخير"
+
+msgid "Hide amounts"
+msgstr "إخفاء المبالغ"
+
+msgid "Hide password"
+msgstr "إخفاء كلمة المرور"
+
+msgid "Hours this week"
+msgstr "ساعات العمل هذا الأسبوع"
+
+msgid "Hours worked today"
+msgstr "ساعات العمل اليوم"
+
+msgid "In progress"
+msgstr "جارٍ"
+
+msgid "In {0}"
+msgstr "حضور {0}"
+
+msgid "In {0} days"
+msgstr "بعد {0} أيام"
+
+msgid "Insights"
+msgstr "التحليلات"
+
+msgid "Insights for you"
+msgstr "رؤى لك"
+
+msgid "Install now"
+msgstr "تثبيت الآن"
+
+msgid "Install on this computer"
+msgstr "ثبّت على هذا الكمبيوتر"
+
+msgid "Install the app on your phone"
+msgstr "ثبّت التطبيق على موبايلك"
+
+msgid "Install {0} on your phone"
+msgstr "ثبّت {0} على موبايلك"
+
+msgid "Instant notifications for approvals and salary"
+msgstr "إشعارات فورية بالموافقات والرواتب"
+
+msgid "Issue date"
+msgstr "تاريخ الإصدار"
+
+msgid "Issued on {0}"
+msgstr "صدرت في {0}"
+
+msgid "Last 6 months"
+msgstr "آخر 6 أشهر"
+
+msgid "Last {0} slips · average {1}"
+msgstr "آخر {0} قسائم · المتوسط {1}"
+
+msgid "Late"
+msgstr "تأخير"
+
+msgid "Late arrivals by weekday"
+msgstr "مرات التأخير حسب اليوم"
+
+msgid "Late today:"
+msgstr "متأخرون اليوم:"
+
+msgid "Later"
+msgstr "لاحقاً"
+
+msgid "Leave reminder"
+msgstr "تذكير بالإجازات"
+
+msgid "Leaves, permissions, overtime and expenses"
+msgstr "إجازات، أذونات، عمل إضافي، مصروفات"
+
+msgid "Location is recorded"
+msgstr "يُسجَّل موقعك"
+
+msgid "Logging in..."
+msgstr "جارٍ تسجيل الدخول..."
+
+msgid "Month summary"
+msgstr "ملخص الشهر"
+
+msgid "My details"
+msgstr "بياناتي"
+
+msgid "Needs a shift to judge arrival times"
+msgstr "يحتاج وردية لتقييم مواعيد الحضور"
+
+msgid "Needs attention"
+msgstr "يحتاج انتباهك"
+
+msgid "Needs improvement"
+msgstr "يحتاج تحسين"
+
+msgid "Net pay"
+msgstr "صافي الراتب"
+
+msgid "Net pay for {0}"
+msgstr "صافي راتب {0}"
+
+msgid "New request"
+msgstr "طلب جديد"
+
+msgid "Next month"
+msgstr "الشهر التالي"
+
+msgid "No balance needed"
+msgstr "لا يحتاج رصيداً"
+
+msgid "No check-ins in the last month"
+msgstr "لا توجد بصمات في آخر شهر"
+
+msgid "No check-ins this month"
+msgstr "لا توجد بصمات هذا الشهر"
+
+msgid "No check-out"
+msgstr "بدون انصراف"
+
+msgid "No check-out since {0}"
+msgstr "لا يوجد انصراف منذ {0}"
+
+msgid "No late arrivals"
+msgstr "لا توجد مرات تأخير"
+
+msgid "No leave allocated"
+msgstr "لا توجد إجازات مخصصة"
+
+msgid "No requests are waiting for your approval"
+msgstr "لا توجد طلبات بانتظار موافقتك"
+
+msgid "No working days yet"
+msgstr "لا توجد أيام عمل بعد"
+
+msgid "Not checked in"
+msgstr "لم يسجّل"
+
+msgid "Not checked in yet"
+msgstr "لم تسجّل حضورك بعد"
+
+msgid "Not enough data"
+msgstr "بيانات غير كافية"
+
+msgid "Notes for you"
+msgstr "ملاحظات لك"
+
+msgid "On leave today:"
+msgstr "في إجازة اليوم:"
+
+msgid "On time"
+msgstr "في الموعد"
+
+msgid "One column per working day"
+msgstr "كل عمود يوم عمل"
+
+msgid "Open it on your phone"
+msgstr "افتحه على موبايلك"
+
+msgid "Open the browser menu"
+msgstr "افتح قائمة المتصفح"
+
+msgid "Opens full screen, like any app"
+msgstr "يفتح بملء الشاشة مثل أي تطبيق"
+
+msgid "Other leave types"
+msgstr "أنواع أخرى"
+
+msgid "Out {0}"
+msgstr "انصراف {0}"
+
+msgid "Pending approval"
+msgstr "قيد الاعتماد"
+
+msgid "Period"
+msgstr "الفترة"
+
+msgid "Permission hours"
+msgstr "ساعات الأذونات"
+
+msgid "Plan a leave"
+msgstr "خطّط لإجازتك"
+
+msgid "Plan your leave around your colleagues'"
+msgstr "خطّط إجازتك بعيداً عن التعارض مع زملائك"
+
+msgid "Preferences"
+msgstr "التفضيلات"
+
+msgid "Previous month"
+msgstr "الشهر السابق"
+
+msgid "Previous slips"
+msgstr "القسائم السابقة"
+
+msgid "Public holiday"
+msgstr "عطلة رسمية"
+
+msgid "Punctuality"
+msgstr "الالتزام بالمواعيد"
+
+msgid "Punctuality counts for half, attendance for 40% and leaving on time for 10%."
+msgstr "يُحسب من الالتزام بالمواعيد 50%، والحضور 40%، والانصراف في الموعد 10%."
+
+msgid "Push notifications"
+msgstr "الإشعارات الفورية"
+
+msgid "QR code of the app’s address"
+msgstr "رمز QR لعنوان التطبيق"
+
+msgid "Quick actions"
+msgstr "إجراءات سريعة"
+
+msgid "Record your extra hours"
+msgstr "سجّل ساعاتك الإضافية"
+
+msgid "Recovered from your salary"
+msgstr "تُسترد من الراتب"
+
+msgid "Request attendance"
+msgstr "طلب تعديل حضور"
+
+msgid "Requests"
+msgstr "الطلبات"
+
+msgid "Review request"
+msgstr "مراجعة الطلب"
+
+msgid "Salary breakdown"
+msgstr "مكوّنات الراتب"
+
+msgid "Salary breakdown for {0}"
+msgstr "مكوّنات راتب {0}"
+
+msgid "Salary slip for {0}"
+msgstr "قسيمة راتب {0}"
+
+msgid "Salary slip for {0} is ready"
+msgstr "قسيمة راتب {0} متاحة"
+
+msgid "Same as the previous period"
+msgstr "مثل الفترة السابقة"
+
+msgid "Same as {0}"
+msgstr "مثل {0}"
+
+msgid "Scan the code with your phone’s camera, then add it to your home screen."
+msgstr "امسح الرمز بكاميرا الموبايل، ثم أضفه إلى الشاشة الرئيسية."
+
+msgid "Shift ended"
+msgstr "انتهت الوردية"
+
+msgid "Shift starts at {0}"
+msgstr "تبدأ الوردية {0}"
+
+msgid "Show amounts"
+msgstr "إظهار المبالغ"
+
+msgid "Show password"
+msgstr "إظهار كلمة المرور"
+
+msgid "Tap the Share button in Safari"
+msgstr "اضغط زر المشاركة في Safari"
+
+msgid "Tap to view or download it"
+msgstr "اضغط لعرضها أو تنزيلها"
+
+msgid "Tap “Add” and it appears as {0}"
+msgstr "اضغط «إضافة» وسيظهر باسم {0}"
+
+msgid "The employee app"
+msgstr "تطبيق الموظفين"
+
+msgid "The employee app · free, no app store needed"
+msgstr "تطبيق الموظفين · مجاني ومن غير متجر"
+
+msgid "This period"
+msgstr "هذه الفترة"
+
+msgid "This week"
+msgstr "هذا الأسبوع"
+
+msgid "This year"
+msgstr "هذا العام"
+
+msgid "Tomorrow"
+msgstr "غداً"
+
+msgid "Unable to retrieve your location"
+msgstr "تعذّر تحديد موقعك"
+
+msgid "Upcoming leaves in your department"
+msgstr "إجازات قسمك القادمة"
+
+msgid "Used"
+msgstr "المستخدم"
+
+msgid "View all"
+msgstr "عرض الكل"
+
+msgid "View all {0}"
+msgstr "عرض كل {0}"
+
+msgid "View check-in history"
+msgstr "سجل البصمات"
+
+msgid "View details"
+msgstr "عرض التفاصيل"
+
+msgid "View slip"
+msgstr "عرض القسيمة"
+
+msgid "Weekly off"
+msgstr "عطلة أسبوعية"
+
+msgid "Welcome to {0}"
+msgstr "أهلاً بك في {0}"
+
+msgid "Well done"
+msgstr "أحسنت"
+
+msgid "Working hours"
+msgstr "ساعات العمل"
+
+msgid "Works on phones, tablets and computers"
+msgstr "يعمل على الموبايل والتابلت والكمبيوتر"
+
+msgid "Year {0}"
+msgstr "سنة {0}"
+
+msgid "Years of service"
+msgstr "سنوات الخدمة"
+
+msgid "Yesterday"
+msgstr "أمس"
+
+msgid "You"
+msgstr "أنت"
+
+msgid "You arrived on time on {0} of {1} days this month."
+msgstr "وصلت في الموعد {0} من {1} يوماً هذا الشهر."
+
+msgid "You did not check out on {0}."
+msgstr "لم تسجّل انصرافك يوم {0}."
+
+msgid "You have no expense claims this year"
+msgstr "ليس لديك مطالبات مصروفات هذا العام"
+
+msgid "You have no unread notifications"
+msgstr "ليس لديك إشعارات غير مقروءة"
+
+msgid "You were late {0} times this month, all of them on {1}."
+msgstr "تأخرت {0} مرات هذا الشهر، وكلها يوم {1}."
+
+msgid "You were late {0} times this month, most often on {1}."
+msgstr "تأخرت {0} مرات هذا الشهر، وأغلبها يوم {1}."
+
+msgid "Your arrival times"
+msgstr "مواعيد وصولك"
+
+msgid "Your attendance, requests and salary in one place."
+msgstr "حضورك وطلباتك وراتبك، في مكان واحد."
+
+msgid "Your balance: {0} days"
+msgstr "رصيدك {0} يوم"
+
+msgid "Your balances"
+msgstr "أرصدتك"
+
+msgid "Your claims"
+msgstr "مطالباتك"
+
+msgid "Your claims in {0}"
+msgstr "مطالباتك في {0}"
+
+msgid "Your month at a glance"
+msgstr "شهرك في لمحة"
+
+msgid "Your overtime this month is {0} hours, above your average of the last 3 months ({1})."
+msgstr "عملك الإضافي هذا الشهر {0} ساعة، أعلى من متوسط آخر 3 أشهر ({1})."
+
+msgid "Your record and its analysis"
+msgstr "سجلّك وتحليلاته"
+
+msgid "Your salary and expenses"
+msgstr "رواتبك ومصروفاتك"
+
+msgid "Your team today"
+msgstr "فريقك اليوم"
+
+msgid "Your upcoming leaves"
+msgstr "إجازاتك القادمة"
+
+msgid "and {0} days on leave"
+msgstr "و{0} يوم إجازة"
+
+msgid "days"
+msgstr "يوم"
+
+msgid "days available"
+msgstr "يوم متاح"
+
+msgid "days left"
+msgstr "يوم متبقٍ"
+
+msgid "h"
+msgstr "س"
+
+msgid "h/day"
+msgstr "س/يوم"
+
+msgid "hours"
+msgstr "ساعة"
+
+msgid "iPhone"
+msgstr "آيفون"
+
+msgid "of 100"
+msgstr "من 100"
+
+msgid "of {0}"
+msgstr "من {0}"
+
+msgid "of {0} h"
+msgstr "من {0} س"
+
+msgid "outstanding"
+msgstr "متبقية"
+
+msgid "vs previous period"
+msgstr "عن الفترة السابقة"
+
+msgid "{0} days"
+msgstr "{0} يوم"
+
+msgid "{0} days expire on {1} if not used"
+msgstr "{0} يوم تنتهي في {1} إذا لم تُستخدم"
+
+msgid "{0} days of your {1} expire on {2}."
+msgstr "يتبقى لك {0} يوم من {1} تنتهي في {2}."
+
+msgid "{0} employees · as of {1}"
+msgstr "{0} موظف · حتى {1}"
+
+msgid "{0} h"
+msgstr "{0} س"
+
+msgid "{0} h {1} m"
+msgstr "{0} س {1} د"
+
+msgid "{0} h {1} m left"
+msgstr "باقي {0} س {1} د"
+
+msgid "{0} late arrivals"
+msgstr "{0} مرات تأخير"
+
+msgid "{0} min earlier than {1}"
+msgstr "أبكر {0} د عن {1}"
+
+msgid "{0} min later than {1}"
+msgstr "متأخر {0} د عن {1}"
+
+msgid "{0} of {1} days on time"
+msgstr "{0} من {1} يوم في الموعد"
+
+msgid "{0} of {1} days present"
+msgstr "{0} من {1} يوم حضور"
+
+msgid "{0} points higher than the previous period"
+msgstr "أعلى بـ {0} نقطة من الفترة السابقة"
+
+msgid "{0} points lower than the previous period"
+msgstr "أقل بـ {0} نقطة من الفترة السابقة"
+
+msgid "{0} requests await your approval"
+msgstr "{0} طلبات بانتظار موافقتك"
+
+msgctxt "Request Type"
+msgid "Leaves"
+msgstr "الإجازات"
+
+msgctxt "Request Type"
+msgid "Permissions"
+msgstr "الأذونات"
+
+msgctxt "Request Type"
+msgid "Overtime"
+msgstr "العمل الإضافي"
+
+msgctxt "Request Type"
+msgid "Expenses"
+msgstr "المصروفات"
+
+msgctxt "Request Type"
+msgid "Advances"
+msgstr "السلف"
+
+msgctxt "Request Type"
+msgid "Shifts"
+msgstr "الورديات"
+
+msgctxt "Request Type"
+msgid "Attendance"
+msgstr "تعديل الحضور"
+
+msgctxt "Salary Slip"
+msgid "Issued"
+msgstr "صادرة"

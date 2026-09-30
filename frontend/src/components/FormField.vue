@@ -6,7 +6,7 @@
 			:class="[
 				// mark field as mandatory
 				props.reqd ? `after:content-['_*'] after:text-red-600` : ``,
-				`block text-sm leading-5 text-gray-700`,
+				`block text-[13.5px] font-semibold leading-5 text-brand-ink/80`,
 			]"
 		>
 			{{ props.label }}
@@ -107,11 +107,11 @@
 		<!-- Section Break -->
 		<div
 			v-else-if="props.fieldtype === 'Section Break'"
-			:class="props.addSectionPadding ? 'mt-2' : ''"
+			:class="props.addSectionPadding ? 'mt-2 border-t border-brand-roots/[.08]' : ''"
 		>
 			<h2
 				v-if="props.label"
-				class="text-base font-semibold text-gray-800"
+				class="text-[15px] font-bold text-brand-ink"
 				:class="props.addSectionPadding ? 'pt-4' : ''"
 			>
 				{{ props.label }}

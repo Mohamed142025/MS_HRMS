@@ -43,3 +43,11 @@ export const formatTimestamp = (timestamp) => {
 
 	return __("{0} on {1}", [formattedTime, dayjs(timestamp).format("D MMM, YYYY")])
 }
+
+// Amounts in the redesigned screens: Western digits with thousands separators, and the
+// currency as a translated word after the number ("4,733 EGP" / "4,733 ج.م").
+export const formatNumber = (value, maximumFractionDigits = 2) =>
+	Intl.NumberFormat("en-US", { maximumFractionDigits }).format(Number(value || 0))
+
+export const formatAmount = (value, currency) =>
+	currency ? `${formatNumber(value)} ${__(currency)}` : formatNumber(value)

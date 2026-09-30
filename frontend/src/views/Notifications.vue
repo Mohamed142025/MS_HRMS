@@ -1,96 +1,75 @@
 <template>
 	<ion-page>
-		<ion-content class="ion-padding">
-			<div class="flex flex-col h-screen w-screen">
-				<div class="w-full sm:w-96">
-					<header
-						class="flex flex-row bg-white shadow-sm py-4 px-3 items-center justify-between border-b sticky top-0 z-10"
+		<ion-content :fullscreen="true">
+			<SubHeader :title="__('Notifications')" fallback="/home">
+				<template #actions>
+					<button
+						v-if="unreadNotificationsCount.data"
+						type="button"
+						class="min-h-[44px] shrink-0 px-1 text-[14px] font-semibold text-brand-emerald disabled:opacity-60"
+						:disabled="markAllAsRead.loading"
+						@click="markAllAsRead.submit()"
 					>
-						<div class="flex flex-row items-center">
-							<Button
-								variant="ghost"
-								class="!ps-0 hover:bg-white"
-								@click="router.back()"
-							>
-								<FeatherIcon name="chevron-left" class="h-5 w-5" />
-							</Button>
-							<h2 class="text-xl font-semibold text-gray-900">{{ __("Notifications") }} </h2>
-						</div>
-					</header>
+						{{ __("Mark all as read") }}
+					</button>
+					<router-link v-else-if="allowPushNotifications" :to="{ name: 'Settings' }" class="ms-icon-button" :aria-label="__('Settings')">
+						<AppIcon name="sliders" :size="20" />
+					</router-link>
+				</template>
+			</SubHeader>
 
-					<div class="flex flex-col gap-4 mt-5 p-4">
-						<div class="flex flex-row justify-between items-center">
-							<div
-								class="text-lg text-gray-800 font-semibold"
-								v-if="unreadNotificationsCount.data"
-							>
-								{{ __("{0} Unread", [unreadNotificationsCount.data]) }}
-							</div>
-							<div class="flex ms-auto gap-1">
-								<Button
-									v-if="allowPushNotifications"
-									variant="outline"
-									@click="router.push({ name: 'Settings' })"
-								>
-									<template #prefix>
-										<FeatherIcon name="settings" class="w-4" />
-									</template>
-									{{ __("Settings") }}
-								</Button>
-								<Button
-									v-if="unreadNotificationsCount.data"
-									variant="outline"
-									@click="markAllAsRead.submit"
-									:loading="markAllAsRead.loading"
-								>
-									<template #prefix>
-										<FeatherIcon name="check-circle" class="w-4" />
-									</template>
-									{{ __("Mark all as read") }}
-								</Button>
-							</div>
-						</div>
+			<div class="hide-scrollbar mt-4 flex gap-2 overflow-x-auto px-4">
+				<button
+					v-for="option in filters"
+					:key="option.value"
+					type="button"
+					class="ms-filter-chip"
+					:class="filter === option.value && 'is-active'"
+					:aria-pressed="filter === option.value"
+					@click="filter = option.value"
+				>
+					{{ option.label }}
+					<span
+						v-if="option.value === 'unread' && unreadNotificationsCount.data"
+						class="inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-brand-mint px-1.5 text-xs font-bold text-brand-roots"
+					>
+						{{ unreadNotificationsCount.data }}
+					</span>
+				</button>
+			</div>
 
-						<div
-							class="flex flex-col bg-white rounded"
-							v-if="notifications.data?.length"
+			<template v-if="groups.length">
+				<section v-for="group in groups" :key="group.title" :aria-label="group.title">
+					<h2 class="ms-group-title mx-4 mb-2.5 mt-5">{{ group.title }}</h2>
+					<div class="ms-card mx-4 px-3.5">
+						<router-link
+							v-for="item in group.items"
+							:key="item.name"
+							:to="getItemRoute(item)"
+							class="ms-list-row items-start"
+							@click="markAsRead(item.name)"
 						>
-							<router-link
-								:class="[
-									'flex flex-row items-start p-4 justify-between border-b before:mt-3',
-									`before:content-[''] before:mr-2 before:shrink-0 before:w-1.5 before:h-1.5 before:rounded-full`,
-									item.read ? 'bg-white-500' : 'before:bg-blue-500',
-								]"
-								v-for="item in notifications.data"
-								:key="item.name"
-								:to="getItemRoute(item)"
-								@click="markAsRead(item.name)"
-							>
-								<EmployeeAvatar :userID="item.from_user" size="lg" />
-								<div class="flex flex-col gap-0.5 grow ms-3">
-									<div
-										class="text-sm leading-5 font-normal text-gray-800"
-										v-html="item.message"
-									></div>
-									<div class="text-xs font-normal text-gray-500">
-										{{ dayjs(item.creation).fromNow() }}
-									</div>
-								</div>
-							</router-link>
-							
-						</div>
-						<div v-if="notifications.data?.length && notifications.hasNextPage" class="flex">
-							<Button
-								variant="outline"
-								class="ms-auto"
-								@click="loadMore"
-							>
-								{{ __('Load more') }}
-							</Button>
-						</div>
-						<EmptyState v-else-if="!notifications.data" :message="__('You have no notifications')" />
+							<span class="ms-icon-tile h-[42px] w-[42px]" :class="TONES[type(item).tone]">
+								<AppIcon :name="type(item).icon" :size="20" />
+							</span>
+							<span class="min-w-0 grow">
+								<span class="block text-[14.5px] leading-6 text-brand-ink" :class="!item.read && 'font-semibold'" v-html="item.message" />
+								<span class="mt-0.5 block text-xs text-brand-muted">{{ dayjs(item.creation).fromNow() }}</span>
+							</span>
+							<span v-if="!item.read" class="mt-2 h-[9px] w-[9px] shrink-0 rounded-full bg-brand-emerald" :aria-label="__('Unread')" />
+						</router-link>
 					</div>
+				</section>
+				<div v-if="notifications.hasNextPage" class="mx-4 mt-4 flex justify-center">
+					<button type="button" class="ms-secondary-button w-full" @click="loadMore">{{ __("Load more") }}</button>
 				</div>
+				<div class="h-8" />
+			</template>
+			<div
+				v-else-if="notifications.data"
+				class="ms-caption mx-4 mt-5 rounded-[22px] border-[1.5px] border-dashed border-brand-roots/[.12] p-8 text-center"
+			>
+				{{ filter === "unread" ? __("You have no unread notifications") : __("You have no notifications") }}
 			</div>
 		</ion-content>
 	</ion-page>
@@ -98,30 +77,22 @@
 
 <script setup>
 import { IonContent, IonPage } from "@ionic/vue"
-import { useRouter } from "vue-router"
-import { createResource, FeatherIcon } from "frappe-ui"
-
+import { createResource } from "frappe-ui"
 import { computed, inject, onMounted, ref } from "vue"
-import EmployeeAvatar from "@/components/EmployeeAvatar.vue"
-import EmptyState from "@/components/EmptyState.vue"
 
-import {
-	unreadNotificationsCount,
-	notifications,
-	arePushNotificationsEnabled,
-} from "@/data/notifications"
+import SubHeader from "@/components/ui/SubHeader.vue"
+import AppIcon from "@/components/ui/AppIcon.vue"
+
+import { unreadNotificationsCount, notifications, arePushNotificationsEnabled } from "@/data/notifications"
+import { REQUEST_TYPES, TONES } from "@/utils/requestTypes"
 
 const dayjs = inject("$dayjs")
-const router = useRouter()
 const __ = inject("$translate")
 const currentStart = ref(0)
 const pageLength = 10
 
-
 const allowPushNotifications = computed(
-	() =>
-		window.frappe?.boot.push_relay_server_url &&
-		arePushNotificationsEnabled.data
+	() => window.frappe?.boot.push_relay_server_url && arePushNotificationsEnabled.data
 )
 
 const markAllAsRead = createResource({
@@ -149,9 +120,35 @@ function getItemRoute(item) {
 	}
 }
 
+const type = (item) => REQUEST_TYPES[item.reference_document_type] || { icon: "bell", tone: "roots" }
+
+const filter = ref("all")
+const filters = [
+	{ value: "all", label: __("All") },
+	{ value: "unread", label: __("Unread") },
+]
+
+const groups = computed(() => {
+	const items = (notifications.data || []).filter((item) => filter.value === "all" || !item.read)
+	const today = []
+	const week = []
+	const older = []
+	for (const item of items) {
+		const when = dayjs(item.creation)
+		if (when.isToday()) today.push(item)
+		else if (dayjs().diff(when, "day") < 7) week.push(item)
+		else older.push(item)
+	}
+	return [
+		{ title: __("Today"), items: today },
+		{ title: __("This week"), items: week },
+		{ title: __("Earlier"), items: older },
+	].filter((group) => group.items.length)
+})
+
 onMounted(() => {
-	notifications.start = 0,
-	notifications.pageLength = 10,
+	notifications.start = 0
+	notifications.pageLength = 10
 	notifications.fetch()
 })
 

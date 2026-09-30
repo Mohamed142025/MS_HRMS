@@ -51,6 +51,141 @@ body {
 	-webkit-tap-highlight-color: transparent;
 }
 
+/* The app's building blocks, in the Digital Roots palette (tailwind.config.js). */
+@layer components {
+	.ms-card {
+		@apply rounded-[22px] bg-white shadow-card;
+	}
+	.ms-dark-card {
+		@apply rounded-[24px] bg-brand-roots text-brand-sand;
+	}
+	.ms-section-title {
+		@apply text-[17px] font-bold leading-7 text-brand-ink;
+	}
+	.ms-group-title {
+		@apply text-[13.5px] font-bold text-brand-muted;
+	}
+	.ms-caption {
+		@apply text-[13px] leading-5 text-brand-muted;
+	}
+	.ms-link {
+		@apply inline-flex min-h-[44px] items-center gap-0.5 text-[13.5px] font-semibold text-brand-emerald;
+	}
+	.ms-chip {
+		@apply inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-semibold;
+	}
+	.ms-icon-tile {
+		@apply flex h-11 w-11 shrink-0 items-center justify-center rounded-[14px];
+	}
+	.ms-icon-button {
+		@apply flex h-11 w-11 shrink-0 items-center justify-center rounded-[14px] bg-white text-brand-roots shadow-sm transition active:scale-95;
+	}
+	.ms-primary-button {
+		@apply flex h-14 w-full items-center justify-center gap-2 rounded-[18px] bg-brand-emerald text-base font-bold text-white shadow-[0_10px_22px_rgba(var(--ms-emerald-rgb,25,123,87),0.25)] transition active:scale-[.98] disabled:opacity-60;
+	}
+	.ms-secondary-button {
+		@apply flex h-[52px] items-center justify-center gap-1.5 rounded-2xl border-[1.5px] border-brand-roots/[.12] bg-white text-[14.5px] font-semibold text-brand-roots transition active:scale-[.98];
+	}
+	.ms-segmented {
+		@apply grid gap-1 rounded-2xl bg-brand-roots/[.08] p-1;
+	}
+	.ms-segment {
+		@apply flex h-[42px] items-center justify-center gap-1.5 rounded-xl text-[14.5px] font-semibold text-brand-ink/70 transition;
+	}
+	.ms-segment.is-active {
+		@apply bg-white font-bold text-brand-roots shadow-sm;
+	}
+	.ms-filter-chip {
+		@apply flex h-[38px] shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-brand-roots/[.12] bg-white px-4 text-[13.5px] font-semibold text-brand-ink/80;
+	}
+	.ms-filter-chip.is-active {
+		@apply border-brand-roots bg-brand-roots text-brand-sand;
+	}
+	.ms-list-row {
+		@apply flex min-h-[58px] w-full items-center gap-3 border-b border-brand-roots/[.08] py-3 text-start last:border-b-0;
+	}
+	.ms-num {
+		font-variant-numeric: tabular-nums;
+	}
+}
+
+/* The tab bar: a dark rounded bar resting above the bottom edge, with the "new
+   request" button raised in its middle. */
+ion-tab-bar.ms-tabbar {
+	--background: rgb(var(--ms-roots-rgb, 14, 59, 46));
+	--border: 0;
+	--color: rgba(var(--ms-sand-rgb, 244, 241, 234), 0.66);
+	--color-selected: rgba(var(--ms-sand-rgb, 244, 241, 234), 0.66);
+	contain: none;
+	overflow: visible;
+	justify-content: space-around;
+	height: 70px;
+	margin: 0 12px calc(12px + env(safe-area-inset-bottom));
+	padding: 0 6px;
+	border-radius: 26px;
+	box-shadow: 0 14px 34px rgba(var(--ms-shadow-rgb, 14, 59, 46), 0.28);
+}
+
+ion-tab-bar.ms-tabbar ion-tab-button.ms-tab {
+	--background: transparent;
+	--background-focused: transparent;
+	--ripple-color: transparent;
+	flex: 0 1 72px;
+}
+
+ion-tab-bar.ms-tabbar ion-tab-button.ms-tab.is-active {
+	--color: rgb(var(--ms-mint-rgb, 52, 211, 153));
+	--color-selected: rgb(var(--ms-mint-rgb, 52, 211, 153));
+}
+
+.ms-tab-inner {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
+	width: 62px;
+	height: 56px;
+	border-radius: 18px;
+	font-size: 11.5px;
+	font-weight: 500;
+	line-height: 1.1;
+}
+
+ion-tab-button.ms-tab.is-active .ms-tab-inner {
+	background: rgba(var(--ms-mint-rgb, 52, 211, 153), 0.12);
+	font-weight: 600;
+}
+
+.ms-tab-fab {
+	display: flex;
+	flex-shrink: 0;
+	align-items: center;
+	justify-content: center;
+	width: 58px;
+	height: 58px;
+	margin-top: -34px;
+	border-radius: 20px;
+	background: rgb(var(--ms-mint-rgb, 52, 211, 153));
+	color: rgb(var(--ms-roots-rgb, 14, 59, 46));
+	box-shadow: 0 0 0 6px var(--ion-background-color, #f4f1ea), 0 12px 24px rgba(var(--ms-shadow-rgb, 14, 59, 46), 0.32);
+	transition: transform 0.15s;
+}
+
+.ms-tab-fab:active {
+	transform: scale(0.94);
+}
+
+/* Bottom sheets. */
+ion-modal.ms-sheet {
+	--border-radius: 28px;
+}
+
+/* Arrows that mean "forward" or "back" turn around with the reading direction. */
+[dir="rtl"] .ms-flip-rtl {
+	transform: scaleX(-1);
+}
+
 .hide-scrollbar::-webkit-scrollbar {
 	display: none;
 }
@@ -59,4 +194,88 @@ body {
 .hide-scrollbar {
 	-ms-overflow-style: none; /* IE and Edge */
 	scrollbar-width: none; /* Firefox */
+}
+
+/* Wide screens: the app keeps a phone's size, framed, beside the desktop panel
+   (DesktopPanel.vue). Overlays (sheets, toasts) stay inside the frame with the app. */
+.ms-desktop-panel {
+	display: none;
+}
+
+@media (min-width: 1024px) {
+	html,
+	body {
+		background: rgb(var(--ms-sand-rgb, 244, 241, 234));
+	}
+
+	ion-app {
+		top: max(32px, calc(50vh - 422px));
+		bottom: auto;
+		width: 390px;
+		height: min(844px, calc(100vh - 64px));
+		border-radius: 46px;
+		box-shadow: 0 0 0 10px rgb(var(--ms-roots-rgb, 14, 59, 46)), 0 40px 80px rgba(var(--ms-shadow-rgb, 14, 59, 46), 0.28);
+	}
+
+	/* Ionic places ion-app with left and right; the app goes on the reading end. */
+	[dir="ltr"] ion-app {
+		left: auto;
+		right: max(6vw, 48px);
+	}
+
+	[dir="rtl"] ion-app {
+		right: auto;
+		left: max(6vw, 48px);
+	}
+
+	.ms-desktop-panel {
+		position: fixed;
+		inset-block: 0;
+		inset-inline-start: max(6vw, 48px);
+		inset-inline-end: calc(max(6vw, 48px) + 390px + 80px);
+		display: flex;
+		flex-direction: column;
+		padding-block: 40px;
+	}
+}
+
+/* Fields in the redesigned forms (FormView's ms-form): larger touch targets, rounded,
+   on a light Sand fill, Emerald when focused. frappe-ui's own components inside. */
+.ms-form :is(.form-input, .form-textarea, .form-select) {
+	min-height: 48px;
+	border: 1.5px solid rgba(var(--ms-roots-rgb, 14, 59, 46), 0.12);
+	border-radius: 14px;
+	background-color: rgba(var(--ms-sand-rgb, 244, 241, 234), 0.45);
+	font-size: 15px;
+	color: rgb(var(--ms-ink-rgb, 22, 33, 28));
+}
+
+.ms-form .form-textarea {
+	min-height: 88px;
+}
+
+.ms-form :is(.form-input, .form-textarea, .form-select):focus {
+	border-color: rgb(var(--ms-emerald-rgb, 25, 123, 87));
+	background-color: #ffffff;
+	box-shadow: 0 0 0 4px rgba(var(--ms-emerald-rgb, 25, 123, 87), 0.12);
+}
+
+/* frappe-ui's select button (Autocomplete, Link fields). */
+.ms-form button.bg-surface-gray-2.h-7 {
+	height: 48px;
+	padding-inline: 14px;
+	border: 1.5px solid rgba(var(--ms-roots-rgb, 14, 59, 46), 0.12);
+	border-radius: 14px;
+	background-color: rgba(var(--ms-sand-rgb, 244, 241, 234), 0.45);
+}
+
+.ms-form button.bg-surface-gray-2.h-7 :is(.text-base, .text-ink-gray-8, .text-ink-gray-4) {
+	font-size: 15px;
+}
+
+.ms-form .form-checkbox {
+	width: 20px;
+	height: 20px;
+	border-radius: 6px;
+	color: rgb(var(--ms-emerald-rgb, 25, 123, 87));
 }
