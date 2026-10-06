@@ -116,7 +116,7 @@
             "fieldtype": "Select",
             "in_list_view": 1,
             "label": "Deduction Type",
-            "options": "No Deduction\nMinutes\nHour\nQuarter Day\nHalf Day\nFull Day\nReview Required"
+            "options": "No Deduction\nMinutes\nMinutes × Multiplier\nHour\nQuarter Day\nHalf Day\nFull Day\nReview Required"
         },
         {
             "fieldname": "deduction_value",
@@ -157,5 +157,6 @@
     "istable": 1,
     "module": "Custom Hrms",
     "name": "Attendance Penalty Detail",
-    "permissions": []
+    "permissions": [],
+    "modified": "2026-10-04 15:00:00.000000"
 }

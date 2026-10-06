@@ -14,6 +14,7 @@
         "reset_period",
         "entry_grace_period",
         "exit_grace_period",
+        "tiers_from_shift_start",
         "deduction_based_on",
         "salary_component",
         "deduction_salary_component",
@@ -76,6 +77,13 @@
             "fieldname": "exit_grace_period",
             "fieldtype": "Int",
             "label": "Exit Grace Period"
+        },
+        {
+            "default": "0",
+            "fieldname": "tiers_from_shift_start",
+            "fieldtype": "Check",
+            "label": "Tiers From Shift Start",
+            "description": "Maximum Minutes and Minutes × Multiplier count from the shift start; the grace period only decides whether a late entry or early exit counts at all."
         },
         {
             "default": "0",
@@ -154,5 +162,6 @@
         }
     ],
     "sort_field": "modified",
-    "sort_order": "DESC"
+    "sort_order": "DESC",
+    "modified": "2026-10-04 15:00:00.000000"
 }

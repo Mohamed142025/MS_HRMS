@@ -25,7 +25,7 @@ add_to_apps_screen = [
 # The employee PWA at /hrms: ms_hrms' own build, served ahead of Frappe HR's (pwa.py).
 page_renderer = ["ms_hrms.pwa.PWAPage"]
 
-after_migrate = ["ms_hrms.hr_app.after_migrate"]
+after_migrate = ["ms_hrms.hr_app.after_migrate", "ms_hrms.shift_by_weekday.setup"]
 
 # The desk's app switcher opens HR Setup for Frappe HR (hr_app).
 boot_session = ["ms_hrms.hr_app.boot_session"]
@@ -65,6 +65,8 @@ has_permission = {
 # include js in doctype views
 doctype_js = {
     "Attendance Penalty Processing": "custom_hrms/doctype/attendance_penalty_processing/attendance_penalty_processing.js",
+    # Shifts by day of the week (shift_by_weekday).
+    "Shift Assignment Tool": "public/js/shift_assignment_tool.js",
 }
 doctype_list_js = {"Employee Checkin": "public/js/employee_checkin_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
@@ -292,3 +294,7 @@ auto_cancel_exempted_doctypes = ["Additional Salary"]
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
 
+# Shift Assignment Tool assigns shifts by day of the week as well (shift_by_weekday).
+override_doctype_class = {
+    "Shift Assignment Tool": "ms_hrms.shift_by_weekday.WeekdayShiftAssignmentTool",
+}

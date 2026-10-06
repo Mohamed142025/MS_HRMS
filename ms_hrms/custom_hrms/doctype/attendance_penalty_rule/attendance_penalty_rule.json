@@ -16,28 +16,30 @@
             "fieldtype": "Int",
             "in_list_view": 1,
             "label": "Occurrence Number",
-            "reqd": 1
+            "reqd": 1,
+            "description": "1 = first time in the period, 2 = second… 0 = every time (a row with the exact number is used first)."
         },
         {
             "fieldname": "max_late_minutes",
             "fieldtype": "Int",
             "in_list_view": 1,
             "label": "Maximum Minutes",
-            "description": "0 means no maximum limit."
+            "description": "The row applies up to this many minutes (from the shift start when the policy says so, otherwise after the grace period). 0 means no maximum limit."
         },
         {
             "fieldname": "deduction_type",
             "fieldtype": "Select",
             "in_list_view": 1,
             "label": "Deduction Type",
-            "options": "No Deduction\nMinutes\nHour\nQuarter Day\nHalf Day\nFull Day",
+            "options": "No Deduction\nMinutes\nMinutes × Multiplier\nHour\nQuarter Day\nHalf Day\nFull Day",
             "reqd": 1
         },
         {
             "fieldname": "deduction_value",
             "fieldtype": "Float",
             "in_list_view": 1,
-            "label": "Deduction Value"
+            "label": "Deduction Value",
+            "description": "Minutes / hours / days to deduct; for Minutes × Multiplier, the multiplier applied to the minutes late or early."
         },
         {
             "default": "1",
@@ -50,5 +52,6 @@
     "istable": 1,
     "module": "Custom Hrms",
     "name": "Attendance Penalty Rule",
-    "permissions": []
+    "permissions": [],
+    "modified": "2026-10-04 15:00:00.000000"
 }

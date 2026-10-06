@@ -1,0 +1,53 @@
+{
+ "actions": [],
+ "creation": "2026-10-04 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "from_day",
+  "to_day",
+  "shift_type"
+ ],
+ "fields": [
+  {
+   "columns": 3,
+   "fieldname": "from_day",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "من يوم",
+   "options": "Saturday\nSunday\nMonday\nTuesday\nWednesday\nThursday\nFriday",
+   "reqd": 1
+  },
+  {
+   "columns": 3,
+   "fieldname": "to_day",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "إلى يوم",
+   "options": "Saturday\nSunday\nMonday\nTuesday\nWednesday\nThursday\nFriday",
+   "reqd": 1
+  },
+  {
+   "columns": 4,
+   "fieldname": "shift_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "نوع الوردية",
+   "options": "Shift Type",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-10-04 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Custom Hrms",
+ "name": "Weekday Shift Range",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

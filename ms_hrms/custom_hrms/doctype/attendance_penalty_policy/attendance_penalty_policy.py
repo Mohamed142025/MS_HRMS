@@ -29,17 +29,26 @@ class AttendancePenaltyPolicy(Document):
 			frappe.throw(_("Salary Component is required for this deduction basis."))
 
 	def validate_rules(self, rules, label):
+		# An occurrence can have several tiers, one per Maximum Minutes (the tightest that
+		# fits is used); occurrence 0 stands for every occurrence.
 		seen = set()
 		for rule in rules:
 			if not rule.enabled:
 				continue
-			if rule.occurrence_number <= 0:
-				frappe.throw(_("{0}: occurrence number must be greater than zero.").format(label))
-			if rule.occurrence_number in seen:
-				frappe.throw(_("{0}: occurrence number {1} is duplicated.").format(label, rule.occurrence_number))
+			if rule.occurrence_number < 0:
+				frappe.throw(_("{0}: occurrence number cannot be negative.").format(label))
 			if rule.max_late_minutes < 0 or rule.deduction_value < 0:
 				frappe.throw(_("{0}: minutes and deduction value cannot be negative.").format(label))
-			seen.add(rule.occurrence_number)
+			if rule.deduction_type == "Minutes × Multiplier" and rule.deduction_value <= 0:
+				frappe.throw(_("{0}, row {1}: set the multiplier in Deduction Value.").format(label, rule.idx))
+			key = (rule.occurrence_number, rule.max_late_minutes)
+			if key in seen:
+				frappe.throw(
+					_("{0}: occurrence {1} with maximum {2} minutes is duplicated.").format(
+						label, rule.occurrence_number, rule.max_late_minutes or _("no limit")
+					)
+				)
+			seen.add(key)
 
 	def validate_duplicate_scope(self):
 		if not self.enabled:

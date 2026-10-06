@@ -99,16 +99,33 @@ def get_existing_grace_occurrences(employee, policy, payroll_period, attendance_
 	)[0][0]
 
 
+MULTIPLIER = "Minutes × Multiplier"
+
+
 def match_rule(policy, penalty_type, occurrence_number, counted_minutes):
+	"""The rule for this occurrence and these minutes: a row for this very occurrence
+	before one for every occurrence (0), then the tightest Maximum Minutes that fits."""
 	rules = policy.entry_rules if penalty_type == "Late Entry" else policy.exit_rules
 	matches = [
 		rule
 		for rule in rules
 		if rule.enabled
-		and cint(rule.occurrence_number) == cint(occurrence_number)
+		and cint(rule.occurrence_number) in (cint(occurrence_number), 0)
 		and (not cint(rule.max_late_minutes) or counted_minutes <= cint(rule.max_late_minutes))
 	]
-	return sorted(matches, key=lambda rule: cint(rule.max_late_minutes) or 10**9)[0] if matches else None
+	return (
+		sorted(
+			matches,
+			key=lambda rule: (cint(rule.occurrence_number) == 0, cint(rule.max_late_minutes) or 10**9),
+		)[0]
+		if matches
+		else None
+	)
+
+
+def tier_minutes(policy, actual_minutes, counted_minutes):
+	"""The minutes the tiers and the multiplier go by: from the shift start, or after grace."""
+	return actual_minutes if cint(getattr(policy, "tiers_from_shift_start", 0)) else counted_minutes
 
 
 def get_shift_window(attendance):
@@ -176,7 +193,7 @@ def calculate_penalty(policy, attendance, penalty_type, actual_minutes, shift_st
 		}
 	counted_minutes = max(0, actual_minutes - grace)
 	occurrence_number = occurrence_number or 1
-	rule = match_rule(policy, penalty_type, occurrence_number, counted_minutes)
+	rule = match_rule(policy, penalty_type, occurrence_number, tier_minutes(policy, actual_minutes, counted_minutes))
 	if not rule:
 		return {
 			"actual_minutes": actual_minutes,
@@ -198,7 +215,11 @@ def calculate_penalty(policy, attendance, penalty_type, actual_minutes, shift_st
 		"deduction_value": flt(rule.deduction_value),
 		"deduction_amount": 0,
 		"review_required": 0,
-		"remarks": None,
+		"remarks": _("{0} minutes × {1}").format(
+			tier_minutes(policy, actual_minutes, counted_minutes), f"{flt(rule.deduction_value):g}"
+		)
+		if rule.deduction_type == MULTIPLIER
+		else None,
 	}
 
 
@@ -253,13 +274,15 @@ def get_salary_basis(employee, policy, from_date, to_date, salary_component=None
 	return flt(assignment), slip
 
 
-def calculate_deduction_amount(deduction_type, deduction_value, salary_basis, policy):
+def calculate_deduction_amount(deduction_type, deduction_value, salary_basis, policy, minutes=0):
 	daily_rate = Decimal(str(flt(salary_basis))) / Decimal(str(flt(policy.salary_divisor)))
 	hourly_rate = daily_rate / Decimal(str(flt(policy.working_hours_per_day)))
 	value = Decimal(str(flt(deduction_value)))
 	amounts = {
 		"No Deduction": Decimal("0"),
 		"Minutes": hourly_rate * value / Decimal("60"),
+		# The minutes late or early, multiplied (Deduction Value is the multiplier).
+		MULTIPLIER: hourly_rate * Decimal(str(flt(minutes))) * value / Decimal("60"),
 		"Hour": hourly_rate * value,
 		"Quarter Day": daily_rate / Decimal("4") * (value or Decimal("1")),
 		"Half Day": daily_rate / Decimal("2") * (value or Decimal("1")),
@@ -304,7 +327,13 @@ def calculate_for_employee(employee, from_date, to_date, policy, payroll_period=
 			if not within_grace or not grace_available:
 				occurrence_number += 1
 			result = calculate_penalty(policy, attendance, "Late Entry", actual_minutes, shift_start, shift_end, occurrence_number, grace_available)
-			result["deduction_amount"] = calculate_deduction_amount(result["deduction_type"], result["deduction_value"], salary_basis, policy)
+			result["deduction_amount"] = calculate_deduction_amount(
+				result["deduction_type"],
+				result["deduction_value"],
+				salary_basis,
+				policy,
+				tier_minutes(policy, result["actual_minutes"], result["counted_minutes"]),
+			)
 			rows.append(_detail(employee, attendance, payroll_period, shift_type, shift_start, shift_end, checkin, checkout, "Late Entry", policy, result))
 		if checkout and checkout < shift_end:
 			actual_minutes = (shift_end - checkout).total_seconds() / 60
@@ -315,7 +344,13 @@ def calculate_for_employee(employee, from_date, to_date, policy, payroll_period=
 			if not within_grace or not grace_available:
 				occurrence_number += 1
 			result = calculate_penalty(policy, attendance, "Early Exit", actual_minutes, shift_start, shift_end, occurrence_number, grace_available)
-			result["deduction_amount"] = calculate_deduction_amount(result["deduction_type"], result["deduction_value"], salary_basis, policy)
+			result["deduction_amount"] = calculate_deduction_amount(
+				result["deduction_type"],
+				result["deduction_value"],
+				salary_basis,
+				policy,
+				tier_minutes(policy, result["actual_minutes"], result["counted_minutes"]),
+			)
 			rows.append(_detail(employee, attendance, payroll_period, shift_type, shift_start, shift_end, checkin, checkout, "Early Exit", policy, result))
 	return rows
 
