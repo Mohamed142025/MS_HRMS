@@ -129,6 +129,50 @@
   {
    "child": 0,
    "collapsible": 1,
+   "icon": "star",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Employee Evaluation",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Section Break"
+  },
+  {
+   "child": 1,
+   "collapsible": 1,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Employee Evaluation Template",
+   "link_to": "Employee Evaluation Template",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 1,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Employee Evaluation",
+   "link_to": "Employee Evaluation",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 1,
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Employee Evaluation Summary",
+   "link_to": "Employee Evaluation Summary",
+   "link_type": "Report",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
    "icon": "hand-coins",
    "indent": 0,
    "keep_closed": 0,

@@ -2012,3 +2012,24 @@ msgstr "تعديل الحضور"
 msgctxt "Salary Slip"
 msgid "Issued"
 msgstr "صادرة"
+
+msgid "Employee Evaluation"
+msgstr "تقييم الموظف"
+
+msgid "Employee Evaluation Template"
+msgstr "قالب تقييم الموظفين"
+
+msgid "Employee Evaluation Template Item"
+msgstr "بند قالب التقييم"
+
+msgid "Employee Evaluation Item"
+msgstr "بند التقييم"
+
+msgid "Employee Evaluation Summary"
+msgstr "ملخص تقييم الموظفين"
+
+msgid "Employee Evaluation Part"
+msgstr "جزء التقييم"
+
+msgid "Employee Evaluation Template Part"
+msgstr "جزء قالب التقييم"

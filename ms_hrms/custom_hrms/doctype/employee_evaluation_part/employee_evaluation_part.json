@@ -1,0 +1,67 @@
+{
+ "actions": [],
+ "creation": "2026-10-17 16:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "part_name",
+  "weight",
+  "evaluated_by",
+  "score",
+  "notes"
+ ],
+ "fields": [
+  {
+   "columns": 4,
+   "fieldname": "part_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "الجزء",
+   "read_only": 1
+  },
+  {
+   "columns": 2,
+   "fieldname": "weight",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "الوزن",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "columns": 2,
+   "fieldname": "evaluated_by",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "يقيّمه",
+   "read_only": 1
+  },
+  {
+   "columns": 2,
+   "fieldname": "score",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "النتيجة",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Text Editor",
+   "label": "ملاحظات",
+   "read_only": 1
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2026-10-17 16:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Custom Hrms",
+ "name": "Employee Evaluation Part",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

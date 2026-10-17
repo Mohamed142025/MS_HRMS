@@ -1,0 +1,138 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:template_name",
+ "creation": "2026-10-17 16:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "template_name",
+  "is_default",
+  "disabled",
+  "column_break_apply",
+  "designation",
+  "department",
+  "parts_section",
+  "parts",
+  "items_section",
+  "items"
+ ],
+ "fields": [
+  {
+   "fieldname": "template_name",
+   "fieldtype": "Data",
+   "label": "اسم القالب",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "description": "يُستخدم للموظف الذي لا يوجد قالب لمسماه الوظيفي أو لقسمه.",
+   "fieldname": "is_default",
+   "fieldtype": "Check",
+   "label": "القالب الافتراضي"
+  },
+  {
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "معطّل"
+  },
+  {
+   "fieldname": "column_break_apply",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "يُطبَّق على موظفي هذا المسمى أولاً.",
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "المسمى الوظيفي",
+   "options": "Designation"
+  },
+  {
+   "description": "يُطبَّق على موظفي هذا القسم إذا لم يوجد قالب لمسماهم.",
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "القسم",
+   "options": "Department"
+  },
+  {
+   "description": "أضف الأجزاء التي تريدها، وحدد لكل جزء وزنه ومن يقيّمه. مجموع أوزان الأجزاء 100%.",
+   "fieldname": "parts_section",
+   "fieldtype": "Section Break",
+   "label": "أجزاء التقييم"
+  },
+  {
+   "fieldname": "parts",
+   "fieldtype": "Table",
+   "label": "الأجزاء",
+   "options": "Employee Evaluation Template Part",
+   "reqd": 1
+  },
+  {
+   "description": "لكل بند جزؤه ووزنه داخل الجزء. مجموع أوزان بنود كل جزء 100%.",
+   "fieldname": "items_section",
+   "fieldtype": "Section Break",
+   "label": "بنود التقييم"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "البنود",
+   "options": "Employee Evaluation Template Item",
+   "reqd": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-10-17 16:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Custom Hrms",
+ "name": "Employee Evaluation Template",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "template_name",
+ "track_changes": 1
+}

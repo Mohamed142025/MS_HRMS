@@ -1,0 +1,23 @@
+{
+ "add_total_row": 0,
+ "creation": "2026-10-17 16:00:00.000000",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "is_standard": "Yes",
+ "modified": "2026-10-17 16:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Custom Hrms",
+ "name": "Employee Evaluation Summary",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "ref_doctype": "Employee Evaluation",
+ "report_name": "Employee Evaluation Summary",
+ "report_type": "Script Report",
+ "roles": [
+  {"role": "HR Manager"},
+  {"role": "HR User"},
+  {"role": "System Manager"},
+  {"role": "Employee"}
+ ]
+}

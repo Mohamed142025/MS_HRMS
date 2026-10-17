@@ -25,7 +25,11 @@ add_to_apps_screen = [
 # The employee PWA at /hrms: ms_hrms' own build, served ahead of Frappe HR's (pwa.py).
 page_renderer = ["ms_hrms.pwa.PWAPage"]
 
-after_migrate = ["ms_hrms.hr_app.after_migrate", "ms_hrms.shift_by_weekday.setup"]
+after_migrate = [
+	"ms_hrms.hr_app.after_migrate",
+	"ms_hrms.shift_by_weekday.setup",
+	"ms_hrms.custom_hrms.doctype.employee_evaluation.employee_evaluation.setup",
+]
 
 # The desk's app switcher opens HR Setup for Frappe HR (hr_app).
 boot_session = ["ms_hrms.hr_app.boot_session"]
@@ -35,10 +39,12 @@ boot_session = ["ms_hrms.hr_app.boot_session"]
 permission_query_conditions = {
 	"Permission Request": "ms_hrms.request_approvers.permission_request_condition",
 	"Overtime Request": "ms_hrms.request_approvers.overtime_request_condition",
+	"Employee Evaluation": "ms_hrms.custom_hrms.doctype.employee_evaluation.employee_evaluation.get_permission_query_conditions",
 }
 has_permission = {
 	"Permission Request": "ms_hrms.request_approvers.has_permission",
 	"Overtime Request": "ms_hrms.request_approvers.has_permission",
+	"Employee Evaluation": "ms_hrms.custom_hrms.doctype.employee_evaluation.employee_evaluation.has_permission",
 }
 
 # Includes in <head>

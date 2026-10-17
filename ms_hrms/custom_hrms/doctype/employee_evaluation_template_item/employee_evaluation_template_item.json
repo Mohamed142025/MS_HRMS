@@ -1,0 +1,52 @@
+{
+ "actions": [],
+ "creation": "2026-10-17 16:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "part",
+  "kra",
+  "weight"
+ ],
+ "fields": [
+  {
+   "columns": 3,
+   "fieldname": "part",
+   "fieldtype": "Autocomplete",
+   "in_list_view": 1,
+   "label": "الجزء",
+   "reqd": 1
+  },
+  {
+   "columns": 5,
+   "fieldname": "kra",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "البند",
+   "options": "KRA",
+   "reqd": 1
+  },
+  {
+   "columns": 2,
+   "fieldname": "weight",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "الوزن داخل الجزء",
+   "precision": "2",
+   "reqd": 1
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2026-10-17 16:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Custom Hrms",
+ "name": "Employee Evaluation Template Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}
