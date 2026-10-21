@@ -7,7 +7,7 @@ import frappe
 
 from frappe import _
 from frappe.model.document import Document
-from frappe.utils import now_datetime, time_diff_in_seconds
+from frappe.utils import get_first_day, get_last_day, now_datetime, time_diff_in_seconds
 
 from ms_hrms.custom_hrms.doctype.permission_policy.permission_policy import (
     get_applicable_policy,
@@ -1304,6 +1304,41 @@ class PermissionRequest(Document):
             result[0][0] or 0
         )
 
+    def get_permission_month(self):
+        """
+        Return the month the monthly limits count within: the company's
+        Payroll Period covering the Permission Date (e.g. 26th to 25th),
+        or the calendar month when no Payroll Period covers it.
+        """
+
+        company = frappe.db.get_value(
+            "Employee",
+            self.employee,
+            "company",
+        )
+
+        period = frappe.db.get_value(
+            "Payroll Period",
+            {
+                "company": company,
+                "start_date": ["<=", self.permission_date],
+                "end_date": [">=", self.permission_date],
+            },
+            ["start_date", "end_date"],
+            as_dict=True,
+        )
+
+        if period:
+            return {
+                "month_start": period.start_date,
+                "month_end": period.end_date,
+            }
+
+        return {
+            "month_start": get_first_day(self.permission_date),
+            "month_end": get_last_day(self.permission_date),
+        }
+
     def get_monthly_permission_count(self):
         """
         Return number of counted Permission Requests for the month.
@@ -1318,11 +1353,8 @@ class PermissionRequest(Document):
             WHERE
                 employee = %(employee)s
 
-                AND YEAR(permission_date)
-                    = YEAR(%(permission_date)s)
-
-                AND MONTH(permission_date)
-                    = MONTH(%(permission_date)s)
+                AND permission_date BETWEEN %(month_start)s
+                    AND %(month_end)s
 
                 AND TRIM(
                     COALESCE(status, 'Draft')
@@ -1335,8 +1367,8 @@ class PermissionRequest(Document):
             """,
             {
                 "employee": self.employee,
-                "permission_date": self.permission_date,
                 "name": self.name or "",
+                **self.get_permission_month(),
             },
         )
 
@@ -1361,11 +1393,8 @@ class PermissionRequest(Document):
             WHERE
                 employee = %(employee)s
 
-                AND YEAR(permission_date)
-                    = YEAR(%(permission_date)s)
-
-                AND MONTH(permission_date)
-                    = MONTH(%(permission_date)s)
+                AND permission_date BETWEEN %(month_start)s
+                    AND %(month_end)s
 
                 AND TRIM(
                     COALESCE(status, 'Draft')
@@ -1378,8 +1407,8 @@ class PermissionRequest(Document):
             """,
             {
                 "employee": self.employee,
-                "permission_date": self.permission_date,
                 "name": self.name or "",
+                **self.get_permission_month(),
             },
         )
 
