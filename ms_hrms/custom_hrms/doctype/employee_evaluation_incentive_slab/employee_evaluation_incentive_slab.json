@@ -1,0 +1,53 @@
+{
+ "actions": [],
+ "creation": "2026-10-21 14:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "from_score",
+  "to_score",
+  "incentive_percent"
+ ],
+ "fields": [
+  {
+   "columns": 3,
+   "description": "داخل الشريحة",
+   "fieldname": "from_score",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "من درجة",
+   "precision": "2"
+  },
+  {
+   "columns": 3,
+   "description": "خارج الشريحة، إلا 100 في آخر شريحة",
+   "fieldname": "to_score",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "إلى درجة",
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "columns": 3,
+   "fieldname": "incentive_percent",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "نسبة صرف الحافز",
+   "precision": "2"
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2026-10-21 14:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Custom Hrms",
+ "name": "Employee Evaluation Incentive Slab",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

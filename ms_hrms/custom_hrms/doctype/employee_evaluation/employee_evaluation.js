@@ -194,8 +194,19 @@ function calculate(frm) {
 			.text(format_out_of(part.score, part.weight));
 	}
 	frm.doc.final_score = flt(final, 2);
-	frm.doc.incentive_amount = flt((flt(frm.doc.incentive_base) * frm.doc.final_score) / 100, 2);
-	frm.refresh_fields(["parts", "final_score", "incentive_amount"]);
+	frm.doc.incentive_percent = incentive_percent(frm.doc.final_score, frm.doc.incentive_slabs || []);
+	frm.doc.incentive_amount = flt((flt(frm.doc.incentive_base) * frm.doc.incentive_percent) / 100, 2);
+	frm.refresh_fields(["parts", "final_score", "incentive_percent", "incentive_amount"]);
+}
+
+// The slab a score falls in: a slab takes its lower bound, the last one takes 100 too.
+function incentive_percent(score, slabs) {
+	const slab = slabs.find(
+		(row, index) =>
+			(flt(row.from_score) <= score && score < flt(row.to_score)) ||
+			(index === slabs.length - 1 && score === flt(row.to_score))
+	);
+	return slab ? flt(slab.incentive_percent) : 0;
 }
 
 function unscored(frm) {

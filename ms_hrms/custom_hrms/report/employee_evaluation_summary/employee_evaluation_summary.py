@@ -16,7 +16,7 @@ def execute(filters=None):
 	data = frappe.get_list(
 		"Employee Evaluation",
 		filters=conditions,
-		fields=["name", "employee", "employee_name", "department", "evaluator_name", "final_score", "incentive_amount", "status"],
+		fields=["name", "employee", "employee_name", "department", "evaluator_name", "final_score", "incentive_percent", "incentive_amount", "status"],
 		order_by="department, employee",
 	)
 
@@ -63,6 +63,7 @@ def get_columns(parts, weights):
 			for index, part in enumerate(parts)
 		),
 		{"label": _("النتيجة النهائية"), "fieldname": "final_score", "fieldtype": "Percent", "width": 120},
+		{"label": _("نسبة صرف الحافز"), "fieldname": "incentive_percent", "fieldtype": "Percent", "width": 120},
 		{"label": _("الحافز المستحق"), "fieldname": "incentive_amount", "fieldtype": "Currency", "width": 130},
 		{"label": _("الحالة"), "fieldname": "status", "fieldtype": "Data", "width": 160},
 	]

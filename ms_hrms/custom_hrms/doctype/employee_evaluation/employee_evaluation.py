@@ -6,9 +6,11 @@ To) or by HR, and each item out of its weight.
 
 The manager scores their parts and sends the evaluation to HR; HR scores its parts and
 submits it (or returns it to the manager). A part's score is out of its weight, the final
-score is the parts' scores added up, and the incentive is the employee's incentive amount (on their Salary Structure
-Assignment) times the final score. Submitting makes an Additional Salary with it on the
-incentive component of Payroll Settings; cancelling cancels it.
+score is the parts' scores added up, and the incentive is the employee's incentive amount
+(on their Salary Structure Assignment) times the share the template's incentive slabs give
+that score. The slabs are copied with the items, so a later change to the template leaves
+the evaluation as it was. Submitting makes an Additional Salary with it on the incentive
+component of Payroll Settings; cancelling cancels it.
 
 HR sees every evaluation. Anyone else sees the evaluations they score, and their own once
 it is submitted.
@@ -21,6 +23,7 @@ from frappe.model.document import Document
 from frappe.utils import flt, get_link_to_form
 
 from ms_hrms.custom_hrms.doctype.employee_evaluation_template.employee_evaluation_template import (
+	get_incentive_percent,
 	get_template_for,
 )
 
@@ -52,6 +55,9 @@ class EmployeeEvaluation(Document):
 		# An amended evaluation keeps the scores it was copied with.
 		if (self.is_new() and not self.items) or (not self.is_new() and self.has_value_changed("template")):
 			self.set_items()
+		elif not self.incentive_slabs:
+			# Made before the template had slabs.
+			self.set_incentive_slabs(frappe.get_doc("Employee Evaluation Template", self.template))
 		if self.is_new() and not any(row.evaluated_by == BY_MANAGER for row in self.items):
 			# Nothing for the manager to score.
 			self.status = STATUS_HR
@@ -124,6 +130,22 @@ class EmployeeEvaluation(Document):
 						"items",
 						{"part": part.part_name, "evaluated_by": part.evaluated_by, "kra": row.kra, "weight": row.weight},
 					)
+		self.set_incentive_slabs(template)
+
+	def set_incentive_slabs(self, template):
+		if not template.incentive_slabs:
+			frappe.throw(
+				_("قالب التقييم {0} ليس له شرائح حافز؛ حددها في القالب أولًا.").format(
+					get_link_to_form(template.doctype, template.name)
+				)
+			)
+		self.set(
+			"incentive_slabs",
+			[
+				{"from_score": row.from_score, "to_score": row.to_score, "incentive_percent": row.incentive_percent}
+				for row in template.incentive_slabs
+			],
+		)
 
 	def validate_changes(self):
 		"""The items come from the template. The manager scores the items of the manager's
@@ -147,8 +169,14 @@ class EmployeeEvaluation(Document):
 		parts = lambda doc: [  # noqa: E731
 			(row.part_name, flt(row.weight), row.evaluated_by, row.notes or "") for row in doc.parts
 		]
+		slabs = lambda doc: [  # noqa: E731
+			(flt(row.from_score), flt(row.to_score), flt(row.incentive_percent)) for row in doc.incentive_slabs
+		]
 		if layout(self) != layout(before) or parts(self) != parts(before):
 			frappe.throw(_("أجزاء التقييم وبنوده تأتي من القالب ولا تُعدَّل في التقييم."))
+		# Slabs copied now, onto an evaluation made before the template had them, are new.
+		if before.incentive_slabs and slabs(self) != slabs(before):
+			frappe.throw(_("شرائح الحافز تأتي من القالب ولا تُعدَّل في التقييم."))
 
 		previous = {row.name: row for row in before.items}
 		for row in self.items:
@@ -196,8 +224,9 @@ class EmployeeEvaluation(Document):
 			part.score = flt(score, 2)
 			final += score
 		self.final_score = flt(final, 2)
+		self.incentive_percent = get_incentive_percent(self.final_score, self.incentive_slabs)
 		self.incentive_amount = flt(
-			flt(self.incentive_base) * self.final_score / 100, self.precision("incentive_amount")
+			flt(self.incentive_base) * self.incentive_percent / 100, self.precision("incentive_amount")
 		)
 
 	# Assignments ------------------------------------------------------------------------

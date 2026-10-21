@@ -15,7 +15,9 @@
   "parts_section",
   "parts",
   "items_section",
-  "items"
+  "items",
+  "incentive_section",
+  "incentive_slabs"
  ],
  "fields": [
   {
@@ -79,10 +81,23 @@
    "label": "البنود",
    "options": "Employee Evaluation Template Item",
    "reqd": 1
+  },
+  {
+   "description": "نسبة ما يُصرف من مبلغ الحافز حسب النتيجة النهائية. الشرائح متصلة من 0 إلى 100؛ النتيجة على حد شريحتين تتبع الأعلى.",
+   "fieldname": "incentive_section",
+   "fieldtype": "Section Break",
+   "label": "شرائح الحافز"
+  },
+  {
+   "fieldname": "incentive_slabs",
+   "fieldtype": "Table",
+   "label": "الشرائح",
+   "options": "Employee Evaluation Incentive Slab",
+   "reqd": 1
   }
  ],
  "links": [],
- "modified": "2026-10-17 16:00:00.000000",
+ "modified": "2026-10-21 14:00:00.000000",
  "modified_by": "Administrator",
  "module": "Custom Hrms",
  "name": "Employee Evaluation Template",
