@@ -1,0 +1,22 @@
+{
+ "app": "ms_hrms",
+ "bg_color": "gray",
+ "creation": "2026-10-07 08:15:56.300475",
+ "docstatus": 0,
+ "doctype": "Desktop Icon",
+ "hidden": 0,
+ "icon": "clock-alert",
+ "icon_type": "Link",
+ "idx": 2,
+ "label": "Custom HR",
+ "link_to": "Custom HR",
+ "link_type": "Workspace Sidebar",
+ "modified": "2026-10-07 11:26:18.625875",
+ "modified_by": "Administrator",
+ "name": "Custom HR",
+ "owner": "Administrator",
+ "parent_icon": "HR",
+ "restrict_removal": 0,
+ "roles": [],
+ "standard": 1
+}
