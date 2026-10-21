@@ -86,9 +86,13 @@ function render_evaluation(frm) {
 					<td class="text-muted">${format_percent(row.weight)}</td>
 					<td>${
 						editable
-							? `<input type="number" min="0" max="100" step="any" class="form-control input-xs ev-score"
-								data-row="${esc(row.name)}" value="${flt(row.score)}">`
-							: `<b>${format_percent(row.score)}</b>`
+							? `<div class="ev-score-cell">
+								<input type="number" min="0" max="${flt(row.weight)}" step="any"
+									class="form-control input-xs ev-score" data-row="${esc(row.name)}"
+									data-max="${flt(row.weight)}" value="${flt(row.score)}">
+								<span class="text-muted" dir="ltr">/ ${flt(row.weight, 2)}</span>
+							</div>`
+							: `<b dir="ltr">${format_out_of(row.score, row.weight)}</b>`
 					}</td>
 					<td>${
 						editable
@@ -108,8 +112,9 @@ function render_evaluation(frm) {
 						<span class="text-muted"> — ${__("الوزن")} ${format_percent(part.weight)}
 							— ${__("يقيّمه")} ${esc(part.evaluated_by)}</span>
 					</div>
-					<div>${__("النتيجة")}: <b class="ev-part-score" data-part="${esc(part.part_name)}">${format_percent(
-						part.score
+					<div>${__("النتيجة")}: <b class="ev-part-score" dir="ltr" data-part="${esc(part.part_name)}">${format_out_of(
+						part.score,
+						part.weight
 					)}</b></div>
 				</div>
 				${
@@ -122,7 +127,7 @@ function render_evaluation(frm) {
 					<thead><tr>
 						<th style="width: 40%">${__("البند")}</th>
 						<th style="width: 10%">${__("الوزن")}</th>
-						<th style="width: 15%">${__("الدرجة من 100")}</th>
+						<th style="width: 15%">${__("الدرجة من الوزن")}</th>
 						<th>${__("ملاحظات")}</th>
 					</tr></thead>
 					<tbody>${rows}</tbody>
@@ -145,13 +150,18 @@ function render_evaluation(frm) {
 			.ev-part-notes td, .ev-part-notes th { border: 1px solid var(--border-color); padding: 6px 10px; text-align: center; }
 			.ev-table { margin: 0; border-radius: 0 0 var(--border-radius) var(--border-radius); }
 			.ev-table td, .ev-table th { vertical-align: middle; }
+			.ev-score-cell { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
 		</style>
 		${sections.join("")}
 	`);
 
 	wrapper.find(".ev-score").on("change", function () {
+		const max = flt(this.dataset.max);
 		let value = flt(this.value);
-		value = Math.min(100, Math.max(0, value));
+		if (value > max) {
+			frappe.show_alert({ message: __("أقصى درجة لهذا البند {0}.", [flt(max, 2)]), indicator: "orange" });
+		}
+		value = Math.min(max, Math.max(0, value));
 		this.value = value;
 		frappe.model.set_value("Employee Evaluation Item", this.dataset.row, "score", value);
 		calculate(frm);
@@ -165,20 +175,23 @@ function format_percent(value) {
 	return `${flt(value, 2)}%`;
 }
 
-// The scores as the server calculates them, shown while scoring.
+function format_out_of(value, max) {
+	return `${flt(value, 2)} / ${flt(max, 2)}`;
+}
+
+// The scores as the server calculates them, shown while scoring: an item out of its weight,
+// a part out of its weight, and the final score the parts' sum.
 function calculate(frm) {
 	let final = 0;
 	for (const part of frm.doc.parts || []) {
-		part.score = flt(
-			(frm.doc.items || [])
-				.filter((row) => row.part === part.part_name)
-				.reduce((sum, row) => sum + (flt(row.score) * flt(row.weight)) / 100, 0),
-			2
-		);
-		final += (part.score * flt(part.weight)) / 100;
+		const total = (frm.doc.items || [])
+			.filter((row) => row.part === part.part_name)
+			.reduce((sum, row) => sum + flt(row.score), 0);
+		part.score = flt((total * flt(part.weight)) / 100, 2);
+		final += part.score;
 		frm.get_field("evaluation_html")
 			.$wrapper.find(`.ev-part-score[data-part="${CSS.escape(part.part_name)}"]`)
-			.text(format_percent(part.score));
+			.text(format_out_of(part.score, part.weight));
 	}
 	frm.doc.final_score = flt(final, 2);
 	frm.doc.incentive_amount = flt((flt(frm.doc.incentive_base) * frm.doc.final_score) / 100, 2);

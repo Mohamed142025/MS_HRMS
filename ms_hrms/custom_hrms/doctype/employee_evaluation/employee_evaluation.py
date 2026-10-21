@@ -2,11 +2,11 @@
 
 One evaluation per employee and Payroll Period, with the parts and items of the employee's
 Employee Evaluation Template. Each part is scored either by the employee's manager (Reports
-To) or by HR, and each item out of 100.
+To) or by HR, and each item out of its weight.
 
 The manager scores their parts and sends the evaluation to HR; HR scores its parts and
-submits it (or returns it to the manager). A part's score is its items' scores by their
-weights, the final score is the parts' scores by theirs, and the incentive is the employee's incentive amount (on their Salary Structure
+submits it (or returns it to the manager). A part's score is out of its weight, the final
+score is the parts' scores added up, and the incentive is the employee's incentive amount (on their Salary Structure
 Assignment) times the final score. Submitting makes an Additional Salary with it on the
 incentive component of Payroll Settings; cancelling cancels it.
 
@@ -169,8 +169,12 @@ class EmployeeEvaluation(Document):
 
 	def validate_scores(self):
 		for row in self.items:
-			if not 0 <= flt(row.score) <= 100:
-				frappe.throw(_("درجة البند {0} يجب أن تكون بين 0 و 100.").format(frappe.bold(row.kra)))
+			if not 0 <= flt(row.score) <= flt(row.weight):
+				frappe.throw(
+					_("درجة البند {0} يجب أن تكون بين 0 و {1} (وزن البند).").format(
+						frappe.bold(row.kra), f"{flt(row.weight, 2):g}"
+					)
+				)
 
 	def set_incentive_base(self):
 		assignment = frappe.get_all(
@@ -184,11 +188,13 @@ class EmployeeEvaluation(Document):
 		self.incentive_base = flt(assignment[0].get(INCENTIVE_FIELD)) if assignment else 0
 
 	def calculate(self):
+		"""An item is scored out of its weight, so a part's items add up to 100 at most; the
+		part's score is that share of the part's weight, and the final score their sum."""
 		final = 0
 		for part in self.parts:
-			score = sum(flt(row.score) * flt(row.weight) / 100 for row in self.items if row.part == part.part_name)
+			score = sum(flt(row.score) for row in self.items if row.part == part.part_name) * flt(part.weight) / 100
 			part.score = flt(score, 2)
-			final += score * flt(part.weight) / 100
+			final += score
 		self.final_score = flt(final, 2)
 		self.incentive_amount = flt(
 			flt(self.incentive_base) * self.final_score / 100, self.precision("incentive_amount")
