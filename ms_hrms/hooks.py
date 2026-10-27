@@ -34,16 +34,26 @@ after_migrate = [
 # The desk's app switcher opens HR Setup for Frappe HR (hr_app).
 boot_session = ["ms_hrms.hr_app.boot_session"]
 
-# Permission and Overtime Requests: each employee sees their own and those they approve
-# (request_approvers).
+# Employee requests: each employee sees their own and those of the employees they manage
+# or approve (request_approvers).
 permission_query_conditions = {
 	"Permission Request": "ms_hrms.request_approvers.permission_request_condition",
 	"Overtime Request": "ms_hrms.request_approvers.overtime_request_condition",
+	"Leave Application": "ms_hrms.request_approvers.leave_application_condition",
+	"Expense Claim": "ms_hrms.request_approvers.expense_claim_condition",
+	"Shift Request": "ms_hrms.request_approvers.shift_request_condition",
+	"Attendance Request": "ms_hrms.request_approvers.attendance_request_condition",
+	"Employee Advance": "ms_hrms.request_approvers.employee_advance_condition",
 	"Employee Evaluation": "ms_hrms.custom_hrms.doctype.employee_evaluation.employee_evaluation.get_permission_query_conditions",
 }
 has_permission = {
 	"Permission Request": "ms_hrms.request_approvers.has_permission",
 	"Overtime Request": "ms_hrms.request_approvers.has_permission",
+	"Leave Application": "ms_hrms.request_approvers.has_permission",
+	"Expense Claim": "ms_hrms.request_approvers.has_permission",
+	"Shift Request": "ms_hrms.request_approvers.has_permission",
+	"Attendance Request": "ms_hrms.request_approvers.has_permission",
+	"Employee Advance": "ms_hrms.request_approvers.has_permission",
 	"Employee Evaluation": "ms_hrms.custom_hrms.doctype.employee_evaluation.employee_evaluation.has_permission",
 }
 
