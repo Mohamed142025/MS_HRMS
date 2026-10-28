@@ -48,11 +48,9 @@ const transformShiftRequests = (data) =>
 	})
 
 export const myAttendanceRequests = createResource({
-	url: "hrms.api.get_attendance_requests",
-	params: {
-		employee: employeeResource.data.name,
-		limit: 10,
-	},
+	// All the employee's requests, the cancelled ones included (ms_hrms.request_history).
+	url: "ms_hrms.request_history.get_my_requests",
+	params: { doctype: "Attendance Request" },
 	auto: true,
 	cache: "hrms:my_attendance_requests",
 	transform(data) {
@@ -104,7 +102,8 @@ export const myPermissionRequests = createResource({
 			"creation",
 		],
 		filters: [["employee", "=", employeeResource.data.name]],
-		limit: 10,
+		// All the employee's requests, for My Requests to list and group.
+		limit_page_length: 0,
 		order_by: "creation desc",
 	},
 	auto: true,
@@ -139,7 +138,7 @@ export const teamPermissionRequests = createResource({
 			["docstatus", "=", 0],
 		],
 		// Every request awaiting approval, for the approvals screen to list and filter.
-		limit: 0,
+		limit_page_length: 0,
 		order_by: "creation desc",
 	},
 	auto: true,
@@ -168,7 +167,8 @@ export const myOvertimeRequests = createResource({
 			"creation",
 		],
 		filters: [["employee", "=", employeeResource.data.name]],
-		limit: 10,
+		// All the employee's requests, for My Requests to list and group.
+		limit_page_length: 0,
 		order_by: "creation desc",
 	},
 	auto: true,
@@ -204,7 +204,7 @@ export const teamOvertimeRequests = createResource({
 			["docstatus", "=", 0],
 		],
 		// Every request awaiting approval, for the approvals screen to list and filter.
-		limit: 0,
+		limit_page_length: 0,
 		order_by: "creation desc",
 	},
 	auto: true,
@@ -215,11 +215,9 @@ export const teamOvertimeRequests = createResource({
 })
 
 export const myShiftRequests = createResource({
-	url: "hrms.api.get_shift_requests",
-	params: {
-		employee: employeeResource.data.name,
-		limit: 10,
-	},
+	// All the employee's requests, the cancelled ones included (ms_hrms.request_history).
+	url: "ms_hrms.request_history.get_my_requests",
+	params: { doctype: "Shift Request" },
 	auto: true,
 	cache: "hrms:my_shift_requests",
 	transform(data) {

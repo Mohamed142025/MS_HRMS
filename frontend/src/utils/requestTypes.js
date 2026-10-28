@@ -70,6 +70,7 @@ export const REQUEST_TYPES = {
 // The status each list shows, as Frappe HR's own list items worked it out.
 export function requestStatus(doc) {
 	if (doc.workflow_state_field) return doc[doc.workflow_state_field]
+	if (doc.docstatus === 2) return "Cancelled"
 	switch (doc.doctype) {
 		case "Expense Claim":
 			if (doc.approval_status === "Rejected") return "Rejected"
@@ -112,6 +113,18 @@ export const statusTone = (status) => TONES[STATUS_TONES[status] || "neutral"]
 // Waiting for someone's decision.
 export const isPending = (doc) =>
 	["Open", "Draft", "Pending", "Pending Approval"].includes(requestStatus(doc)) && doc.docstatus === 0
+
+// Where a request stands, for filtering by status: awaiting a decision, approved (or
+// submitted and paid), rejected, or cancelled.
+export const STATUS_GROUPS = ["pending", "approved", "rejected", "cancelled"]
+
+export function statusGroup(doc) {
+	const status = requestStatus(doc)
+	if (doc.docstatus === 2 || status === "Cancelled") return "cancelled"
+	if (status === "Rejected") return "rejected"
+	if (isPending(doc)) return "pending"
+	return "approved"
+}
 
 export function requestTitle(doc) {
 	switch (doc.doctype) {

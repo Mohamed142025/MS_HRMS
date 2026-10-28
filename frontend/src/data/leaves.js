@@ -21,11 +21,9 @@ export const getLeaveDates = (leave) => {
 }
 
 export const myLeaves = createResource({
-	url: "hrms.api.get_leave_applications",
-	params: {
-		employee: employeeResource.data.name,
-		limit: 10,
-	},
+	// All the employee's requests, the cancelled ones included (ms_hrms.request_history).
+	url: "ms_hrms.request_history.get_my_requests",
+	params: { doctype: "Leave Application" },
 	auto: true,
 	cache: "hrms:my_leaves",
 	transform(data) {

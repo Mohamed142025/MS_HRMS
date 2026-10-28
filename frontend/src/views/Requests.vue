@@ -44,6 +44,21 @@
 				</button>
 			</div>
 
+			<div class="hide-scrollbar mt-2 flex gap-2 overflow-x-auto px-4">
+				<button
+					v-for="chip in statusChips"
+					:key="chip.value"
+					type="button"
+					class="ms-filter-chip"
+					:class="status === chip.value && 'is-active'"
+					:aria-pressed="status === chip.value"
+					@click="status = chip.value"
+				>
+					{{ chip.label }}
+					<span class="ms-num opacity-60">{{ chip.count }}</span>
+				</button>
+			</div>
+
 			<template v-if="filtered.length">
 				<section v-for="group in groups" :key="group.key" :aria-label="group.title">
 					<h2 class="ms-group-title mx-4 mb-2.5 mt-5">{{ group.title }}</h2>
@@ -53,7 +68,7 @@
 				</section>
 			</template>
 			<div v-else class="ms-caption mx-4 mt-5 rounded-[22px] border-[1.5px] border-dashed border-brand-roots/[.12] p-8 text-center">
-				{{ __("You have no requests") }}
+				{{ requests.length ? __("No requests match these filters") : __("You have no requests") }}
 			</div>
 
 			<div class="mx-4 mb-8 mt-4 flex flex-col gap-2.5">
@@ -95,7 +110,7 @@ import {
 	teamOvertimeRequests,
 } from "@/data/attendance"
 import { newRequestSheet } from "@/data/ui"
-import { REQUEST_TYPES, isPending, typeLabel } from "@/utils/requestTypes"
+import { REQUEST_TYPES, STATUS_GROUPS, isPending, statusGroup, typeLabel } from "@/utils/requestTypes"
 import { formatNumber } from "@/utils/formatters"
 
 const __ = inject("$translate")
@@ -137,8 +152,24 @@ const chips = computed(() => [
 		.map((doctype) => ({ value: doctype, label: typeLabel(doctype) })),
 ])
 
-const filtered = computed(() =>
+const ofType = computed(() =>
 	filter.value === "all" ? requests.value : requests.value.filter((doc) => doc.doctype === filter.value)
+)
+
+// By where each request stands; the counts are of the chosen type.
+const status = ref("all")
+const STATUS_LABELS = { pending: "Pending", approved: "Approved", rejected: "Rejected", cancelled: "Cancelled" }
+const statusChips = computed(() => {
+	const counts = {}
+	for (const doc of ofType.value) counts[statusGroup(doc)] = (counts[statusGroup(doc)] || 0) + 1
+	return [
+		{ value: "all", label: __("All"), count: ofType.value.length },
+		...STATUS_GROUPS.map((group) => ({ value: group, label: __(STATUS_LABELS[group]), count: counts[group] || 0 })),
+	]
+})
+
+const filtered = computed(() =>
+	status.value === "all" ? ofType.value : ofType.value.filter((doc) => statusGroup(doc) === status.value)
 )
 
 const groups = computed(() => {

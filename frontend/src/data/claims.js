@@ -16,11 +16,9 @@ const transformClaimData = (data) => {
 }
 
 export const myClaims = createResource({
-	url: "hrms.api.get_expense_claims",
-	params: {
-		employee: employeeResource.data.name,
-		limit: 10,
-	},
+	// All the employee's requests, the cancelled ones included (ms_hrms.request_history).
+	url: "ms_hrms.request_history.get_my_requests",
+	params: { doctype: "Expense Claim" },
 	auto: true,
 	cache: "hrms:my_claims",
 	transform(data) {

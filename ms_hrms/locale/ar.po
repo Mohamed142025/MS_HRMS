@@ -2066,3 +2066,24 @@ msgstr "مسح"
 
 msgid "Choose a date"
 msgstr "اختر التاريخ"
+
+msgid "Decision"
+msgstr "القرار"
+
+msgid "Approved by"
+msgstr "اعتمده"
+
+msgid "Rejected by"
+msgstr "رفضه"
+
+msgid "Decided on"
+msgstr "تاريخ القرار"
+
+msgid "Cancelled by"
+msgstr "ألغاه"
+
+msgid "Cancelled on"
+msgstr "تاريخ الإلغاء"
+
+msgid "Approver's remarks"
+msgstr "ملاحظات المعتمد"

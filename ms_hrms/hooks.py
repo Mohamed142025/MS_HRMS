@@ -29,6 +29,7 @@ after_migrate = [
 	"ms_hrms.hr_app.after_migrate",
 	"ms_hrms.shift_by_weekday.setup",
 	"ms_hrms.custom_hrms.doctype.employee_evaluation.employee_evaluation.setup",
+	"ms_hrms.request_history.setup",
 ]
 
 # The desk's app switcher opens HR Setup for Frappe HR (hr_app).

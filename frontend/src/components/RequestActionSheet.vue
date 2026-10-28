@@ -72,6 +72,27 @@
 			</div>
 		</div>
 
+		<!-- How the request was decided (ms_hrms.request_history) -->
+		<div v-if="decision.data" class="w-full px-4 pb-4">
+			<div class="rounded-2xl bg-brand-sand/60 p-3.5 text-[14px] leading-6">
+				<div class="flex items-center justify-between gap-2">
+					<span class="font-bold text-brand-ink">{{ __("Decision") }}</span>
+					<StatusChip
+						v-if="decision.data.status || decision.data.cancelled_by"
+						:status="decision.data.cancelled_by ? 'Cancelled' : decision.data.status"
+					/>
+				</div>
+				<div v-for="row in decisionRows" :key="row.label" class="mt-1.5 flex items-start justify-between gap-3">
+					<span class="shrink-0 text-brand-muted">{{ row.label }}</span>
+					<span class="text-end text-brand-ink">{{ row.value }}</span>
+				</div>
+				<div v-if="decision.data.remarks" class="mt-2 border-t border-brand-roots/[.08] pt-2">
+					<span class="block text-brand-muted">{{ __("Approver's remarks") }}</span>
+					<span class="block whitespace-pre-line text-brand-ink">{{ decision.data.remarks }}</span>
+				</div>
+			</div>
+		</div>
+
 		<!-- Actions -->
 		<WorkflowActionSheet
 			v-if="workflow?.hasWorkflow"
@@ -167,6 +188,7 @@ import {
 } from "frappe-ui"
 
 import FormattedField from "@/components/FormattedField.vue"
+import StatusChip from "@/components/ui/StatusChip.vue"
 import FilePreviewModal from "@/components/FilePreviewModal.vue"
 import WorkflowActionSheet from "@/components/WorkflowActionSheet.vue"
 
@@ -177,6 +199,7 @@ import { formatCurrency } from "@/utils/formatters"
 import useWorkflow from "@/composables/workflow"
 
 const __ = inject("$translate")
+const dayjs = inject("$dayjs")
 
 const props = defineProps({
 	fields: {
@@ -209,7 +232,25 @@ const document = createDocumentResource({
 	auto: true,
 	onSuccess(doc) {
 		attachedFiles.reload()
+		decision.reload()
 	},
+})
+
+// Who approved, rejected or cancelled the request, and when.
+const decision = createResource({
+	url: "ms_hrms.request_history.get_request_decision",
+	params: { doctype: props.modelValue.doctype, name: props.modelValue.name },
+})
+const when = (value) => (value ? dayjs(value).format("D MMM YYYY · h:mm a") : "")
+const decisionRows = computed(() => {
+	const data = decision.data || {}
+	const decided = data.status === "Rejected" ? __("Rejected by") : __("Approved by")
+	return [
+		{ label: decided, value: data.status && data.by },
+		{ label: __("Decided on"), value: data.status && when(data.on) },
+		{ label: __("Cancelled by"), value: data.cancelled_by },
+		{ label: __("Cancelled on"), value: when(data.cancelled_on) },
+	].filter((row) => row.value)
 })
 
 const attachedFiles = createResource({
@@ -312,6 +353,7 @@ const updateDocumentStatus = ({ status = "", docstatus = 0 }) => {
 		{
 			onSuccess() {
 				if (docstatus !== 0) modalController.dismiss()
+				decision.reload()
 
 				toast({
 					title: __("Success"),
