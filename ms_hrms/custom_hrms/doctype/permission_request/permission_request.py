@@ -157,9 +157,12 @@ class PermissionRequest(Document):
         #
         # HR Manager / System Manager / Administrator can select
         # another Employee.
+        #
+        # Only when the request is made: saving it afterwards, as its
+        # approver does when deciding it, keeps its Employee.
         # ---------------------------------------------------------------------
 
-        if not self.can_create_request_for_other_employee():
+        if self.is_new() and not self.can_create_request_for_other_employee():
             self.set_employee_from_current_user()
 
         # ---------------------------------------------------------------------
@@ -364,6 +367,15 @@ class PermissionRequest(Document):
             )
 
         if self.can_create_request_for_other_employee():
+            return
+
+        # ---------------------------------------------------------------------
+        # The rule is about whose request it is: it applies when the request
+        # is made or moved to another Employee, not when its approver saves
+        # it to decide it.
+        # ---------------------------------------------------------------------
+
+        if not self.is_new() and not self.has_value_changed("employee"):
             return
 
         current_user = frappe.session.user
