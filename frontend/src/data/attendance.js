@@ -114,7 +114,9 @@ export const myPermissionRequests = createResource({
 })
 
 export const teamPermissionRequests = createResource({
-	url: "frappe.client.get_list",
+	// Awaiting the user's approval: of the employees whose requests they approve
+	// (ms_hrms.request_approvers), not every request they may see.
+	url: "ms_hrms.request_approvers.get_requests_to_approve",
 	params: {
 		doctype: "Permission Request",
 		fields: [
@@ -130,16 +132,6 @@ export const teamPermissionRequests = createResource({
 			"docstatus",
 			"creation",
 		],
-		// Awaiting the user's approval; the server shows each approver only the
-		// requests they approve (ms_hrms.request_approvers).
-		filters: [
-			["employee", "!=", employeeResource.data.name],
-			["status", "=", "Pending Approval"],
-			["docstatus", "=", 0],
-		],
-		// Every request awaiting approval, for the approvals screen to list and filter.
-		limit_page_length: 0,
-		order_by: "creation desc",
 	},
 	auto: true,
 	cache: "hrms:team_permission_requests",
@@ -179,7 +171,9 @@ export const myOvertimeRequests = createResource({
 })
 
 export const teamOvertimeRequests = createResource({
-	url: "frappe.client.get_list",
+	// Awaiting the user's approval: of the employees whose requests they approve
+	// (ms_hrms.request_approvers), not every request they may see.
+	url: "ms_hrms.request_approvers.get_requests_to_approve",
 	params: {
 		doctype: "Overtime Request",
 		fields: [
@@ -196,16 +190,6 @@ export const teamOvertimeRequests = createResource({
 			"docstatus",
 			"creation",
 		],
-		// Awaiting the user's approval; the server shows each approver only the
-		// requests they approve (ms_hrms.request_approvers).
-		filters: [
-			["employee", "!=", employeeResource.data.name],
-			["status", "=", "Pending Approval"],
-			["docstatus", "=", 0],
-		],
-		// Every request awaiting approval, for the approvals screen to list and filter.
-		limit_page_length: 0,
-		order_by: "creation desc",
 	},
 	auto: true,
 	cache: "hrms:team_overtime_requests",

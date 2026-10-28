@@ -2087,3 +2087,12 @@ msgstr "تاريخ الإلغاء"
 
 msgid "Approver's remarks"
 msgstr "ملاحظات المعتمد"
+
+msgid "Employee Requests"
+msgstr "طلبات الموظفين"
+
+msgid "Roles That See All Requests"
+msgstr "الأدوار التي ترى كل الطلبات"
+
+msgid "Besides the System Manager, these roles see every employee's requests (leaves, permissions, overtime, attendance, shifts, expenses and advances). Everyone else sees their own, and those of the employees they manage or approve."
+msgstr "إلى جانب مدير النظام، ترى هذه الأدوار طلبات جميع الموظفين (الإجازات والأذونات والعمل الإضافي والحضور والورديات والمصروفات والسلف). أما غيرهم فيرى طلباته وطلبات الموظفين الذين يديرهم أو يعتمد طلباتهم."
