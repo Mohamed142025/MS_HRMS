@@ -77,7 +77,7 @@
 
 <script setup>
 import { IonContent, IonPage } from "@ionic/vue"
-import { createResource } from "frappe-ui"
+import { call, createResource } from "frappe-ui"
 import { computed, inject, onMounted, ref } from "vue"
 
 import SubHeader from "@/components/ui/SubHeader.vue"
@@ -102,15 +102,12 @@ const markAllAsRead = createResource({
 	},
 })
 
+// Through ms_hrms: the Employee role may only read notifications.
 function markAsRead(name) {
-	notifications.setValue.submit(
-		{ name, read: 1 },
-		{
-			onSuccess: () => {
-				unreadNotificationsCount.reload()
-			},
-		}
-	)
+	call("ms_hrms.app_notifications.mark_read", { name }).then(() => {
+		notifications.reload()
+		unreadNotificationsCount.reload()
+	})
 }
 
 const DETAIL_VIEWS = [

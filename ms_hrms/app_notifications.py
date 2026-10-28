@@ -122,6 +122,16 @@ def is_on(key):
 	return bool(frappe.get_cached_doc("HR Settings").get(SETTINGS[key]))
 
 
+# Reading
+
+
+@frappe.whitelist(methods=["POST"])
+def mark_read(name):
+	"""Mark one of the user's notifications read: the Employee role may only read PWA
+	Notifications, so the app's list cannot set it itself."""
+	frappe.db.set_value("PWA Notification", {"name": name, "to_user": frappe.session.user}, "read", 1, update_modified=False)
+
+
 # Sending
 
 
