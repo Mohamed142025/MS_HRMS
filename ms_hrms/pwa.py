@@ -20,6 +20,10 @@ from frappe.website.page_renderers.base_renderer import BaseRenderer
 
 TEMPLATE = "templates/ms_hrms_pwa.html"
 MANIFEST_PATH = "/hrms/manifest.webmanifest"
+# The app's service worker, built into public/frontend, is served within the app's scope
+# so Android shows its notifications as the installed app's, with its icon.
+SERVICE_WORKER_PATH = "/hrms/sw.js"
+SERVICE_WORKER_FILE = "public/frontend/sw.js"
 NO_CACHE = {"Cache-Control": "no-store,no-cache,must-revalidate,max-age=0"}
 # Languages offered in the app's settings and on its login page.
 LANGUAGES = (("ar", "العربية"), ("en", "English"))
@@ -35,6 +39,8 @@ class PWAPage(BaseRenderer):
 		return self.path == "hrms" and os.path.exists(frappe.get_app_path("ms_hrms", TEMPLATE))
 
 	def render(self):
+		if frappe.local.request.path.rstrip("/") == SERVICE_WORKER_PATH:
+			return self.render_service_worker()
 		if frappe.local.request.path.rstrip("/") == MANIFEST_PATH:
 			return self.build_response(
 				json.dumps(get_manifest(), ensure_ascii=False),
@@ -42,6 +48,36 @@ class PWAPage(BaseRenderer):
 			)
 		html = frappe.render_template(TEMPLATE, get_context())
 		return self.build_response(html, headers=NO_CACHE)
+
+	def render_service_worker(self):
+		path = frappe.get_app_path("ms_hrms", SERVICE_WORKER_FILE)
+		if not os.path.exists(path):
+			return self.build_response("", http_status_code=404, headers=NO_CACHE)
+		with open(path, encoding="utf-8") as worker:
+			script = worker.read()
+		return self.build_response(
+			script,
+			headers={
+				**NO_CACHE,
+				"Content-Type": "application/javascript; charset=utf-8",
+				# The scope "/hrms" also covers the app's bare address.
+				"Service-Worker-Allowed": "/hrms",
+			},
+		)
+
+
+class FaviconPage(BaseRenderer):
+	"""/favicon.ico, where browsers look for a site's icon (Chrome shows it on the
+	notifications of a site): the site's favicon (Website Settings), else the app's."""
+
+	def can_render(self):
+		return self.path == "favicon.ico"
+
+	def render(self):
+		favicon = frappe.get_cached_doc("Website Settings").favicon or f"{PWA_IMAGES}/favicon-196.png"
+		return self.build_response(
+			"", http_status_code=302, headers={"Location": favicon, "Cache-Control": "public, max-age=86400"}
+		)
 
 
 def get_context():

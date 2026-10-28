@@ -22,6 +22,11 @@ export default defineConfig({
 			strategies: "injectManifest",
 			injectRegister: null,
 			manifest: false,
+			// The worker is served at /hrms/sw.js (ms_hrms.pwa) for the app's scope, while
+			// the files it precaches stay in the built assets folder.
+			injectManifest: {
+				modifyURLPrefix: { "": "/assets/ms_hrms/frontend/" },
+			},
 			devOptions: {
 				enabled: true,
 			},

@@ -9,6 +9,8 @@ readme = "README.md"
 dynamic = ["version"]
 dependencies = [
     # "frappe~=16.0.0" # Installed and managed by bench.
+    # Push notifications to the employee app (web_push).
+    "pywebpush>=2.0,<3",
 ]
 
 [build-system]

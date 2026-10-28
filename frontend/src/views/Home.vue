@@ -68,6 +68,20 @@
 				<AppIcon name="forward" :size="20" class="text-brand-muted" />
 			</router-link>
 
+			<!-- For HR: who has not checked in since their shift started (attendance_watch). -->
+			<router-link
+				v-if="watchCard"
+				:to="{ name: 'NotCheckedIn' }"
+				class="ms-card mx-4 mt-4 flex items-center gap-3 px-3.5 py-3.5"
+			>
+				<span class="ms-icon-tile" :class="watchCard.count ? TONES.danger : TONES.success"><AppIcon name="clock" /></span>
+				<span class="min-w-0 grow">
+					<span class="block text-[15px] font-bold text-brand-ink">{{ watchCard.title }}</span>
+					<span class="block truncate text-[12.5px] text-brand-muted">{{ __("As of {0}", [clock(attendanceOverview.data.as_of)]) }}</span>
+				</span>
+				<AppIcon name="forward" :size="20" class="text-brand-muted" />
+			</router-link>
+
 			<section class="mt-6 px-4" :aria-label="__('Quick actions')">
 				<h2 class="ms-section-title mb-3">{{ __("Quick actions") }}</h2>
 				<div class="grid grid-cols-4 gap-2">
@@ -227,7 +241,7 @@ import AppIcon from "@/components/ui/AppIcon.vue"
 import Ring from "@/components/ui/Ring.vue"
 import ColumnChart from "@/components/ui/ColumnChart.vue"
 
-import { home, leaveOverview } from "@/data/pwa"
+import { attendanceOverview, home, leaveOverview } from "@/data/pwa"
 import { leaveBalance } from "@/data/leaves"
 import { unreadNotificationsCount } from "@/data/notifications"
 import { teamLeaves } from "@/data/leaves"
@@ -263,6 +277,7 @@ onBeforeUnmount(stopClock)
 onMounted(() => {
 	home.reload()
 	leaveOverview.reload()
+	attendanceOverview.reload()
 })
 
 const teamSources = [
@@ -275,7 +290,7 @@ const teamSources = [
 ]
 
 async function refresh(event) {
-	await Promise.allSettled([home.reload(), leaveBalance.reload(), leaveOverview.reload(), ...teamSources.map((r) => r.reload())])
+	await Promise.allSettled([home.reload(), leaveBalance.reload(), leaveOverview.reload(), attendanceOverview.reload(), ...teamSources.map((r) => r.reload())])
 	event.target.complete()
 }
 
@@ -288,6 +303,15 @@ const dateLine = computed(() => {
 	const shift = home.data?.shift
 	if (shift) parts.push(`${__(shift.name)} ${clock(shift.start)} – ${clock(shift.end)}`)
 	return parts.join(" · ")
+})
+
+// Not checked in: only for the roles that watch attendance (no data for others).
+const watchCard = computed(() => {
+	const data = attendanceOverview.data
+	if (!data) return null
+	if (data.not_in) return { count: data.not_in, title: __("{0} have not checked in yet", [data.not_in]) }
+	if (data.absent) return { count: data.absent, title: __("{0} absent today", [data.absent]) }
+	return { count: 0, title: __("Everyone whose shift started has checked in") }
 })
 
 // Approvals

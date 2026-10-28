@@ -2096,3 +2096,276 @@ msgstr "الأدوار التي ترى كل الطلبات"
 
 msgid "Besides the System Manager, these roles see every employee's requests (leaves, permissions, overtime, attendance, shifts, expenses and advances). Everyone else sees their own, and those of the employees they manage or approve."
 msgstr "إلى جانب مدير النظام، ترى هذه الأدوار طلبات جميع الموظفين (الإجازات والأذونات والعمل الإضافي والحضور والورديات والمصروفات والسلف). أما غيرهم فيرى طلباته وطلبات الموظفين الذين يديرهم أو يعتمد طلباتهم."
+
+msgid "Late arrival permission"
+msgstr "إذن تأخير"
+
+msgid "Shift not started"
+msgstr "لم يبدأ الشيفت"
+
+msgid "On duty"
+msgstr "في مأمورية"
+
+msgid "No shift"
+msgstr "بدون شيفت"
+
+msgid "Attendance Watch"
+msgstr "متابعة الحضور"
+
+msgid "Roles That Watch Attendance"
+msgstr "الأدوار التي تتابع الحضور"
+
+msgid "Besides the System Manager, these roles see who has not checked in since their shift started, in the employee app and the Daily Shift Attendance report."
+msgstr "إلى جانب مدير النظام، ترى هذه الأدوار من لم يسجّل حضوره منذ بداية شيفته، في تطبيق الموظفين وفي تقرير الحضور اليومي حسب الشيفت."
+
+msgid "Notify Who Has Not Checked In"
+msgstr "إرسال إشعار بمن لم يحضر"
+
+msgid "Notify After Shift Start (Minutes)"
+msgstr "الإشعار بعد بداية الشيفت بـ (دقيقة)"
+
+msgid "You are not allowed to see who has checked in."
+msgstr "غير مسموح لك بمتابعة حضور الموظفين."
+
+msgid "{0} have not checked in yet · {1} shift ({2})"
+msgstr "{0} لم يحضروا بعد · شيفت {1} ({2})"
+
+msgid "Choose today or a past day."
+msgstr "اختر اليوم أو يومًا سابقًا."
+
+msgid "First Check-in"
+msgstr "أول بصمة"
+
+msgid "Minutes Late"
+msgstr "دقائق التأخير"
+
+msgid "Daily Shift Attendance"
+msgstr "الحضور اليومي حسب الشيفت"
+
+msgid "Not in yet or absent"
+msgstr "لم يحضر بعد أو غائب"
+
+msgid "Today · as of {0}"
+msgstr "اليوم · حتى {0}"
+
+msgid "All departments"
+msgstr "كل الأقسام"
+
+msgid "These employees have no shift assigned and no default shift, so whether they came in is not followed."
+msgstr "هؤلاء الموظفون ليس لهم شيفت معيّن ولا شيفت افتراضي، لذلك لا تتم متابعة حضورهم."
+
+msgid "Call {0}"
+msgstr "اتصال بـ {0}"
+
+msgid "WhatsApp {0}"
+msgstr "واتساب {0}"
+
+msgid "No number"
+msgstr "لا يوجد رقم"
+
+msgid "No employees match these filters"
+msgstr "لا يوجد موظفون مطابقون لهذه الفلاتر"
+
+msgid "Everyone whose shift started has checked in"
+msgstr "كل من بدأ شيفته سجّل حضوره"
+
+msgid "No one is absent"
+msgstr "لا يوجد غائبون"
+
+msgid "No late arrival permissions today"
+msgstr "لا توجد أذونات تأخير اليوم"
+
+msgid "Every employee has a shift"
+msgstr "كل الموظفين لهم شيفت"
+
+msgid "Permission until {0}"
+msgstr "إذن حتى {0}"
+
+msgid "{0} min late"
+msgstr "متأخر {0} دقيقة"
+
+msgid "{0} h {1} min late"
+msgstr "متأخر {0} س {1} د"
+
+msgid "{0} have not checked in yet"
+msgstr "{0} لم يحضروا بعد"
+
+msgid "{0} absent today"
+msgstr "{0} غائبون اليوم"
+
+msgid "As of {0}"
+msgstr "حتى {0}"
+
+msgid "Not in yet"
+msgstr "لم يحضر بعد"
+
+msgid "Not started yet"
+msgstr "لم يبدأ بعد"
+
+msgid "Starts At"
+msgstr "يبدأ في"
+
+msgid "On Duty"
+msgstr "مأمورية"
+
+msgid "From HR"
+msgstr "من الموارد البشرية"
+
+msgid "Occasion"
+msgstr "مناسبة"
+
+msgid "Check-in reminder"
+msgstr "تذكير البصمة"
+
+msgid "Remarks: {0}"
+msgstr "الملاحظات: {0}"
+
+msgid "Notifications are on"
+msgstr "تم تفعيل الإشعارات"
+
+msgid "You will be notified here of your requests, approvals and announcements."
+msgstr "ستصلك هنا إشعارات طلباتك والموافقات والإعلانات."
+
+msgid "Log in to turn notifications on."
+msgstr "سجّل الدخول لتفعيل الإشعارات."
+
+msgid "This device did not give a complete subscription."
+msgstr "لم يرسل هذا الجهاز بيانات اشتراك كاملة."
+
+msgid "{0} sent a {1} for your approval: {2}"
+msgstr "أرسل {0} {1} لاعتمادك: {2}"
+
+msgid "Your {0} ({1}) was approved by {2}"
+msgstr "تم اعتماد {0} ({1}) بواسطة {2}"
+
+msgid "Your {0} ({1}) was rejected by {2}"
+msgstr "تم رفض {0} ({1}) بواسطة {2}"
+
+msgid "Your {0} ({1}) was cancelled by {2}"
+msgstr "تم إلغاء {0} ({1}) بواسطة {2}"
+
+msgid "{0} cancelled their {1}: {2}"
+msgstr "ألغى {0} {1}: {2}"
+
+msgid "Your salary slip for {0} is ready: {1}"
+msgstr "قسيمة راتبك لشهر {0} جاهزة: {1}"
+
+msgid "Tomorrow is a holiday: {0}"
+msgstr "غدًا عطلة: {0}"
+
+msgid "Your {0} starts tomorrow and ends on {1}"
+msgstr "تبدأ {0} غدًا وتنتهي يوم {1}"
+
+msgid "Happy birthday, {0}! Wishing you a wonderful year."
+msgstr "عيد ميلاد سعيد يا {0}! نتمنى لك عامًا رائعًا."
+
+msgid "Happy work anniversary, {0}! {1} years with us today."
+msgstr "ذكرى تعيين سعيدة يا {0}! أتممت اليوم {1} سنوات معنا."
+
+msgid "Today is {0}'s birthday. Wish them a happy birthday!"
+msgstr "اليوم عيد ميلاد {0}. شاركه التهنئة!"
+
+msgid "{0} completes {1} years with us today."
+msgstr "يُتم {0} اليوم {1} سنوات معنا."
+
+msgid "Your {0} shift started at {1} and you have not checked in yet."
+msgstr "بدأ شيفت {0} الساعة {1} ولم تسجّل حضورك بعد."
+
+msgid "App Notifications"
+msgstr "إشعارات التطبيق"
+
+msgid "What the employee app notifies of; each is also pushed to the phones that turned notifications on."
+msgstr "ما يرسله تطبيق الموظفين من إشعارات؛ ويصل كل منها أيضًا إلى الهواتف التي فعّلت الإشعارات."
+
+msgid "Notify About Requests"
+msgstr "إشعارات الطلبات"
+
+msgid "New requests to their approvers; decisions and cancellations to their employees."
+msgstr "الطلبات الجديدة إلى المعتمدين، والقرارات والإلغاء إلى أصحاب الطلبات."
+
+msgid "Remind of Holidays"
+msgstr "التذكير بالعطلات"
+
+msgid "The day before a holiday, to the employees whose holiday list has it."
+msgstr "قبل العطلة بيوم، للموظفين الذين تتضمنها قائمة عطلاتهم."
+
+msgid "Remind of Leaves Starting"
+msgstr "التذكير ببداية الإجازة"
+
+msgid "The day before an employee's approved leave starts."
+msgstr "قبل بداية إجازة الموظف المعتمدة بيوم."
+
+msgid "Birthday Greetings"
+msgstr "تهنئة أعياد الميلاد"
+
+msgid "To the employee and the colleagues of their department."
+msgstr "للموظف ولزملائه في القسم."
+
+msgid "Work Anniversary Greetings"
+msgstr "تهنئة ذكرى التعيين"
+
+msgid "Notify of Salary Slips"
+msgstr "إشعار قسيمة الراتب"
+
+msgid "When an employee's salary slip is submitted."
+msgstr "عند اعتماد قسيمة راتب الموظف."
+
+msgid "Remind Employees to Check In"
+msgstr "تذكير الموظف بالبصمة"
+
+msgid "When their shift started and they have not checked in."
+msgstr "عند بداية شيفته وعدم تسجيل حضوره."
+
+msgid "Send Reminders and Greetings At"
+msgstr "وقت إرسال التذكيرات والتهاني"
+
+msgid "Check-in Reminder After Shift Start (Minutes)"
+msgstr "تذكير البصمة بعد بداية الشيفت بـ (دقيقة)"
+
+msgid "Push Subscription"
+msgstr "اشتراك الإشعارات"
+
+msgid "Device"
+msgstr "الجهاز"
+
+msgid "Last Sent"
+msgstr "آخر إرسال"
+
+msgid "Subscription"
+msgstr "الاشتراك"
+
+msgid "HR Announcement"
+msgstr "إعلان الموارد البشرية"
+
+msgid "Sent To"
+msgstr "المرسل إليهم"
+
+msgid "Audience"
+msgstr "الجمهور"
+
+msgid "All Employees"
+msgstr "كل الموظفين"
+
+msgid "Recipients"
+msgstr "عدد المستلمين"
+
+msgid "Sent On"
+msgstr "تاريخ الإرسال"
+
+msgid "The app's service worker is not running. Reload the app and try again."
+msgstr "خدمة التطبيق في الخلفية لا تعمل. أعد تحميل التطبيق وحاول مرة أخرى."
+
+msgid "Add the app to your home screen to get notifications on iPhone"
+msgstr "أضف التطبيق إلى الشاشة الرئيسية لتصلك الإشعارات على آيفون"
+
+msgid "This browser does not support notifications"
+msgstr "هذا المتصفح لا يدعم الإشعارات"
+
+msgid "Notifications are blocked for this app in the browser settings"
+msgstr "الإشعارات محظورة لهذا التطبيق في إعدادات المتصفح"
+
+msgid "Push notifications enabled"
+msgstr "تم تفعيل الإشعارات الفورية"
+
+msgid "Could not change notifications on this device"
+msgstr "تعذّر تغيير الإشعارات على هذا الجهاز"

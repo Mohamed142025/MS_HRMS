@@ -13,3 +13,8 @@ export const installQr = resource("get_install_qr")
 
 export const attendanceMonth = createResource({ url: "ms_hrms.pwa_api.get_attendance" })
 export const insights = createResource({ url: "ms_hrms.pwa_api.get_insights" })
+
+// Who has not checked in since their shift started (ms_hrms.attendance_watch): for HR, not
+// cached on the device.
+export const attendanceOverview = createResource({ url: "ms_hrms.attendance_watch.get_overview" })
+export const attendanceBoard = createResource({ url: "ms_hrms.attendance_watch.get_board" })

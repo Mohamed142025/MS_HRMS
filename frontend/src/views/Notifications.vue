@@ -83,7 +83,8 @@ import { computed, inject, onMounted, ref } from "vue"
 import SubHeader from "@/components/ui/SubHeader.vue"
 import AppIcon from "@/components/ui/AppIcon.vue"
 
-import { unreadNotificationsCount, notifications, arePushNotificationsEnabled } from "@/data/notifications"
+import { unreadNotificationsCount, notifications } from "@/data/notifications"
+import { pushSupported } from "@/composables/pushNotifications"
 import { REQUEST_TYPES, TONES } from "@/utils/requestTypes"
 
 const dayjs = inject("$dayjs")
@@ -91,9 +92,8 @@ const __ = inject("$translate")
 const currentStart = ref(0)
 const pageLength = 10
 
-const allowPushNotifications = computed(
-	() => window.frappe?.boot.push_relay_server_url && arePushNotificationsEnabled.data
-)
+// Push notifications are the site's own (ms_hrms.web_push): set up wherever supported.
+const allowPushNotifications = computed(() => pushSupported())
 
 const markAllAsRead = createResource({
 	url: "hrms.api.mark_all_notifications_as_read",
@@ -113,14 +113,39 @@ function markAsRead(name) {
 	)
 }
 
+const DETAIL_VIEWS = [
+	"Leave Application",
+	"Expense Claim",
+	"Shift Request",
+	"Attendance Request",
+	"Permission Request",
+	"Overtime Request",
+	"Employee Advance",
+	"Salary Slip",
+]
+
 function getItemRoute(item) {
+	// Sent by ms_hrms.attendance_watch for a shift whose employees have not checked in.
+	if (item.reference_document_type === "Shift Type") return { name: "NotCheckedIn" }
+	// Reminders, greetings and announcements (ms_hrms.app_notifications) are read here.
+	if (!DETAIL_VIEWS.includes(item.reference_document_type) || !item.reference_document_name) return { name: "Notifications" }
 	return {
 		name: `${item.reference_document_type.replace(/\s+/g, "")}DetailView`,
 		params: { id: item.reference_document_name },
 	}
 }
 
-const type = (item) => REQUEST_TYPES[item.reference_document_type] || { icon: "bell", tone: "roots" }
+// Icons of the notifications that are not about a request (ms_hrms.app_notifications).
+const OTHER_TYPES = {
+	"Shift Type": { icon: "users", tone: "danger" },
+	"Employee Checkin": { icon: "clock", tone: "warning" },
+	"Holiday List": { icon: "calendar", tone: "emerald" },
+	Employee: { icon: "sun", tone: "info" },
+	"Salary Slip": { icon: "banknote", tone: "success" },
+	"HR Announcement": { icon: "bell", tone: "roots" },
+}
+const type = (item) =>
+	REQUEST_TYPES[item.reference_document_type] || OTHER_TYPES[item.reference_document_type] || { icon: "bell", tone: "roots" }
 
 const filter = ref("all")
 const filters = [

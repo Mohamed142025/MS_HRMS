@@ -24,6 +24,7 @@ import dayjs from "@/utils/dayjs"
 import getIonicConfig from "@/utils/ionicConfig"
 
 import FrappePushNotification from "../public/frappe-push-notification"
+import { subscribeAgain, takeOverSubscription } from "@/composables/pushNotifications"
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/vue/css/core.css"
@@ -62,7 +63,10 @@ const registerServiceWorker = async () => {
 	window.frappePushNotification = new FrappePushNotification("hrms")
 
 	if ("serviceWorker" in navigator) {
-		let serviceWorkerURL = "/assets/ms_hrms/frontend/sw.js"
+		// Served by ms_hrms.pwa within the app's scope, so Android shows the app's
+		// notifications as the installed app's, with its icon.
+		let serviceWorkerURL = "/hrms/sw.js"
+		let moved = false
 
 		// Workers left by earlier builds of this app (Frappe HR's own, or one registered
 		// for the whole site) serve stale files; other apps' workers are left alone.
@@ -70,9 +74,14 @@ const registerServiceWorker = async () => {
 			const registrations = await navigator.serviceWorker.getRegistrations()
 			for (const registration of registrations) {
 				const script = (registration.active || registration.waiting || registration.installing)?.scriptURL || ""
+				// This app's worker from its assets folder: its push subscription moves to
+				// the worker in the app's scope.
+				const assetsWorker = script.includes("/assets/ms_hrms/frontend/sw.js")
 				const stale =
+					assetsWorker ||
 					script.includes("/assets/hrms/frontend/") ||
 					(script.includes("/frontend/sw.js") && new URL(registration.scope).pathname === "/")
+				if (assetsWorker) moved = (await takeOverSubscription(registration).catch(() => false)) || moved
 				if (stale) await registration.unregister()
 			}
 		} catch (err) {
@@ -92,10 +101,20 @@ const registerServiceWorker = async () => {
 			}
 		}
 
-		navigator.serviceWorker
-			.register(serviceWorkerURL, {
-				type: "classic",
-			})
+		// Kept for turning push notifications on (composables/pushNotifications.js): the
+		// worker's scope is its assets folder, so navigator.serviceWorker.ready never
+		// resolves on the app's pages.
+		window.msHrmsServiceWorker = navigator.serviceWorker.register(serviceWorkerURL, {
+			type: "classic",
+			scope: "/hrms",
+		})
+		if (moved) {
+			window.msHrmsServiceWorker
+				.then(() => navigator.serviceWorker.ready)
+				.then((registration) => subscribeAgain(registration))
+				.catch((err) => console.error("Failed to move push notifications to the app's worker", err))
+		}
+		window.msHrmsServiceWorker
 			.then((registration) => {
 				if (config) {
 					window.frappePushNotification.initialize(registration).then(() => {

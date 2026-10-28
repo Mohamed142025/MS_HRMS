@@ -22,8 +22,9 @@ add_to_apps_screen = [
 	}
 ]
 
-# The employee PWA at /hrms: ms_hrms' own build, served ahead of Frappe HR's (pwa.py).
-page_renderer = ["ms_hrms.pwa.PWAPage"]
+# The employee PWA at /hrms: ms_hrms' own build, served ahead of Frappe HR's, and the site's
+# /favicon.ico (pwa.py).
+page_renderer = ["ms_hrms.pwa.PWAPage", "ms_hrms.pwa.FaviconPage"]
 
 after_migrate = [
 	"ms_hrms.hr_app.after_migrate",
@@ -31,6 +32,9 @@ after_migrate = [
 	"ms_hrms.custom_hrms.doctype.employee_evaluation.employee_evaluation.setup",
 	"ms_hrms.request_history.setup",
 	"ms_hrms.request_approvers.setup",
+	"ms_hrms.attendance_watch.setup",
+	"ms_hrms.web_push.setup",
+	"ms_hrms.app_notifications.setup",
 ]
 
 # The desk's app switcher opens HR Setup for Frappe HR (hr_app).
@@ -191,6 +195,34 @@ doc_events = {
 	"Additional Salary": {
 		"on_trash": "ms_hrms.custom_hrms.doctype.overtime_calculation.overtime_calculation.clear_additional_salary_links",
 	},
+	# The employee app's notifications (app_notifications), each pushed to the user's
+	# devices (web_push).
+	"PWA Notification": {
+		"before_insert": "ms_hrms.app_notifications.rewrite_hrms_notification",
+		"after_insert": "ms_hrms.web_push.on_notification",
+	},
+	"Permission Request": {
+		"on_update": "ms_hrms.app_notifications.on_status_request_update",
+		"on_cancel": "ms_hrms.app_notifications.on_request_cancel",
+	},
+	"Overtime Request": {
+		"on_update": "ms_hrms.app_notifications.on_status_request_update",
+		"on_cancel": "ms_hrms.app_notifications.on_request_cancel",
+	},
+	"Attendance Request": {
+		"after_insert": "ms_hrms.app_notifications.on_request_insert",
+		"on_submit": "ms_hrms.app_notifications.on_request_submit",
+		"on_cancel": "ms_hrms.app_notifications.on_request_cancel",
+	},
+	"Employee Advance": {
+		"after_insert": "ms_hrms.app_notifications.on_request_insert",
+		"on_submit": "ms_hrms.app_notifications.on_request_submit",
+		"on_cancel": "ms_hrms.app_notifications.on_request_cancel",
+	},
+	"Leave Application": {"on_cancel": "ms_hrms.app_notifications.on_request_cancel"},
+	"Expense Claim": {"on_cancel": "ms_hrms.app_notifications.on_request_cancel"},
+	"Shift Request": {"on_cancel": "ms_hrms.app_notifications.on_request_cancel"},
+	"Salary Slip": {"on_submit": "ms_hrms.app_notifications.on_salary_slip_submit"},
 }
 ignore_links_on_delete = ["Overtime Calculation Detail", "Attendance Penalty Detail"]
 auto_cancel_exempted_doctypes = ["Additional Salary"]
@@ -204,6 +236,19 @@ auto_cancel_exempted_doctypes = ["Additional Salary"]
 
 # Scheduled Tasks
 # ---------------
+
+# Every five minutes: tell HR who has not checked in since their shift started
+# (attendance_watch), remind those employees, and once a day at HR Settings' time send the
+# occasions (app_notifications).
+scheduler_events = {
+	"cron": {
+		"*/5 * * * *": [
+			"ms_hrms.attendance_watch.notify_not_checked_in",
+			"ms_hrms.app_notifications.remind_check_in",
+			"ms_hrms.app_notifications.send_occasions",
+		],
+	},
+}
 
 # scheduler_events = {
 # 	"all": [

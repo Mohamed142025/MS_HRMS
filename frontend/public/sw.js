@@ -62,3 +62,60 @@ try {
 self.skipWaiting()
 clientsClaim()
 console.log("Service Worker Initialized")
+
+// Push notifications sent by the site (ms_hrms.web_push): the payload is JSON with the
+// title, body, the app page to open, and the icons.
+self.addEventListener("push", (event) => {
+	let data = {}
+	try {
+		data = event.data ? event.data.json() : {}
+	} catch (error) {
+		data = { body: event.data ? event.data.text() : "" }
+	}
+	event.waitUntil(
+		Promise.all([
+			showPush(data),
+			// The delivery receipt (ms_hrms.web_push.mark_received); it may fail offline.
+			self.registration.pushManager
+				.getSubscription()
+				.then((subscription) =>
+					subscription &&
+					fetch(`/api/method/ms_hrms.web_push.mark_received?endpoint=${encodeURIComponent(subscription.endpoint)}`, {
+						credentials: "include",
+						headers: { Accept: "application/json" },
+					})
+				)
+				.catch(() => {}),
+		])
+	)
+})
+
+function showPush(data) {
+	return self.registration.showNotification(data.title || "", {
+		body: data.body || "",
+		icon: data.icon,
+		badge: data.badge,
+		tag: data.tag || undefined,
+		dir: "auto",
+		data: { url: data.url || "/hrms/notifications" },
+	})
+}
+
+// Opening a notification: an open window of the app goes to its page, or a new one opens.
+self.addEventListener("notificationclick", (event) => {
+	const url = event.notification.data?.url
+	if (!url) return
+	event.notification.close()
+	event.waitUntil(
+		(async () => {
+			const target = new URL(url, self.location.origin).href
+			const windows = await clients.matchAll({ type: "window", includeUncontrolled: true })
+			const app = windows.find((client) => new URL(client.url).pathname.startsWith("/hrms"))
+			if (app) {
+				await app.focus()
+				return app.navigate ? app.navigate(target) : clients.openWindow(target)
+			}
+			return clients.openWindow(target)
+		})()
+	)
+})

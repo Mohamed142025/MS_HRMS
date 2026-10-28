@@ -70,6 +70,11 @@ const routes = [
 		component: () => import("@/views/ForgotPassword.vue"),
 	},
 	{
+		path: "/not-checked-in",
+		name: "NotCheckedIn",
+		component: () => import("@/views/NotCheckedIn.vue"),
+	},
+	{
 		path: "/insights",
 		name: "Insights",
 		component: () => import("@/views/Insights.vue"),
