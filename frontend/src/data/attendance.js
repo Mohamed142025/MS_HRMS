@@ -138,7 +138,8 @@ export const teamPermissionRequests = createResource({
 			["status", "=", "Pending Approval"],
 			["docstatus", "=", 0],
 		],
-		limit: 10,
+		// Every request awaiting approval, for the approvals screen to list and filter.
+		limit: 0,
 		order_by: "creation desc",
 	},
 	auto: true,
@@ -202,7 +203,8 @@ export const teamOvertimeRequests = createResource({
 			["status", "=", "Pending Approval"],
 			["docstatus", "=", 0],
 		],
-		limit: 10,
+		// Every request awaiting approval, for the approvals screen to list and filter.
+		limit: 0,
 		order_by: "creation desc",
 	},
 	auto: true,
@@ -231,7 +233,8 @@ export const teamShiftRequests = createResource({
 		employee: employeeResource.data.name,
 		approver_id: employeeResource.data.user_id,
 		for_approval: 1,
-		limit: 10,
+		// Every request awaiting approval, for the approvals screen to list and filter.
+		limit: 0,
 	},
 	auto: true,
 	cache: "hrms:team_shift_requests",
@@ -244,7 +247,8 @@ export const teamAttendanceRequests = createResource({
 	params: {
 		employee: employeeResource.data.name,
 		for_approval: 1,
-		limit: 10,
+		// Every request awaiting approval, for the approvals screen to list and filter.
+		limit: 0,
 	},
 	auto: true,
 	cache: "hrms:team_attendance_requests",

@@ -37,7 +37,8 @@ export const teamClaims = createResource({
 		employee: employeeResource.data.name,
 		approver_id: employeeResource.data.user_id,
 		for_approval: 1,
-		limit: 10,
+		// Every request awaiting approval, for the approvals screen to list and filter.
+		limit: 0,
 	},
 	auto: true,
 	cache: "hrms:team_claims",

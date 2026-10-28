@@ -101,6 +101,17 @@ body {
 	.ms-filter-chip.is-active {
 		@apply border-brand-roots bg-brand-roots text-brand-sand;
 	}
+	.ms-field {
+		@apply h-12 w-full rounded-[14px] border-[1.5px] border-brand-roots/[.12] bg-white px-3 text-[14.5px] text-brand-ink focus:border-brand-emerald focus:outline-none focus:ring-4 focus:ring-brand-emerald/[.12];
+	}
+	/* Room for the select's arrow, on the side the text ends. */
+	select.ms-field {
+		padding-inline-end: 2.5rem;
+		background-position: right 0.75rem center;
+	}
+	[dir="rtl"] select.ms-field {
+		background-position: left 0.75rem center;
+	}
 	.ms-list-row {
 		@apply flex min-h-[58px] w-full items-center gap-3 border-b border-brand-roots/[.08] py-3 text-start last:border-b-0;
 	}

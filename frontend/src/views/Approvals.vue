@@ -38,8 +38,30 @@
 
 			<h2 class="ms-group-title mx-4 mb-2.5 mt-5">{{ __("Awaiting your approval · {0}", [pending.length]) }}</h2>
 
-			<div v-if="pending.length" class="mx-4 mb-8 flex flex-col gap-2.5">
-				<article v-for="doc in pending" :key="`${doc.doctype}:${doc.name}`" class="ms-card p-3.5">
+			<div v-if="pending.length" class="mx-4 mb-3 grid grid-cols-2 gap-2">
+				<label class="col-span-2">
+					<span class="sr-only">{{ __("Employee") }}</span>
+					<select v-model="filters.employee" class="ms-field">
+						<option value="">{{ __("All employees") }}</option>
+						<option v-for="person in employeeOptions" :key="person.value" :value="person.value">{{ person.label }}</option>
+					</select>
+				</label>
+				<label>
+					<span class="ms-caption mb-1 block">{{ __("From Date") }}</span>
+					<input v-model="filters.from" type="date" class="ms-field" :max="filters.to || undefined" />
+				</label>
+				<label>
+					<span class="ms-caption mb-1 block">{{ __("To Date") }}</span>
+					<input v-model="filters.to" type="date" class="ms-field" :min="filters.from || undefined" />
+				</label>
+				<div v-if="filtering" class="col-span-2 flex items-center justify-between">
+					<span class="ms-caption">{{ __("Showing {0} of {1}", [shown.length, pending.length]) }}</span>
+					<button type="button" class="ms-link" @click="clearFilters">{{ __("Clear filters") }}</button>
+				</div>
+			</div>
+
+			<div v-if="shown.length" class="mx-4 mb-8 flex flex-col gap-2.5">
+				<article v-for="doc in shown" :key="`${doc.doctype}:${doc.name}`" class="ms-card p-3.5">
 					<button type="button" class="flex w-full items-center gap-3 text-start" @click="selected = doc">
 						<span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-emerald text-[17px] font-bold text-white">
 							{{ Array.from(doc.employee_name || "?")[0] }}
@@ -101,7 +123,7 @@
 				</article>
 			</div>
 			<div v-else class="ms-caption mx-4 mb-8 rounded-[22px] border-[1.5px] border-dashed border-brand-roots/[.12] p-8 text-center">
-				{{ __("No requests are waiting for your approval") }}
+				{{ pending.length ? __("No requests match these filters") : __("No requests are waiting for your approval") }}
 			</div>
 
 			<RequestSheet :request="selected" @close="onSheetClosed" />
@@ -130,7 +152,7 @@ import {
 } from "@/data/attendance"
 import { approvalFlow, canSubmit, decide, submit } from "@/composables/approval"
 import useWorkflow from "@/composables/workflow"
-import { REQUEST_TYPES, TONES, requestDetails, requestTitle, typeLabel } from "@/utils/requestTypes"
+import { REQUEST_TYPES, TONES, requestDates, requestDetails, requestTitle, typeLabel } from "@/utils/requestTypes"
 
 const __ = inject("$translate")
 const dayjs = inject("$dayjs")
@@ -166,6 +188,29 @@ const pending = computed(() => {
 	const decided = Object.values(kept).filter((doc) => !names.has(key(doc)))
 	return [...current, ...decided].sort((a, b) => new Date(b.creation) - new Date(a.creation))
 })
+
+// Filters on the requests awaiting approval: by employee, and by the days a request is
+// for (a request shows when any of its days falls between the dates).
+const filters = reactive({ employee: "", from: "", to: "" })
+const filtering = computed(() => Boolean(filters.employee || filters.from || filters.to))
+function clearFilters() {
+	Object.assign(filters, { employee: "", from: "", to: "" })
+}
+
+const employeeOptions = computed(() => {
+	const people = new Map(pending.value.map((doc) => [doc.employee, doc.employee_name || doc.employee]))
+	return [...people].map(([value, label]) => ({ value, label })).sort((a, b) => a.label.localeCompare(b.label))
+})
+
+const shown = computed(() =>
+	pending.value.filter((doc) => {
+		if (filters.employee && doc.employee !== filters.employee) return false
+		const [start, end] = requestDates(doc)
+		if (filters.from && end && end < filters.from) return false
+		if (filters.to && start && start > filters.to) return false
+		return true
+	})
+)
 
 const tabs = computed(() => [
 	{ value: "mine", label: __("My Requests"), to: { name: "Requests" } },

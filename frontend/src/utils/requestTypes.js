@@ -173,3 +173,18 @@ export function requestDetails(doc) {
 			return ""
 	}
 }
+
+// The days a request is for, as [from, to] dates ("YYYY-MM-DD").
+export function requestDates(doc) {
+	switch (doc.doctype) {
+		case "Permission Request":
+			return [doc.permission_date, doc.permission_date]
+		case "Overtime Request":
+			return [doc.overtime_date, doc.overtime_date]
+		case "Expense Claim":
+		case "Employee Advance":
+			return [doc.posting_date, doc.posting_date]
+		default:
+			return [doc.from_date, doc.to_date || doc.from_date]
+	}
+}

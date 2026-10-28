@@ -2033,3 +2033,15 @@ msgstr "جزء التقييم"
 
 msgid "Employee Evaluation Template Part"
 msgstr "جزء قالب التقييم"
+
+msgid "All employees"
+msgstr "كل الموظفين"
+
+msgid "Clear filters"
+msgstr "مسح الفلاتر"
+
+msgid "No requests match these filters"
+msgstr "مفيش طلبات مطابقة للفلاتر دي"
+
+msgid "Showing {0} of {1}"
+msgstr "عرض {0} من {1}"
