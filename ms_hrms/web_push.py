@@ -152,6 +152,14 @@ def mark_received(endpoint):
 	return bool(name)
 
 
+@frappe.whitelist(methods=["POST"])
+def log_client_error(error):
+	"""Why turning notifications on, or moving them, failed on a device (sent by the app)."""
+	if frappe.session.user == "Guest":
+		return
+	frappe.log_error("Push notifications failed on a device", f"{frappe.session.user}\n{str(error)[:2000]}")
+
+
 @frappe.whitelist()
 def is_subscribed(endpoint):
 	return bool(frappe.db.exists("Push Subscription", {"endpoint": endpoint, "user": frappe.session.user}))

@@ -34,24 +34,48 @@ function device() {
 	return [os, browser, isStandalone() ? "app" : ""].filter(Boolean).join(" · ")
 }
 
-// The app's worker used to run in its assets folder, where Android shows its
-// notifications as Chrome's: a device subscribed there is subscribed again from the
-// worker in the app's scope (main.js), quietly, and the old subscription is dropped.
-export async function takeOverSubscription(oldRegistration) {
-	const old = await oldRegistration.pushManager.getSubscription().catch(() => null)
-	if (!old) return false
-	await call("ms_hrms.web_push.unsubscribe", { endpoint: old.endpoint }).catch(() => {})
-	await old.unsubscribe().catch(() => {})
-	return true
+// When turning notifications on or moving them fails on a device, the site logs why
+// (ms_hrms.web_push.log_client_error).
+export function reportPushError(step, error) {
+	const text = `${step}: ${error?.name || ""} ${error?.message || error} · ${navigator.userAgent} · permission ${window.Notification?.permission}`
+	console.error(text)
+	return call("ms_hrms.web_push.log_client_error", { error: text }).catch(() => {})
 }
 
-export async function subscribeAgain(registration) {
-	if (!pushSupported() || Notification.permission !== "granted") return
+async function subscribeHere(registration, quiet) {
 	const key = await call("ms_hrms.web_push.get_public_key")
-	const subscription =
-		(await registration.pushManager.getSubscription()) ||
-		(await registration.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: applicationServerKey(key) }))
-	await call("ms_hrms.web_push.subscribe", { subscription: JSON.stringify(subscription.toJSON()), device: device(), quiet: 1 })
+	let subscription = await registration.pushManager.getSubscription()
+	// A subscription made with another key (keys made again) is replaced.
+	const current = subscription?.options?.applicationServerKey
+	if (subscription && current && encodeKey(current) !== key) {
+		await subscription.unsubscribe()
+		subscription = null
+	}
+	subscription ||= await registration.pushManager.subscribe({
+		userVisibleOnly: true,
+		applicationServerKey: applicationServerKey(key),
+	})
+	await call("ms_hrms.web_push.subscribe", { subscription: JSON.stringify(subscription.toJSON()), device: device(), quiet: quiet ? 1 : 0 })
+}
+
+function encodeKey(buffer) {
+	return btoa(String.fromCharCode(...new Uint8Array(buffer))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "")
+}
+
+// The app's worker used to run in its assets folder, where Android shows its
+// notifications as Chrome's. A device subscribed there is subscribed from the worker in
+// the app's scope (main.js), quietly; only then is the old worker, and its subscription,
+// dropped. If that fails, the old one keeps receiving and the move is tried next time.
+export async function movePushSubscription(oldRegistrations, registration) {
+	const subscribed = await Promise.all(oldRegistrations.map((old) => old.pushManager.getSubscription().catch(() => null)))
+	if (subscribed.some(Boolean)) {
+		if (Notification.permission !== "granted") throw new Error(`notification permission is ${Notification.permission}`)
+		await subscribeHere(registration, true)
+	}
+	for (const [index, old] of oldRegistrations.entries()) {
+		if (subscribed[index]) await call("ms_hrms.web_push.unsubscribe", { endpoint: subscribed[index].endpoint }).catch(() => {})
+		await old.unregister()
+	}
 }
 
 export function usePushNotifications() {
@@ -93,20 +117,7 @@ export function usePushNotifications() {
 			notify(false, __("Push Notification permission denied"))
 			return false
 		}
-		const registered = await registration()
-		const key = await call("ms_hrms.web_push.get_public_key")
-		let subscription = await registered.pushManager.getSubscription()
-		// A subscription made with another key (another site, or keys made again) is replaced.
-		const current = subscription?.options?.applicationServerKey
-		if (subscription && current && btoa(String.fromCharCode(...new Uint8Array(current))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "") !== key) {
-			await subscription.unsubscribe()
-			subscription = null
-		}
-		subscription ||= await registered.pushManager.subscribe({
-			userVisibleOnly: true,
-			applicationServerKey: applicationServerKey(key),
-		})
-		await call("ms_hrms.web_push.subscribe", { subscription: JSON.stringify(subscription.toJSON()), device: device() })
+		await subscribeHere(await registration(), false)
 		notify(true, __("Push notifications enabled"))
 		return true
 	}
@@ -127,6 +138,7 @@ export function usePushNotifications() {
 		return (value ? turnOn() : turnOff())
 			.then((state) => (enabled.value = state))
 			.catch((error) => {
+				reportPushError(value ? "turn on" : "turn off", error)
 				notify(false, error?.messages?.[0] || error?.message || __("Could not change notifications on this device"))
 				if (value) enabled.value = false
 			})

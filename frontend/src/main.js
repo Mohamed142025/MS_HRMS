@@ -24,7 +24,7 @@ import dayjs from "@/utils/dayjs"
 import getIonicConfig from "@/utils/ionicConfig"
 
 import FrappePushNotification from "../public/frappe-push-notification"
-import { subscribeAgain, takeOverSubscription } from "@/composables/pushNotifications"
+import { movePushSubscription, reportPushError } from "@/composables/pushNotifications"
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/vue/css/core.css"
@@ -66,7 +66,9 @@ const registerServiceWorker = async () => {
 		// Served by ms_hrms.pwa within the app's scope, so Android shows the app's
 		// notifications as the installed app's, with its icon.
 		let serviceWorkerURL = "/hrms/sw.js"
-		let moved = false
+		// This app's workers from its assets folder, kept until their push subscription
+		// has moved to the worker in the app's scope.
+		const assetsWorkers = []
 
 		// Workers left by earlier builds of this app (Frappe HR's own, or one registered
 		// for the whole site) serve stale files; other apps' workers are left alone.
@@ -74,14 +76,13 @@ const registerServiceWorker = async () => {
 			const registrations = await navigator.serviceWorker.getRegistrations()
 			for (const registration of registrations) {
 				const script = (registration.active || registration.waiting || registration.installing)?.scriptURL || ""
-				// This app's worker from its assets folder: its push subscription moves to
-				// the worker in the app's scope.
-				const assetsWorker = script.includes("/assets/ms_hrms/frontend/sw.js")
+				if (script.includes("/assets/ms_hrms/frontend/sw.js")) {
+					assetsWorkers.push(registration)
+					continue
+				}
 				const stale =
-					assetsWorker ||
 					script.includes("/assets/hrms/frontend/") ||
 					(script.includes("/frontend/sw.js") && new URL(registration.scope).pathname === "/")
-				if (assetsWorker) moved = (await takeOverSubscription(registration).catch(() => false)) || moved
 				if (stale) await registration.unregister()
 			}
 		} catch (err) {
@@ -101,18 +102,16 @@ const registerServiceWorker = async () => {
 			}
 		}
 
-		// Kept for turning push notifications on (composables/pushNotifications.js): the
-		// worker's scope is its assets folder, so navigator.serviceWorker.ready never
-		// resolves on the app's pages.
+		// Kept for turning push notifications on (composables/pushNotifications.js).
 		window.msHrmsServiceWorker = navigator.serviceWorker.register(serviceWorkerURL, {
 			type: "classic",
 			scope: "/hrms",
 		})
-		if (moved) {
+		if (assetsWorkers.length) {
 			window.msHrmsServiceWorker
 				.then(() => navigator.serviceWorker.ready)
-				.then((registration) => subscribeAgain(registration))
-				.catch((err) => console.error("Failed to move push notifications to the app's worker", err))
+				.then((registration) => movePushSubscription(assetsWorkers, registration))
+				.catch((err) => reportPushError("move to the app's worker", err))
 		}
 		window.msHrmsServiceWorker
 			.then((registration) => {
