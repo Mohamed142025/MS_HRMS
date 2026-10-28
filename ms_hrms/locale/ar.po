@@ -2034,14 +2034,35 @@ msgstr "جزء التقييم"
 msgid "Employee Evaluation Template Part"
 msgstr "جزء قالب التقييم"
 
-msgid "All employees"
-msgstr "كل الموظفين"
-
 msgid "Clear filters"
 msgstr "مسح الفلاتر"
 
 msgid "No requests match these filters"
-msgstr "مفيش طلبات مطابقة للفلاتر دي"
+msgstr "لا توجد طلبات مطابقة لهذه الفلاتر"
 
 msgid "Showing {0} of {1}"
 msgstr "عرض {0} من {1}"
+
+msgid "All dates"
+msgstr "كل التواريخ"
+
+msgid "Today"
+msgstr "اليوم"
+
+msgid "This month"
+msgstr "هذا الشهر"
+
+msgid "Last month"
+msgstr "الشهر الماضي"
+
+msgid "Custom range"
+msgstr "فترة محددة"
+
+msgid "Search by employee name"
+msgstr "ابحث باسم الموظف"
+
+msgid "Clear"
+msgstr "مسح"
+
+msgid "Choose a date"
+msgstr "اختر التاريخ"

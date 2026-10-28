@@ -38,27 +38,83 @@
 
 			<h2 class="ms-group-title mx-4 mb-2.5 mt-5">{{ __("Awaiting your approval · {0}", [pending.length]) }}</h2>
 
-			<div v-if="pending.length" class="mx-4 mb-3 grid grid-cols-2 gap-2">
-				<label class="col-span-2">
-					<span class="sr-only">{{ __("Employee") }}</span>
-					<select v-model="filters.employee" class="ms-field">
-						<option value="">{{ __("All employees") }}</option>
-						<option v-for="person in employeeOptions" :key="person.value" :value="person.value">{{ person.label }}</option>
-					</select>
+			<template v-if="pending.length">
+				<div class="hide-scrollbar flex gap-2 overflow-x-auto px-4">
+					<button
+						v-for="chip in typeChips"
+						:key="chip.value"
+						type="button"
+						class="ms-filter-chip"
+						:class="filters.type === chip.value && 'is-active'"
+						:aria-pressed="filters.type === chip.value"
+						@click="filters.type = chip.value"
+					>
+						{{ chip.label }}
+						<span class="ms-num opacity-60">{{ chip.count }}</span>
+					</button>
+				</div>
+
+				<label class="relative mx-4 mt-3 block">
+					<span class="sr-only">{{ __("Search by employee name") }}</span>
+					<AppIcon name="search" :size="18" class="pointer-events-none absolute start-3.5 top-1/2 -translate-y-1/2 text-brand-muted" />
+					<input
+						v-model.trim="filters.search"
+						type="search"
+						class="ms-field ps-10 pe-10"
+						:placeholder="__('Search by employee name')"
+						enterkeyhint="search"
+					/>
+					<button
+						v-if="filters.search"
+						type="button"
+						class="absolute end-1 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center text-brand-muted"
+						:aria-label="__('Clear')"
+						@click="filters.search = ''"
+					>
+						<AppIcon name="x" :size="18" />
+					</button>
 				</label>
-				<label>
-					<span class="ms-caption mb-1 block">{{ __("From Date") }}</span>
-					<input v-model="filters.from" type="date" class="ms-field" :max="filters.to || undefined" />
-				</label>
-				<label>
-					<span class="ms-caption mb-1 block">{{ __("To Date") }}</span>
-					<input v-model="filters.to" type="date" class="ms-field" :min="filters.from || undefined" />
-				</label>
-				<div v-if="filtering" class="col-span-2 flex items-center justify-between">
+
+				<div class="hide-scrollbar mt-3 flex gap-2 overflow-x-auto px-4">
+					<button
+						v-for="period in periods"
+						:key="period.value"
+						type="button"
+						class="ms-filter-chip"
+						:class="filters.period === period.value && 'is-active'"
+						:aria-pressed="filters.period === period.value"
+						@click="filters.period = period.value"
+					>
+						<AppIcon v-if="period.value === 'custom'" name="calendar" :size="16" />
+						{{ period.label }}
+					</button>
+				</div>
+
+				<!-- The device's date picker opens from a transparent input over each field, which
+				     shows the chosen date in words. -->
+				<div v-if="filters.period === 'custom'" class="mx-4 mt-3 grid grid-cols-2 gap-2">
+					<label v-for="end in dateEnds" :key="end.key">
+						<span class="ms-caption mb-1 block">{{ end.label }}</span>
+						<span class="ms-field relative flex items-center gap-2" :class="filters[end.key] ? 'text-brand-ink' : 'text-brand-muted'">
+							<AppIcon name="calendar" :size="17" class="shrink-0 text-brand-muted" />
+							<span class="truncate">{{ filters[end.key] ? dayjs(filters[end.key]).format("D MMM YYYY") : __("Choose a date") }}</span>
+							<input
+								v-model="filters[end.key]"
+								type="date"
+								class="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+								:min="end.key === 'to' ? filters.from || undefined : undefined"
+								:max="end.key === 'from' ? filters.to || undefined : undefined"
+							/>
+						</span>
+					</label>
+				</div>
+
+				<div v-if="filtering" class="mx-4 mt-1 flex items-center justify-between">
 					<span class="ms-caption">{{ __("Showing {0} of {1}", [shown.length, pending.length]) }}</span>
 					<button type="button" class="ms-link" @click="clearFilters">{{ __("Clear filters") }}</button>
 				</div>
-			</div>
+				<div v-else class="h-3" />
+			</template>
 
 			<div v-if="shown.length" class="mx-4 mb-8 flex flex-col gap-2.5">
 				<article v-for="doc in shown" :key="`${doc.doctype}:${doc.name}`" class="ms-card p-3.5">
@@ -139,6 +195,7 @@ import { toast } from "frappe-ui"
 import PageHeader from "@/components/ui/PageHeader.vue"
 import Segmented from "@/components/ui/Segmented.vue"
 import StatusChip from "@/components/ui/StatusChip.vue"
+import AppIcon from "@/components/ui/AppIcon.vue"
 import RequestSheet from "@/components/RequestSheet.vue"
 
 import { teamToday } from "@/data/pwa"
@@ -189,28 +246,82 @@ const pending = computed(() => {
 	return [...current, ...decided].sort((a, b) => new Date(b.creation) - new Date(a.creation))
 })
 
-// Filters on the requests awaiting approval: by employee, and by the days a request is
-// for (a request shows when any of its days falls between the dates).
-const filters = reactive({ employee: "", from: "", to: "" })
-const filtering = computed(() => Boolean(filters.employee || filters.from || filters.to))
+// Filters on the requests awaiting approval: by type, by employee name, and by the days a
+// request is for (a request shows when any of its days falls in the period).
+const NO_FILTERS = { type: "all", search: "", period: "all", from: "", to: "" }
+const filters = reactive({ ...NO_FILTERS })
+const filtering = computed(() => Object.keys(NO_FILTERS).some((name) => filters[name] !== NO_FILTERS[name]))
 function clearFilters() {
-	Object.assign(filters, { employee: "", from: "", to: "" })
+	Object.assign(filters, NO_FILTERS)
 }
 
-const employeeOptions = computed(() => {
-	const people = new Map(pending.value.map((doc) => [doc.employee, doc.employee_name || doc.employee]))
-	return [...people].map(([value, label]) => ({ value, label })).sort((a, b) => a.label.localeCompare(b.label))
+const dateEnds = computed(() => [
+	{ key: "from", label: __("From Date") },
+	{ key: "to", label: __("To Date") },
+])
+
+const periods = computed(() => [
+	{ value: "all", label: __("All dates") },
+	{ value: "today", label: __("Today") },
+	{ value: "week", label: __("This week") },
+	{ value: "month", label: __("This month") },
+	{ value: "last_month", label: __("Last month") },
+	{ value: "custom", label: __("Custom range") },
+])
+
+// The period as [from, to] dates ("YYYY-MM-DD"); either end may be open.
+const range = computed(() => {
+	const today = dayjs()
+	const day = (date) => date.format("YYYY-MM-DD")
+	switch (filters.period) {
+		case "today":
+			return [day(today), day(today)]
+		case "week":
+			return [day(today.startOf("week")), day(today.endOf("week"))]
+		case "month":
+			return [day(today.startOf("month")), day(today.endOf("month"))]
+		case "last_month": {
+			const last = today.subtract(1, "month")
+			return [day(last.startOf("month")), day(last.endOf("month"))]
+		}
+		case "custom":
+			return [filters.from, filters.to]
+		default:
+			return ["", ""]
+	}
 })
 
+const matchesSearch = (doc) => {
+	const words = filters.search.toLowerCase().split(/\s+/).filter(Boolean)
+	const name = `${doc.employee_name || ""} ${doc.employee || ""}`.toLowerCase()
+	return words.every((word) => name.includes(word))
+}
+
+const matchesPeriod = (doc) => {
+	const [from, to] = range.value
+	const [start, end] = requestDates(doc)
+	if (from && end && end < from) return false
+	if (to && start && start > to) return false
+	return true
+}
+
+// Every filter but the type, so the type chips count what each type would show.
+const matching = computed(() => pending.value.filter((doc) => matchesSearch(doc) && matchesPeriod(doc)))
 const shown = computed(() =>
-	pending.value.filter((doc) => {
-		if (filters.employee && doc.employee !== filters.employee) return false
-		const [start, end] = requestDates(doc)
-		if (filters.from && end && end < filters.from) return false
-		if (filters.to && start && start > filters.to) return false
-		return true
-	})
+	filters.type === "all" ? matching.value : matching.value.filter((doc) => doc.doctype === filters.type)
 )
+
+const typeChips = computed(() => {
+	const counts = {}
+	for (const doc of matching.value) counts[doc.doctype] = (counts[doc.doctype] || 0) + 1
+	const types = new Set(pending.value.map((doc) => doc.doctype))
+	return [
+		{ value: "all", label: __("All"), count: matching.value.length },
+		...Object.keys(REQUEST_TYPES)
+			.filter((doctype) => types.has(doctype))
+			.map((doctype) => ({ value: doctype, label: typeLabel(doctype), count: counts[doctype] || 0 })),
+	]
+})
 
 const tabs = computed(() => [
 	{ value: "mine", label: __("My Requests"), to: { name: "Requests" } },
