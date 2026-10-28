@@ -1,5 +1,4 @@
 import { createResource } from "frappe-ui"
-import { employeeResource } from "./employee"
 
 import dayjs from "@/utils/dayjs"
 
@@ -35,14 +34,10 @@ export const myLeaves = createResource({
 })
 
 export const teamLeaves = createResource({
-	url: "hrms.api.get_leave_applications",
-	params: {
-		employee: employeeResource.data.name,
-		approver_id: employeeResource.data.user_id,
-		for_approval: 1,
-		// Every request awaiting approval, for the approvals screen to list and filter.
-		limit: 0,
-	},
+	// Awaiting the user's approval, theirs included when they approve them
+	// (ms_hrms.request_approvers).
+	url: "ms_hrms.request_approvers.get_requests_to_approve",
+	params: { doctype: "Leave Application" },
 	auto: true,
 	cache: "hrms:team_leaves",
 	transform(data) {

@@ -1,5 +1,4 @@
 import { createResource } from "frappe-ui"
-import { employeeResource } from "./employee"
 import { reactive } from "vue"
 
 export const expenseClaimSummary = createResource({
@@ -30,14 +29,10 @@ export const myClaims = createResource({
 })
 
 export const teamClaims = createResource({
-	url: "hrms.api.get_expense_claims",
-	params: {
-		employee: employeeResource.data.name,
-		approver_id: employeeResource.data.user_id,
-		for_approval: 1,
-		// Every request awaiting approval, for the approvals screen to list and filter.
-		limit: 0,
-	},
+	// Awaiting the user's approval, theirs included when they approve them
+	// (ms_hrms.request_approvers).
+	url: "ms_hrms.request_approvers.get_requests_to_approve",
+	params: { doctype: "Expense Claim" },
 	auto: true,
 	cache: "hrms:team_claims",
 	transform(data) {

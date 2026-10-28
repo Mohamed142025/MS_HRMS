@@ -134,46 +134,103 @@ def setup():
 	settings.save(ignore_permissions=True)
 
 
+# The app's For Approval lists: for each request, the field that holds the decision, its
+# value while the request waits, and the field that names its approver (Frappe HR's
+# hrms.api.get_filters). Permission and Overtime Requests go by their employees'
+# approvers instead; Attendance Requests by who may see them.
+WAITING = {
+	"Leave Application": frappe._dict(status_field="status", waiting="Open", approver_field="leave_approver"),
+	"Expense Claim": frappe._dict(status_field="approval_status", waiting="Draft", approver_field="expense_approver"),
+	"Shift Request": frappe._dict(status_field="status", waiting="Draft", approver_field="approver"),
+	"Attendance Request": frappe._dict(),
+	"Permission Request": frappe._dict(status_field="status", waiting="Pending Approval"),
+	"Overtime Request": frappe._dict(status_field="status", waiting="Pending Approval"),
+}
+
+
 @frappe.whitelist()
 def get_requests_to_approve(doctype, fields=None):
-	"""The Permission or Overtime Requests awaiting the user's approval: of the employees
-	whose requests they approve, not every request they may see."""
-	if doctype not in DECIDED_HERE:
-		frappe.throw(frappe._("This request cannot be decided here."))
+	"""The requests of this type awaiting the user's approval, theirs included when they
+	are its approver (a department's approver approves their own requests unless their
+	Employee names another approver). Requests under a workflow are those in a state the
+	user's roles move on, as in Frappe HR."""
+	from hrms.api import get_allowed_states_for_workflow, get_workflow, get_workflow_state_field
+
+	from ms_hrms.request_history import MY_REQUESTS
+
+	if doctype not in WAITING:
+		frappe.throw(frappe._("This request type is not listed here."))
 	user = frappe.session.user
-	request = REQUESTS[doctype]
 	me = frappe.db.get_value("Employee", {"user_id": user}, "name")
-	filters = {"status": "Pending Approval", "docstatus": 0}
-	if me:
-		filters["employee"] = ("!=", me)
+	waiting = WAITING[doctype]
+	filters = {"docstatus": 0}
+	others_only = False
 
-	if user != "Administrator":
-		employees = set(frappe.get_all("Employee", filters={request.employee_field: user}, pluck="name"))
-		departments = frappe.get_all(
-			"Department Approver",
-			filters={"parenttype": "Department", "parentfield": request.department_field, "approver": user},
-			pluck="parent",
-		)
-		if departments:
-			employees |= set(
-				frappe.get_all(
-					"Employee",
-					filters={"department": ("in", departments), request.employee_field: ("is", "not set")},
-					pluck="name",
-				)
-			)
-		employees.discard(me)
-		if not employees:
-			return []
-		filters["employee"] = ("in", sorted(employees))
+	workflow = get_workflow(doctype)
+	if workflow:
+		filters[workflow.workflow_state_field] = ("in", get_allowed_states_for_workflow(workflow, user))
+		others_only = True
+	else:
+		if waiting.status_field:
+			filters[waiting.status_field] = waiting.waiting
+		if doctype in DECIDED_HERE:
+			employees = _employees_approved_by(doctype, user)
+			if employees is not None:
+				if not employees:
+					return []
+				filters["employee"] = ("in", sorted(employees))
+			else:
+				others_only = True
+		elif waiting.approver_field:
+			filters[waiting.approver_field] = user
+			if doctype == "Leave Application" and frappe.db.get_single_value("HR Settings", "prevent_self_leave_approval"):
+				others_only = True
+		else:
+			# No approver on the request: of those the user may see, the others'.
+			others_only = True
+	if others_only and me:
+		filters["employee"] = ("!=", me) if "employee" not in filters else filters["employee"]
 
-	return frappe.get_list(
+	listed = MY_REQUESTS.get(doctype)
+	fields = frappe.parse_json(fields) if fields else list(listed.fields if listed else ["name"])
+	state_field = get_workflow_state_field(doctype)
+	if state_field and state_field not in fields:
+		fields.append(state_field)
+	requests = frappe.get_list(
 		doctype,
-		fields=frappe.parse_json(fields) if fields else ["name"],
+		fields=fields,
 		filters=filters,
-		order_by="creation desc",
+		order_by=listed.order_by if listed else "creation desc",
+		group_by=listed.get("group_by") if listed else None,
 		limit=0,
 	)
+	if state_field:
+		for row in requests:
+			row["workflow_state_field"] = state_field
+	return requests
+
+
+def _employees_approved_by(doctype, user):
+	"""The employees whose requests of this type the user approves (None: every
+	employee, for the Administrator)."""
+	if user == "Administrator":
+		return None
+	request = REQUESTS[doctype]
+	employees = set(frappe.get_all("Employee", filters={request.employee_field: user}, pluck="name"))
+	departments = frappe.get_all(
+		"Department Approver",
+		filters={"parenttype": "Department", "parentfield": request.department_field, "approver": user},
+		pluck="parent",
+	)
+	if departments:
+		employees |= set(
+			frappe.get_all(
+				"Employee",
+				filters={"department": ("in", departments), request.employee_field: ("is", "not set")},
+				pluck="name",
+			)
+		)
+	return employees
 
 
 def get_condition(doctype, user=None):

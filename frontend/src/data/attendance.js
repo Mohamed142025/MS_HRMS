@@ -210,14 +210,10 @@ export const myShiftRequests = createResource({
 })
 
 export const teamShiftRequests = createResource({
-	url: "hrms.api.get_shift_requests",
-	params: {
-		employee: employeeResource.data.name,
-		approver_id: employeeResource.data.user_id,
-		for_approval: 1,
-		// Every request awaiting approval, for the approvals screen to list and filter.
-		limit: 0,
-	},
+	// Awaiting the user's approval, theirs included when they approve them
+	// (ms_hrms.request_approvers).
+	url: "ms_hrms.request_approvers.get_requests_to_approve",
+	params: { doctype: "Shift Request" },
 	auto: true,
 	cache: "hrms:team_shift_requests",
 	transform(data) {
@@ -225,13 +221,10 @@ export const teamShiftRequests = createResource({
 	},
 })
 export const teamAttendanceRequests = createResource({
-	url: "hrms.api.get_attendance_requests",
-	params: {
-		employee: employeeResource.data.name,
-		for_approval: 1,
-		// Every request awaiting approval, for the approvals screen to list and filter.
-		limit: 0,
-	},
+	// Awaiting the user's approval, theirs included when they approve them
+	// (ms_hrms.request_approvers).
+	url: "ms_hrms.request_approvers.get_requests_to_approve",
+	params: { doctype: "Attendance Request" },
 	auto: true,
 	cache: "hrms:team_attendance_requests",
 	transform: (data) => {
