@@ -45,6 +45,17 @@ class OvertimeRequest(Document):
     # Document Lifecycle
     # =========================================================================
 
+    def before_validate(self):
+        """
+        New Overtime Requests enter the approval flow immediately, so
+        their approver finds them awaiting approval (as Permission
+        Requests do). Other statuses stay subject to
+        validate_status_change.
+        """
+
+        if self.is_new() and self.get(self.STATUS_FIELD) in (None, "", self.STATUS_DRAFT):
+            self.set(self.STATUS_FIELD, self.STATUS_PENDING_APPROVAL)
+
     def validate(self):
         """
         Main validation pipeline.
@@ -152,6 +163,17 @@ class OvertimeRequest(Document):
         # ---------------------------------------------------------------------
 
         if current_user == "Administrator":
+            return
+
+        # ---------------------------------------------------------------------
+        # Existing Request
+        #
+        # The rule is about whose request it is, so it applies when the
+        # request is created or moved to another Employee. Saving it
+        # afterwards, as its approver does when deciding it, is allowed.
+        # ---------------------------------------------------------------------
+
+        if not self.is_new() and not self.has_value_changed("employee"):
             return
 
         # ---------------------------------------------------------------------

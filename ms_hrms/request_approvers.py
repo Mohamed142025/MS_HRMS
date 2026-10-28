@@ -37,6 +37,10 @@ REQUESTS = {
 	"Employee Advance": frappe._dict(),
 }
 SEES_ALL = "System Manager"
+# Requests decided through decide(): the Employee role may not write them, so their
+# approvers approve and reject through it.
+DECIDED_HERE = ("Permission Request", "Overtime Request")
+DECISIONS = ("Approved", "Rejected")
 
 
 def get_approvers(doctype, employee):
@@ -145,6 +149,25 @@ def attendance_request_condition(user=None):
 
 def employee_advance_condition(user=None):
 	return get_condition("Employee Advance", user)
+
+
+@frappe.whitelist(methods=["POST"])
+def decide(doctype, name, status):
+	"""Approve or reject a Permission or Overtime Request awaiting approval, as its
+	approver. The request's own validation still checks the change."""
+	if doctype not in DECIDED_HERE or status not in DECISIONS:
+		frappe.throw(frappe._("This request cannot be decided here."))
+
+	doc = frappe.get_doc(doctype, name)
+	if frappe.session.user != "Administrator" and not is_approver(doctype, doc.employee):
+		frappe.throw(frappe._("You are not the approver of this request."), frappe.PermissionError)
+	if doc.docstatus != 0 or doc.status != "Pending Approval":
+		frappe.throw(frappe._("This request is not awaiting approval."))
+
+	doc.status = status
+	doc.flags.ignore_permissions = True
+	doc.save()
+	return doc.status
 
 
 def has_permission(doc, ptype=None, user=None, debug=False):
