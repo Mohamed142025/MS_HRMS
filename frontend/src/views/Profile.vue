@@ -39,6 +39,11 @@
 					<span class="grow text-[15px] font-medium text-brand-ink">{{ link.title }}</span>
 					<AppIcon name="forward" :size="18" class="text-brand-muted" />
 				</button>
+				<router-link :to="{ name: 'EmployeeEvaluationListView' }" class="ms-list-row">
+					<span class="ms-icon-tile h-[38px] w-[38px] rounded-xl bg-brand-sand text-brand-emerald"><AppIcon name="chart" :size="20" /></span>
+					<span class="grow text-[15px] font-medium text-brand-ink">{{ __("My Evaluations") }}</span>
+					<AppIcon name="forward" :size="18" class="text-brand-muted" />
+				</router-link>
 			</nav>
 
 			<h2 class="ms-group-title mx-4 mb-2.5 mt-5">{{ __("Preferences") }}</h2>

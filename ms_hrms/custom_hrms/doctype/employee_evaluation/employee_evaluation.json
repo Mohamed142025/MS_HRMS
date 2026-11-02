@@ -33,6 +33,9 @@
   "incentive_slabs",
   "salary_structure_assignment",
   "additional_salary",
+  "employee_review_section",
+  "acknowledged_on",
+  "employee_comment",
   "amended_from"
  ],
  "fields": [
@@ -245,11 +248,36 @@
    "options": "Employee Evaluation",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "employee_review_section",
+   "fieldtype": "Section Break",
+   "label": "اطلاع الموظف",
+   "depends_on": "eval:doc.docstatus==1",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "acknowledged_on",
+   "fieldtype": "Datetime",
+   "label": "اطّلع عليه في",
+   "read_only": 1,
+   "allow_on_submit": 1,
+   "permlevel": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "employee_comment",
+   "fieldtype": "Small Text",
+   "label": "تعليق الموظف",
+   "read_only": 1,
+   "allow_on_submit": 1,
+   "permlevel": 1,
+   "no_copy": 1
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2026-10-21 14:00:00.000000",
+ "modified": "2026-11-03 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "Custom Hrms",
  "name": "Employee Evaluation",
@@ -305,6 +333,21 @@
    "read": 1,
    "role": "Employee",
    "write": 1
+  },
+  {
+   "permlevel": 1,
+   "read": 1,
+   "role": "HR Manager"
+  },
+  {
+   "permlevel": 1,
+   "read": 1,
+   "role": "HR User"
+  },
+  {
+   "permlevel": 1,
+   "read": 1,
+   "role": "System Manager"
   }
  ],
  "row_format": "Dynamic",

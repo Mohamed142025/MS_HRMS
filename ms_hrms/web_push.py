@@ -38,6 +38,7 @@ ROUTES = {
 	"Overtime Request": "overtime-requests/{name}",
 	"Employee Advance": "employee-advances/{name}",
 	"Salary Slip": "salary-slips/{name}",
+	"Employee Evaluation": "evaluations/{name}",
 	"Shift Type": "not-checked-in",
 	"Employee Checkin": "home",
 }

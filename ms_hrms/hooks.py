@@ -238,6 +238,8 @@ doc_events = {
 	"Leave Application": {"on_cancel": "ms_hrms.app_notifications.on_request_cancel"},
 	"Expense Claim": {"on_cancel": "ms_hrms.app_notifications.on_request_cancel"},
 	"Shift Request": {"on_cancel": "ms_hrms.app_notifications.on_request_cancel"},
+	# The employee told their evaluation is ready (my_evaluations).
+	"Employee Evaluation": {"on_submit": "ms_hrms.my_evaluations.on_submit"},
 	# App check-ins at the site's time, from the employee's registered phone (checkin_guard).
 	"Employee Checkin": {"before_insert": "ms_hrms.checkin_guard.before_insert"},
 	# Advance installments go to payroll only for what was paid (advance_repayment).

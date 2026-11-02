@@ -119,6 +119,7 @@ const DETAIL_VIEWS = [
 	"Overtime Request",
 	"Employee Advance",
 	"Salary Slip",
+	"Employee Evaluation",
 ]
 
 function getItemRoute(item) {
@@ -140,6 +141,7 @@ const OTHER_TYPES = {
 	Employee: { icon: "sun", tone: "info" },
 	"Salary Slip": { icon: "banknote", tone: "success" },
 	"HR Announcement": { icon: "bell", tone: "roots" },
+	"Employee Evaluation": { icon: "chart", tone: "emerald" },
 }
 const type = (item) =>
 	REQUEST_TYPES[item.reference_document_type] || OTHER_TYPES[item.reference_document_type] || { icon: "bell", tone: "roots" }

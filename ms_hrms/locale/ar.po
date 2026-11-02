@@ -2735,3 +2735,75 @@ msgstr "مقدرناش نحدد موقعك. شغّل الموقع (GPS) في ا�
 
 msgid "Finding your location..."
 msgstr "جاري تحديد موقعك..."
+
+msgid "My Evaluations"
+msgstr "تقييماتي"
+
+msgid "My Evaluation"
+msgstr "تقييمي"
+
+msgid "Only you can see them"
+msgstr "محدش يشوفها غيرك"
+
+msgid "Your evaluations show here once HR approves them."
+msgstr "تقييماتك هتظهر هنا أول ما الموارد البشرية تعتمدها."
+
+msgid "Your scores"
+msgstr "نتايجك"
+
+msgid "Incentive {0}"
+msgstr "الحافز {0}"
+
+msgid "Final score"
+msgstr "النتيجة النهائية"
+
+msgid "Up {0} points on last time"
+msgstr "زيادة {0} نقطة عن المرة اللي فاتت"
+
+msgid "Down {0} points on last time"
+msgstr "أقل {0} نقطة عن المرة اللي فاتت"
+
+msgid "Evaluated by {0}"
+msgstr "قيّمك: {0}"
+
+msgid "Your incentive"
+msgstr "حافزك"
+
+msgid "Of the incentive amount"
+msgstr "من مبلغ الحافز"
+
+msgid "Paid with this period's salary."
+msgstr "بيتصرف مع مرتب الفترة دي."
+
+msgid "Acknowledgement"
+msgstr "الاطلاع"
+
+msgid "You acknowledged it on {0}"
+msgstr "اطّلعت عليه في {0}"
+
+msgid "Have you read your evaluation?"
+msgstr "قريت تقييمك؟"
+
+msgid "Acknowledge it, with a comment for HR if you have one. Only HR reads your comment."
+msgstr "أكّد إنك اطّلعت عليه، ولو عندك تعليق اكتبه للموارد البشرية. تعليقك محدش بيقراه غير الموارد البشرية."
+
+msgid "Your comment (optional)"
+msgstr "تعليقك (اختياري)"
+
+msgid "I've read my evaluation"
+msgstr "اطّلعت على تقييمي"
+
+msgid "Thank you. HR knows you read it."
+msgstr "شكراً. الموارد البشرية عرفت إنك اطّلعت عليه."
+
+msgid "This evaluation is not yours to see."
+msgstr "التقييم ده مش بتاعك."
+
+msgid "You already acknowledged this evaluation."
+msgstr "إنت اطّلعت على التقييم ده قبل كده."
+
+msgid "{0} commented on their evaluation for {1}"
+msgstr "{0} علّق على تقييمه لفترة {1}"
+
+msgid "Your evaluation for {0} is ready: {1}"
+msgstr "تقييمك لفترة {0} جاهز: {1}"
