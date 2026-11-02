@@ -101,6 +101,19 @@
 			view="actionSheet"
 		/>
 
+		<!-- Approved by submitting, by the employee's manager or approver (ms_hrms). -->
+		<div
+			v-else-if="approvedHere && document?.doc?.docstatus === 0 && canApprove.data"
+			class="flex w-full flex-row items-center justify-between gap-3 sticky bottom-0 border-t z-[100] p-4"
+		>
+			<Button @click="approveHere" class="w-full py-5" variant="solid" theme="green" :loading="approving">
+				<template #prefix>
+					<FeatherIcon name="check" class="w-4" />
+				</template>
+				{{ __("Approve") }}
+			</Button>
+		</div>
+
 		<div
 			v-else-if="['Open', 'Draft'].includes(document?.doc?.[approvalField]) && hasPermission('approval')"
 			class="flex w-full flex-row items-center justify-between gap-3 sticky bottom-0 border-t z-[100] p-4"
@@ -197,6 +210,7 @@ import { settings } from "@/data/settings"
 import { formatCurrency } from "@/utils/formatters"
 
 import useWorkflow from "@/composables/workflow"
+import { approvalFlow, submit } from "@/composables/approval"
 
 const __ = inject("$translate")
 const dayjs = inject("$dayjs")
@@ -274,6 +288,40 @@ const permittedWriteFields = createResource({
 })
 
 const sessionEmployee = inject("$employee")
+
+// Employee Advances: approved here by the employee's manager or approver.
+const approvedHere = computed(() => Boolean(approvalFlow(props.modelValue.doctype)?.approveMethod))
+const canApprove = createResource({
+	url: "ms_hrms.request_approvers.get_can_approve",
+	params: { doctype: props.modelValue.doctype, name: props.modelValue.name },
+	auto: approvedHere.value,
+})
+const approving = ref(false)
+
+async function approveHere() {
+	approving.value = true
+	try {
+		await submit(props.modelValue)
+		modalController.dismiss()
+		toast({
+			title: __("Success"),
+			text: __("{0} successfully!", [__("Approved")]),
+			icon: "check-circle",
+			position: "bottom-center",
+			iconClasses: "text-green-500",
+		})
+	} catch (error) {
+		toast({
+			title: __("Error"),
+			text: error.messages?.[0] || __("{0} failed!", [__("Approval")]),
+			icon: "alert-circle",
+			position: "bottom-center",
+			iconClasses: "text-red-500",
+		})
+	} finally {
+		approving.value = false
+	}
+}
 
 function hasPermission(action) {
 	if (action === "approval" && props.modelValue.doctype === "Leave Application"){

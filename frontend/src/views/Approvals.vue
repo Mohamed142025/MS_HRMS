@@ -201,6 +201,7 @@ import RequestSheet from "@/components/RequestSheet.vue"
 import { teamToday } from "@/data/pwa"
 import { teamLeaves } from "@/data/leaves"
 import { teamClaims } from "@/data/claims"
+import { teamAdvances } from "@/data/advances"
 import {
 	teamShiftRequests,
 	teamAttendanceRequests,
@@ -217,6 +218,7 @@ const dayjs = inject("$dayjs")
 const sources = {
 	"Leave Application": teamLeaves,
 	"Expense Claim": teamClaims,
+	"Employee Advance": teamAdvances,
 	"Permission Request": teamPermissionRequests,
 	"Overtime Request": teamOvertimeRequests,
 	"Shift Request": teamShiftRequests,

@@ -16,7 +16,9 @@ import frappe
 
 # For each request: the approver field on Employee, the approvers table on Department,
 # and the approver field on the request itself. Requests with none of them (Attendance
-# Request, Employee Advance) are seen by the employee's manager (Reports To).
+# Request) are seen by the employee's manager (Reports To), as every request is. Employee
+# Advances are approved by the employee's manager or, as in Frappe HR, by their expense
+# approvers.
 REQUESTS = {
 	"Permission Request": frappe._dict(
 		employee_field="custom_permission_approver", department_field="custom_permission_approver"
@@ -34,7 +36,7 @@ REQUESTS = {
 		employee_field="shift_request_approver", department_field="shift_request_approver", request_field="approver"
 	),
 	"Attendance Request": frappe._dict(),
-	"Employee Advance": frappe._dict(),
+	"Employee Advance": frappe._dict(employee_field="expense_approver", department_field="expense_approvers"),
 }
 SEES_ALL = "System Manager"
 # HR Settings' list of the other roles that see every request (setup()).
@@ -143,6 +145,7 @@ WAITING = {
 	"Expense Claim": frappe._dict(status_field="approval_status", waiting="Draft", approver_field="expense_approver"),
 	"Shift Request": frappe._dict(status_field="status", waiting="Draft", approver_field="approver"),
 	"Attendance Request": frappe._dict(),
+	"Employee Advance": frappe._dict(),
 	"Permission Request": frappe._dict(status_field="status", waiting="Pending Approval"),
 	"Overtime Request": frappe._dict(status_field="status", waiting="Pending Approval"),
 }
@@ -316,6 +319,48 @@ def decide(doctype, name, status):
 	doc.flags.ignore_permissions = True
 	doc.save()
 	return doc.status
+
+
+# Requests approved by submitting them, which Frappe HR leaves to a role (Expense
+# Approver) rather than to the employee's manager: their approvers submit them here.
+APPROVED_HERE = ("Employee Advance",)
+
+
+def can_approve(doc, user=None):
+	user = user or frappe.session.user
+	if doc.doctype not in APPROVED_HERE or doc.docstatus != 0:
+		return False
+	if sees_all(user):
+		return True
+	if frappe.db.get_value("Employee", doc.employee, "user_id") == user:
+		return False
+	return is_manager(doc.employee, user) or is_approver(doc.doctype, doc.employee, user)
+
+
+@frappe.whitelist()
+def get_can_approve(doctype, name):
+	"""Whether the user may approve this request here, for its sheet in the app."""
+	if doctype not in APPROVED_HERE:
+		return False
+	doc = frappe.get_doc(doctype, name)
+	doc.check_permission("read")
+	return can_approve(doc)
+
+
+@frappe.whitelist(methods=["POST"])
+def approve(doctype, name):
+	"""Approve (submit) a request as the employee's manager or approver. The request's own
+	validation still checks it."""
+	if doctype not in APPROVED_HERE:
+		frappe.throw(frappe._("This request cannot be approved here."))
+	doc = frappe.get_doc(doctype, name)
+	if doc.docstatus != 0:
+		frappe.throw(frappe._("This request is not awaiting approval."))
+	if not can_approve(doc):
+		frappe.throw(frappe._("You are not the approver of this request."), frappe.PermissionError)
+	doc.flags.ignore_permissions = True
+	doc.submit()
+	return doc.docstatus
 
 
 def has_permission(doc, ptype=None, user=None, debug=False):

@@ -103,6 +103,11 @@ const STATUS_TONES = {
 	Returned: "neutral",
 	Rejected: "danger",
 	Cancelled: "neutral",
+	// Advance installments (AdvanceRepaymentSchedule).
+	Scheduled: "info",
+	Due: "warning",
+	Deducted: "success",
+	Missed: "danger",
 }
 
 // A request type's name in lists and filters ("Leaves", "Permissions"...).

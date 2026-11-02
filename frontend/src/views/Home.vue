@@ -246,6 +246,7 @@ import { leaveBalance } from "@/data/leaves"
 import { unreadNotificationsCount } from "@/data/notifications"
 import { teamLeaves } from "@/data/leaves"
 import { teamClaims } from "@/data/claims"
+import { teamAdvances } from "@/data/advances"
 import {
 	teamShiftRequests,
 	teamAttendanceRequests,
@@ -283,6 +284,7 @@ onMounted(() => {
 const teamSources = [
 	teamLeaves,
 	teamClaims,
+	teamAdvances,
 	teamPermissionRequests,
 	teamOvertimeRequests,
 	teamShiftRequests,

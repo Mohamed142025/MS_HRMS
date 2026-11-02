@@ -151,6 +151,16 @@ export const ATTENDANCE_REQUEST_FIELDS = [
 	},
 ]
 
+export const EMPLOYEE_ADVANCE_FIELDS = [
+	{ fieldname: "name", label: "ID", fieldtype: "Data" },
+	{ fieldname: "posting_date", label: "Posting Date", fieldtype: "Date" },
+	{ fieldname: "employee", label: "Employee", fieldtype: "Link" },
+	{ fieldname: "purpose", label: "Purpose", fieldtype: "Small Text" },
+	{ fieldname: "advance_amount", label: "Advance Amount", fieldtype: "Currency" },
+	{ fieldname: "paid_amount", label: "Paid Amount", fieldtype: "Currency" },
+	{ fieldname: "status", label: "Status", fieldtype: "Select" },
+]
+
 export const SHIFT_FIELDS = [
 	{
 		fieldname: "name",

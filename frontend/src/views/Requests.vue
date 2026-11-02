@@ -99,6 +99,7 @@ import RequestSheet from "@/components/RequestSheet.vue"
 
 import { myLeaves, leaveBalance, teamLeaves } from "@/data/leaves"
 import { myClaims, teamClaims } from "@/data/claims"
+import { myAdvances, teamAdvances } from "@/data/advances"
 import {
 	myAttendanceRequests,
 	myShiftRequests,
@@ -116,8 +117,8 @@ import { formatNumber } from "@/utils/formatters"
 const __ = inject("$translate")
 const dayjs = inject("$dayjs")
 
-const mine = [myLeaves, myClaims, myPermissionRequests, myOvertimeRequests, myShiftRequests, myAttendanceRequests]
-const team = [teamLeaves, teamClaims, teamPermissionRequests, teamOvertimeRequests, teamShiftRequests, teamAttendanceRequests]
+const mine = [myLeaves, myClaims, myAdvances, myPermissionRequests, myOvertimeRequests, myShiftRequests, myAttendanceRequests]
+const team = [teamLeaves, teamClaims, teamAdvances, teamPermissionRequests, teamOvertimeRequests, teamShiftRequests, teamAttendanceRequests]
 
 async function refresh(event) {
 	await Promise.allSettled([...mine, ...team, leaveBalance].map((resource) => resource.reload()))

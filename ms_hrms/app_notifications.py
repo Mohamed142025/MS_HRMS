@@ -245,10 +245,12 @@ def approvers_of(doc):
 	users = []
 	if REQUESTS.get(doc.doctype, {}).get("employee_field"):
 		users = get_approvers(doc.doctype, doc.employee)
-	if not users:
+	# An advance is approved by the manager as well as the expense approvers.
+	if not users or doc.doctype == "Employee Advance":
 		manager = frappe.db.get_value("Employee", doc.employee, "reports_to")
-		users = [user_of(manager)] if manager else []
-	return [user for user in users if user]
+		if manager:
+			users = [user_of(manager), *users]
+	return list(dict.fromkeys(user for user in users if user))
 
 
 def tell_approvers_of_new(doc):

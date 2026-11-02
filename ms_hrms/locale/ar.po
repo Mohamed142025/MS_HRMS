@@ -2426,3 +2426,300 @@ msgstr "افتح «الأذونات»، وبعدها «الإشعارات»"
 
 msgid "Choose Allow, then come back here"
 msgstr "اختار «السماح»، وارجع هنا"
+
+msgid "Repayment Plan"
+msgstr "خطة السداد"
+
+msgid "Number of Months"
+msgstr "عدد الشهور"
+
+msgid "First Repayment Month"
+msgstr "أول شهر للسداد"
+
+msgid "Monthly Installment"
+msgstr "القسط الشهري"
+
+msgid "Repaid From Salary"
+msgstr "المسدَّد من الراتب"
+
+msgid "Remaining to Repay"
+msgstr "المتبقي للسداد"
+
+msgid "Missed Installments"
+msgstr "أقساط لم تُخصم"
+
+msgid "Repayment Schedule"
+msgstr "جدول السداد"
+
+msgid "Employee Advance Repayment"
+msgstr "قسط سلفة موظف"
+
+msgid "Advance Repayment Component"
+msgstr "بند خصم أقساط السلف"
+
+msgid "The deduction that employee advance installments are deducted from salaries as."
+msgstr "بند الخصم اللي أقساط سلف الموظفين بتتخصم بيه من المرتبات."
+
+msgid "The installment is deducted in the salary of this date's month."
+msgstr "القسط بيتخصم من مرتب الشهر اللي فيه التاريخ ده."
+
+msgid "Scheduled"
+msgstr "مجدول"
+
+msgid "Due"
+msgstr "مستحق"
+
+msgid "Deducted"
+msgstr "اتخصم"
+
+msgid "Missed"
+msgstr "لم يُخصم"
+
+msgid "Installment"
+msgstr "القسط"
+
+msgid "Set Repayment Plan"
+msgstr "تحديد خطة السداد"
+
+msgid "Change Repayment Plan"
+msgstr "تعديل خطة السداد"
+
+msgid "Move Remaining Installments"
+msgstr "ترحيل الأقساط المتبقية"
+
+msgid "Postpone an Installment"
+msgstr "تأجيل قسط"
+
+msgid "Move Installments"
+msgstr "ترحيل"
+
+msgid "Postpone Installment"
+msgstr "تأجيل"
+
+msgid "Make Schedule"
+msgstr "إنشاء الجدول"
+
+msgid "Any day of the month: the installment is deducted in that month's salary."
+msgstr "أي يوم في الشهر: القسط بيتخصم من مرتب الشهر ده."
+
+msgid "{0} a month from {1}, to repay {2}"
+msgstr "{0} في الشهر بدايةً من {1}، لسداد {2}"
+
+msgid "Start the Remaining Installments From"
+msgstr "ابدأ الأقساط المتبقية من شهر"
+
+msgid "The installments not deducted, the missed ones first, one a month from this month."
+msgstr "الأقساط اللي لسه ما اتخصمتش، والمتأخرة الأول، قسط كل شهر بدايةً من الشهر ده."
+
+msgid "Moved to the month after the last installment."
+msgstr "هيتنقل للشهر اللي بعد آخر قسط."
+
+msgid "Not deducted: {0}. Move the remaining installments or postpone them."
+msgstr "لم يتم الخصم: {0}. رحّل الأقساط المتبقية أو أجّلها."
+
+msgid "Only HR may set the repayment plan of an advance."
+msgstr "الموارد البشرية بس هي اللي تقدر تحدد خطة سداد السلفة."
+
+msgid "The repayment plan is set after the advance is approved."
+msgstr "خطة السداد بتتحدد بعد اعتماد السلفة."
+
+msgid "Choose this month or a later one."
+msgstr "اختار الشهر الحالي أو شهر بعده."
+
+msgid "Set the number of months."
+msgstr "حدد عدد الشهور."
+
+msgid "Installments of this advance were already sent to payroll. Move or postpone the remaining ones instead."
+msgstr "في أقساط من السلفة دي اتبعتت للمرتبات خلاص. رحّل الأقساط المتبقية أو أجّلها بدل ما تعمل خطة جديدة."
+
+msgid "Set the Advance Repayment Component in Payroll Settings first."
+msgstr "حدد «بند خصم أقساط السلف» في إعدادات الرواتب الأول."
+
+msgid "Repayment plan set: {0} months from {1}."
+msgstr "اتحددت خطة السداد: {0} شهور بدايةً من {1}."
+
+msgid "No installments are left to move."
+msgstr "مفيش أقساط متبقية للترحيل."
+
+msgid "Remaining installments moved to start from {0}."
+msgstr "الأقساط المتبقية اترحّلت وهتبدأ من {0}."
+
+msgid "Choose an installment that was not deducted."
+msgstr "اختار قسط لسه ما اتخصمش."
+
+msgid "Postponed from {0}"
+msgstr "مؤجل من {0}"
+
+msgid "Installment of {0} postponed to {1}."
+msgstr "قسط {0} اتأجل لـ {1}."
+
+msgid "Moved from {0}"
+msgstr "مرحّل من {0}"
+
+msgid "Only HR may change the repayment schedule."
+msgstr "الموارد البشرية بس هي اللي تقدر تعدّل جدول السداد."
+
+msgid "The installment of {0} was already sent to payroll and cannot be changed."
+msgstr "قسط {0} اتبعت للمرتبات خلاص ومينفعش يتعدّل."
+
+msgid "Row {0}: set the month of the installment."
+msgstr "صف {0}: حدد شهر القسط."
+
+msgid "Row {0}: the installment should be more than zero."
+msgstr "صف {0}: القسط لازم يكون أكبر من صفر."
+
+msgid "The installments add up to {0}, but the advance to repay is {1}."
+msgstr "مجموع الأقساط {0}، لكن المطلوب سداده من السلفة {1}."
+
+msgid "The salary slip of {0} was submitted before the installment was sent."
+msgstr "قسيمة مرتب {0} اتعتمدت قبل ما القسط يتبعت."
+
+msgid "Not sent to payroll: {0}"
+msgstr "ما اتبعتش للمرتبات: {0}"
+
+msgid "Not deducted in {0}: {1} was cancelled."
+msgstr "لم يُخصم في {0}: {1} اتلغى."
+
+msgid "Not deducted in {0}: left out of {1}."
+msgstr "لم يُخصم في {0}: مش موجود في {1}."
+
+msgid "An installment was not deducted. Move the remaining installments or postpone it."
+msgstr "في قسط ما اتخصمش. رحّل الأقساط المتبقية أو أجّله."
+
+msgid "Your advance will be repaid from your salary: {0} a month for {1} months, from {2}"
+msgstr "سلفتك هتتسدد من مرتبك: {0} في الشهر لمدة {1} شهور، بدايةً من {2}"
+
+msgid "{0} of your advance was deducted from your salary for {1}. Remaining: {2}"
+msgstr "اتخصم {0} من سلفتك في مرتب {1}. المتبقي: {2}"
+
+msgid "Your advance installments were rescheduled. The next one is in {0}"
+msgstr "مواعيد أقساط سلفتك اتعدّلت. القسط الجاي في {0}"
+
+msgid "{0} of {1} months"
+msgstr "{0} من {1} شهور"
+
+msgid "Not deducted this month"
+msgstr "ما اتخصمش الشهر ده"
+
+msgid "Rescheduled"
+msgstr "اتغيّر ميعاده"
+
+msgid "Upcoming"
+msgstr "قادم"
+
+msgid "Due This Month"
+msgstr "هيتخصم الشهر ده"
+
+msgid "This request cannot be approved here."
+msgstr "الطلب ده مينفعش يتعتمد من هنا."
+
+msgid "You are not the approver of this request."
+msgstr "إنت مش المسؤول عن اعتماد الطلب ده."
+
+msgid "This request is not awaiting approval."
+msgstr "الطلب ده مش مستني اعتماد."
+
+msgid "Approve this advance?"
+msgstr "اعتماد السلفة دي؟"
+
+msgid "Set the number of months and the first month, then Update: the schedule is made from them."
+msgstr "حدد عدد الشهور وأول شهر، وبعدين اضغط «تحديث»: جدول السداد بيتعمل منهم."
+
+msgid "Set the first repayment month."
+msgstr "حدد أول شهر للسداد."
+
+msgid "The installments wait for the advance to be paid: nothing is deducted from the salary before it is."
+msgstr "الأقساط مستنية صرف السلفة: مفيش أي خصم من المرتب قبل ما تتصرف."
+
+msgid "Deductions start once the advance is paid to you."
+msgstr "الخصم هيبدأ بعد ما السلفة تتصرف لك."
+
+msgid "Taken back from payroll: the advance payment was cancelled."
+msgstr "اتسحب من المرتبات: صرف السلفة اتلغى."
+
+msgid "App Check-in Device"
+msgstr "جهاز تسجيل الحضور من التطبيق"
+
+msgid "The phone the employee checks in from in the app: the first one they check in from. HR resets it when the employee changes phones."
+msgstr "الموبايل اللي الموظف بيسجّل منه الحضور في التطبيق: أول موبايل يسجّل منه. الموارد البشرية بتعمل له إعادة تعيين لما الموظف يغيّر موبايله."
+
+msgid "Registered Device"
+msgstr "الجهاز المسجّل"
+
+msgid "Registered On"
+msgstr "تاريخ التسجيل"
+
+msgid "Registered Device ID"
+msgstr "معرّف الجهاز المسجّل"
+
+msgid "Device Check"
+msgstr "التحقق من الجهاز"
+
+msgid "Device Registered Now"
+msgstr "اتسجّل الجهاز دلوقتي"
+
+msgid "Other Device"
+msgstr "جهاز تاني"
+
+msgid "App Device"
+msgstr "جهاز التطبيق"
+
+msgid "App Device ID"
+msgstr "معرّف جهاز التطبيق"
+
+msgid "Check-in From Another Phone"
+msgstr "الدخول والبصمة من موبايل تاني"
+
+msgid "Block the App and Check-in"
+msgstr "منع التطبيق والبصمة"
+
+msgid "Allow and Mark for Review"
+msgstr "السماح مع التعليم للمراجعة"
+
+msgid "When an employee opens the app on a phone other than their registered one. Blocked: the app is closed to them and they cannot check in until HR resets their device. Allowed: they use the app and check in, and the check-in is marked Other Device for HR to review."
+msgstr "لما الموظف يفتح التطبيق من موبايل غير المسجّل له. المنع: التطبيق بيتقفل عليه ومش هيقدر يبصم لحد ما الموارد البشرية تعمل إعادة تعيين لجهازه. السماح: بيستخدم التطبيق ويبصم عادي، والبصمة بتتعلّم «جهاز تاني» عشان الموارد البشرية تراجعها."
+
+msgid "This phone is not your registered device for check-in. Ask HR to register it."
+msgstr "الموبايل ده مش الجهاز المسجّل لك لتسجيل الحضور. اطلب من الموارد البشرية تسجّله."
+
+msgid "Another Phone"
+msgstr "موبايل تاني"
+
+msgid "Close the app and open it again, then check in."
+msgstr "اقفل التطبيق وافتحه تاني، وبعدين سجّل حضورك."
+
+msgid "Check-in ({0}) blocked: from another phone ({1})."
+msgstr "اتمنع تسجيل ({0}): من موبايل تاني ({1})."
+
+msgid "unknown"
+msgstr "غير معروف"
+
+msgid "Only HR may reset an employee's check-in device."
+msgstr "الموارد البشرية بس هي اللي تقدر تعيد تعيين جهاز الحضور."
+
+msgid "Check-in device reset (was {0}). The next phone checked in from is registered."
+msgstr "اتعملت إعادة تعيين لجهاز الحضور (كان {0}). أول موبايل يسجّل منه الحضور بعد كده هيتسجّل."
+
+msgid "Reset Check-in Device"
+msgstr "إعادة تعيين جهاز الحضور"
+
+msgid "Reset {0}'s check-in device? The next phone they check in from will be registered."
+msgstr "إعادة تعيين جهاز الحضور لـ {0}؟ أول موبايل يسجّل منه بعد كده هيتسجّل."
+
+msgid "This phone becomes your registered device for check-in."
+msgstr "الموبايل ده هيتسجّل جهازك لتسجيل الحضور."
+
+msgid "This phone is not your registered device: HR will review this check-in."
+msgstr "الموبايل ده مش جهازك المسجّل: الموارد البشرية هتراجع التسجيل ده."
+
+msgid "none"
+msgstr "مفيش"
+
+msgid "This phone is not your registered device"
+msgstr "الموبايل ده مش جهازك المسجّل"
+
+msgid "You can use the app only on the phone registered to you. To use this phone, ask HR to reset your device, then open the app here again."
+msgstr "تقدر تستخدم التطبيق من الموبايل المسجّل لك بس. عشان تستخدم الموبايل ده، اطلب من الموارد البشرية تعمل إعادة تعيين لجهازك، وبعدين افتح التطبيق هنا تاني."
+
+msgid "App opened on another phone ({0}) and closed to the employee."
+msgstr "التطبيق اتفتح من جهاز تاني ({0}) واتقفل على الموظف."

@@ -59,6 +59,13 @@ app.provide("$employee", employeeResource)
 app.provide("$socket", socket)
 app.provide("$dayjs", dayjs)
 
+// The app's worker registration, for turning push notifications on and checking them
+// (composables/pushNotifications.js). Promised from the start: registering first looks
+// through the workers already there, and a screen that asks before then waits for it
+// instead of finding none (null where service workers are not supported).
+let resolveServiceWorker
+window.msHrmsServiceWorker = new Promise((resolve) => (resolveServiceWorker = resolve))
+
 const registerServiceWorker = async () => {
 	window.frappePushNotification = new FrappePushNotification("hrms")
 
@@ -102,11 +109,11 @@ const registerServiceWorker = async () => {
 			}
 		}
 
-		// Kept for turning push notifications on (composables/pushNotifications.js).
-		window.msHrmsServiceWorker = navigator.serviceWorker.register(serviceWorkerURL, {
+		const registering = navigator.serviceWorker.register(serviceWorkerURL, {
 			type: "classic",
 			scope: "/hrms",
 		})
+		resolveServiceWorker(registering)
 		if (assetsWorkers.length) {
 			window.msHrmsServiceWorker
 				.then(() => navigator.serviceWorker.ready)
@@ -125,6 +132,7 @@ const registerServiceWorker = async () => {
 				console.error("Failed to register service worker", err)
 			})
 	} else {
+		resolveServiceWorker(null)
 		console.error("Service worker not enabled/supported by the browser")
 	}
 }

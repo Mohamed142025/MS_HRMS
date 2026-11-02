@@ -90,6 +90,22 @@ MY_REQUESTS = {
 		],
 		order_by="creation desc",
 	),
+	"Employee Advance": frappe._dict(
+		fields=[
+			"name",
+			"employee",
+			"employee_name",
+			"posting_date",
+			"purpose",
+			"advance_amount",
+			"paid_amount",
+			"currency",
+			"status",
+			"docstatus",
+			"creation",
+		],
+		order_by="posting_date desc",
+	),
 }
 
 # For each request: the field that holds the approver's decision (none when approving

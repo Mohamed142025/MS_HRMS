@@ -2,7 +2,9 @@
 // request sheet makes (RequestActionSheet): the decision is saved on the request's status
 // field, and requests that are submitted afterwards (leave, expense claim, shift request)
 // are submitted as a second, separate step. Attendance requests are approved by
-// submitting them. Permission and Overtime Requests, which the Employee role may not
+// submitting them, and so are Employee Advances, through ms_hrms' approver check
+// (ms_hrms.request_approvers.approve) as Frappe HR leaves them to a role. Permission and
+// Overtime Requests, which the Employee role may not
 // write, are decided through ms_hrms' approver check (ms_hrms.request_approvers.decide).
 // Doctypes with a workflow are decided in the request sheet instead.
 import { call } from "frappe-ui"
@@ -14,6 +16,7 @@ const FLOWS = {
 	"Permission Request": { field: "status", submitAfter: false, method: "ms_hrms.request_approvers.decide" },
 	"Overtime Request": { field: "status", submitAfter: false, method: "ms_hrms.request_approvers.decide" },
 	"Attendance Request": { field: null, submitAfter: true },
+	"Employee Advance": { field: null, submitAfter: true, approveMethod: "ms_hrms.request_approvers.approve" },
 }
 
 export const approvalFlow = (doctype) => FLOWS[doctype]
@@ -36,6 +39,8 @@ export async function canSubmit(doc) {
 
 // As a set of values: set_value refuses docstatus as a single field name.
 export function submit(doc) {
+	const approveMethod = FLOWS[doc.doctype]?.approveMethod
+	if (approveMethod) return call(approveMethod, { doctype: doc.doctype, name: doc.name })
 	return call("frappe.client.set_value", {
 		doctype: doc.doctype,
 		name: doc.name,

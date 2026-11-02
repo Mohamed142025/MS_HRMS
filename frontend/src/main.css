@@ -290,3 +290,18 @@ ion-modal.ms-sheet {
 	border-radius: 6px;
 	color: rgb(var(--ms-emerald-rgb, 25, 123, 87));
 }
+
+/* frappe-ui's checkbox label sits by a left margin, against the box in Arabic: spaced
+   by a gap on either side instead. */
+.ms-form label:has(> div > .form-checkbox) {
+	align-items: center;
+	gap: 10px;
+	min-height: 44px;
+}
+
+.ms-form label:has(> div > .form-checkbox) > span {
+	margin: 0;
+	font-size: 14.5px;
+	line-height: 1.4;
+	color: rgb(var(--ms-ink-rgb, 22, 33, 28));
+}

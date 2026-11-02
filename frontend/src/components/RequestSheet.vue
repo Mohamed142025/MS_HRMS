@@ -11,6 +11,7 @@ import RequestActionSheet from "@/components/RequestActionSheet.vue"
 import {
 	LEAVE_FIELDS,
 	EXPENSE_CLAIM_FIELDS,
+	EMPLOYEE_ADVANCE_FIELDS,
 	ATTENDANCE_REQUEST_FIELDS,
 	SHIFT_REQUEST_FIELDS,
 	PERMISSION_REQUEST_FIELDS,
@@ -23,6 +24,7 @@ defineEmits(["close"])
 const FIELDS = {
 	"Leave Application": LEAVE_FIELDS,
 	"Expense Claim": EXPENSE_CLAIM_FIELDS,
+	"Employee Advance": EMPLOYEE_ADVANCE_FIELDS,
 	"Attendance Request": ATTENDANCE_REQUEST_FIELDS,
 	"Shift Request": SHIFT_REQUEST_FIELDS,
 	"Permission Request": PERMISSION_REQUEST_FIELDS,

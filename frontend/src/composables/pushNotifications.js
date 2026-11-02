@@ -27,7 +27,7 @@ function applicationServerKey(base64) {
 	return Uint8Array.from(atob(padded), (char) => char.charCodeAt(0))
 }
 
-function device() {
+export function device() {
 	const agent = navigator.userAgent
 	const os = /android/i.test(agent) ? "Android" : isIOS() ? "iOS" : /windows/i.test(agent) ? "Windows" : /mac/i.test(agent) ? "macOS" : "Linux"
 	const browser = /edg\//i.test(agent) ? "Edge" : /chrome|crios/i.test(agent) ? "Chrome" : /firefox|fxios/i.test(agent) ? "Firefox" : /safari/i.test(agent) ? "Safari" : ""

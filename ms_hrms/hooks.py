@@ -35,6 +35,8 @@ after_migrate = [
 	"ms_hrms.attendance_watch.setup",
 	"ms_hrms.web_push.setup",
 	"ms_hrms.app_notifications.setup",
+	"ms_hrms.advance_repayment.setup",
+	"ms_hrms.checkin_guard.setup",
 ]
 
 # The desk's app switcher opens HR Setup for Frappe HR (hr_app).
@@ -89,6 +91,10 @@ doctype_js = {
     "Attendance Penalty Processing": "custom_hrms/doctype/attendance_penalty_processing/attendance_penalty_processing.js",
     # Shifts by day of the week (shift_by_weekday).
     "Shift Assignment Tool": "public/js/shift_assignment_tool.js",
+    # Repayment plans (advance_repayment).
+    "Employee Advance": "public/js/employee_advance.js",
+    # Resetting the phone an employee checks in from (checkin_guard).
+    "Employee": "public/js/employee.js",
 }
 doctype_list_js = {"Employee Checkin": "public/js/employee_checkin_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
@@ -193,7 +199,13 @@ fixtures = [
 
 doc_events = {
 	"Additional Salary": {
-		"on_trash": "ms_hrms.custom_hrms.doctype.overtime_calculation.overtime_calculation.clear_additional_salary_links",
+		"on_trash": [
+			"ms_hrms.custom_hrms.doctype.overtime_calculation.overtime_calculation.clear_additional_salary_links",
+			"ms_hrms.advance_repayment.on_additional_salary_trash",
+		],
+		# Advance installments (advance_repayment).
+		"before_cancel": "ms_hrms.advance_repayment.ignore_schedule_links",
+		"on_cancel": "ms_hrms.advance_repayment.on_additional_salary_cancel",
 	},
 	# The employee app's notifications (app_notifications), each pushed to the user's
 	# devices (web_push).
@@ -215,16 +227,38 @@ doc_events = {
 		"on_cancel": "ms_hrms.app_notifications.on_request_cancel",
 	},
 	"Employee Advance": {
+		"onload": "ms_hrms.advance_repayment.onload",
 		"after_insert": "ms_hrms.app_notifications.on_request_insert",
 		"on_submit": "ms_hrms.app_notifications.on_request_submit",
 		"on_cancel": "ms_hrms.app_notifications.on_request_cancel",
+		# Repayment plans (advance_repayment).
+		"before_update_after_submit": "ms_hrms.advance_repayment.validate_schedule",
+		"on_update_after_submit": "ms_hrms.advance_repayment.on_schedule_update",
 	},
 	"Leave Application": {"on_cancel": "ms_hrms.app_notifications.on_request_cancel"},
 	"Expense Claim": {"on_cancel": "ms_hrms.app_notifications.on_request_cancel"},
 	"Shift Request": {"on_cancel": "ms_hrms.app_notifications.on_request_cancel"},
-	"Salary Slip": {"on_submit": "ms_hrms.app_notifications.on_salary_slip_submit"},
+	# App check-ins at the site's time, from the employee's registered phone (checkin_guard).
+	"Employee Checkin": {"before_insert": "ms_hrms.checkin_guard.before_insert"},
+	# Advance installments go to payroll only for what was paid (advance_repayment).
+	"Payment Entry": {
+		"on_submit": "ms_hrms.advance_repayment.on_payment_submit",
+		"on_cancel": "ms_hrms.advance_repayment.on_payment_cancel",
+	},
+	"Journal Entry": {
+		"on_submit": "ms_hrms.advance_repayment.on_payment_submit",
+		"on_cancel": "ms_hrms.advance_repayment.on_payment_cancel",
+	},
+	"Salary Slip": {
+		"on_submit": [
+			"ms_hrms.app_notifications.on_salary_slip_submit",
+			"ms_hrms.advance_repayment.on_salary_slip_submit",
+		],
+		"before_cancel": "ms_hrms.advance_repayment.ignore_schedule_links",
+		"on_cancel": "ms_hrms.advance_repayment.on_salary_slip_cancel",
+	},
 }
-ignore_links_on_delete = ["Overtime Calculation Detail", "Attendance Penalty Detail"]
+ignore_links_on_delete = ["Overtime Calculation Detail", "Attendance Penalty Detail", "Employee Advance Repayment"]
 auto_cancel_exempted_doctypes = ["Additional Salary"]
 # doc_events = {
 # 	"*": {
@@ -248,6 +282,8 @@ scheduler_events = {
 			"ms_hrms.app_notifications.send_occasions",
 		],
 	},
+	# Advance installments of the month, to payroll.
+	"daily": ["ms_hrms.advance_repayment.send_due"],
 }
 
 # scheduler_events = {

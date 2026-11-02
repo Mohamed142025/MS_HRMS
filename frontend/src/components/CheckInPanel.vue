@@ -88,10 +88,18 @@
 				</div>
 			</template>
 
+			<p v-if="context?.device === 'new'" class="ms-caption flex items-center gap-2 text-center">
+				<AppIcon name="lock" :size="15" class="shrink-0" />
+				{{ __("This phone becomes your registered device for check-in.") }}
+			</p>
+			<p v-else-if="context?.device === 'other'" class="w-full rounded-2xl px-3 py-2.5 text-center text-[13.5px]" :class="blocked ? 'bg-state-danger/[.12] text-state-danger-text' : 'bg-state-warning/[.12] text-state-warning-text'">
+				{{ blocked ? __("This phone is not your registered device for check-in. Ask HR to register it.") : __("This phone is not your registered device: HR will review this check-in.") }}
+			</p>
+
 			<button
 				type="button"
 				class="ms-primary-button"
-				:disabled="checkins.insert.loading"
+				:disabled="checkins.insert.loading || blocked"
 				@click="submitLog(nextAction.action)"
 			>
 				{{ __("Confirm {0}", [nextAction.label]) }}
@@ -101,12 +109,14 @@
 </template>
 
 <script setup>
-import { createListResource, toast } from "frappe-ui"
+import { call, createListResource, toast } from "frappe-ui"
 import { computed, inject, ref, onMounted, onBeforeUnmount } from "vue"
 import { IonModal } from "@ionic/vue"
 
 import AppIcon from "@/components/ui/AppIcon.vue"
 import { settings } from "@/data/settings"
+import { device as deviceName } from "@/composables/pushNotifications"
+import { deviceId } from "@/utils/deviceId"
 
 const DOCTYPE = "Employee Checkin"
 
@@ -128,6 +138,9 @@ const checkinTimestamp = ref(null)
 const latitude = ref(0)
 const longitude = ref(0)
 const locationStatus = ref("")
+// From the site (ms_hrms.checkin_guard): its time, and whether this phone may check in.
+const context = ref(null)
+const blocked = computed(() => Boolean(context.value?.blocked))
 
 const checkins = createListResource({
 	doctype: DOCTYPE,
@@ -227,6 +240,14 @@ const fetchLocation = () => {
 
 function openConfirm() {
 	checkinTimestamp.value = dayjs().format("YYYY-MM-DD HH:mm:ss")
+	context.value = null
+	// The check-in is at the site's time; shown here as it is.
+	call("ms_hrms.checkin_guard.get_checkin_context", { device: deviceId() })
+		.then((data) => {
+			context.value = data
+			checkinTimestamp.value = dayjs(data.now).format("YYYY-MM-DD HH:mm:ss")
+		})
+		.catch(() => {})
 
 	if (settings.data?.allow_geolocation_tracking) {
 		fetchLocation()
@@ -244,6 +265,8 @@ const submitLog = (logType) => {
 			time: checkinTimestamp.value,
 			latitude: latitude.value,
 			longitude: longitude.value,
+			custom_app_device: deviceId(),
+			custom_app_device_name: deviceName(),
 		},
 		{
 			onSuccess() {
