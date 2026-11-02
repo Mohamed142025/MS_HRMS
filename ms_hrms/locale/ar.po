@@ -2369,3 +2369,60 @@ msgstr "تم تفعيل الإشعارات الفورية"
 
 msgid "Could not change notifications on this device"
 msgstr "تعذّر تغيير الإشعارات على هذا الجهاز"
+
+msgid "Turn on notifications"
+msgstr "فعّل الإشعارات"
+
+msgid "So nothing that concerns you is missed"
+msgstr "عشان ما يفوتكش أي حاجة تخصك"
+
+msgid "Know as soon as your leave or permission is approved"
+msgstr "تعرف أول ما إجازتك أو إذنك يتوافق عليه"
+
+msgid "Your salary slip the moment it is ready"
+msgstr "قسيمة مرتبك توصلك أول ما تجهز"
+
+msgid "Requests waiting for your approval, if you approve for your team"
+msgstr "الطلبات اللي مستنية موافقتك لو بتعتمد لفريقك"
+
+msgid "Reminders and announcements from HR"
+msgstr "تذكيرات وإعلانات الموارد البشرية"
+
+msgid "Only what concerns you. You can turn them off anytime from Settings."
+msgstr "هيوصلك اللي يخصك بس، وتقدر تقفلها في أي وقت من الإعدادات."
+
+msgid "Notifications are blocked on this device. To allow them:"
+msgstr "الإشعارات مقفولة على الجهاز ده. عشان تفعّلها:"
+
+msgid "I allowed them"
+msgstr "فعّلتها"
+
+msgid "Notifications are still blocked on this device"
+msgstr "الإشعارات لسه مقفولة على الجهاز ده"
+
+msgid "Open the iPhone Settings"
+msgstr "افتح الإعدادات في الآيفون"
+
+msgid "Tap Notifications, then {0}"
+msgstr "اضغط الإشعارات، وبعدها {0}"
+
+msgid "Turn on Allow Notifications"
+msgstr "فعّل «السماح بالإشعارات»"
+
+msgid "Press and hold the app icon, then tap App info"
+msgstr "اضغط مطوّلاً على أيقونة التطبيق، وبعدها «معلومات التطبيق»"
+
+msgid "Tap Notifications"
+msgstr "اضغط «الإشعارات»"
+
+msgid "Turn on notifications for {0}"
+msgstr "فعّل الإشعارات لـ {0}"
+
+msgid "Tap the icon beside the address bar"
+msgstr "اضغط الأيقونة اللي جنب شريط العنوان"
+
+msgid "Open Permissions, then Notifications"
+msgstr "افتح «الأذونات»، وبعدها «الإشعارات»"
+
+msgid "Choose Allow, then come back here"
+msgstr "اختار «السماح»، وارجع هنا"

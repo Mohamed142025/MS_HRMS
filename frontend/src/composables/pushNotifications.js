@@ -81,6 +81,8 @@ export async function movePushSubscription(oldRegistrations, registration) {
 export function usePushNotifications() {
 	const enabled = ref(false)
 	const loading = ref(false)
+	// Set once the check below has answered, so a caller can wait for `enabled`.
+	const checked = ref(false)
 
 	// On an iPhone, Web Push needs the app added to the home screen.
 	const available = computed(() => pushSupported() && !(isIOS() && !isStandalone()))
@@ -100,6 +102,9 @@ export function usePushNotifications() {
 				enabled.value = Boolean(subscription) && (await call("ms_hrms.web_push.is_subscribed", { endpoint: subscription.endpoint }))
 			})
 			.catch(() => (enabled.value = false))
+			.finally(() => (checked.value = true))
+	} else {
+		checked.value = true
 	}
 
 	const notify = (ok, text) =>
@@ -145,5 +150,5 @@ export function usePushNotifications() {
 			.finally(() => (loading.value = false))
 	}
 
-	return { enabled, loading, available, disabled, description, toggle }
+	return { enabled, loading, checked, available, disabled, description, toggle }
 }
