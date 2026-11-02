@@ -2723,3 +2723,15 @@ msgstr "تقدر تستخدم التطبيق من الموبايل المسجّ�
 
 msgid "App opened on another phone ({0}) and closed to the employee."
 msgstr "التطبيق اتفتح من جهاز تاني ({0}) واتقفل على الموظف."
+
+msgid "Location found, within {0} m"
+msgstr "اتحدد موقعك، بدقة {0} متر"
+
+msgid "Location is not allowed for the app. Allow it in your phone's settings for this app (or the browser), then try again."
+msgstr "الموقع مش مسموح للتطبيق. اسمح بيه من إعدادات الموبايل للتطبيق (أو للمتصفح)، وبعدين حاول تاني."
+
+msgid "Your location could not be found. Turn on your phone's location and try again."
+msgstr "مقدرناش نحدد موقعك. شغّل الموقع (GPS) في الموبايل وحاول تاني."
+
+msgid "Finding your location..."
+msgstr "جاري تحديد موقعك..."

@@ -74,8 +74,17 @@
 			</div>
 
 			<template v-if="settings.data?.allow_geolocation_tracking">
-				<span v-if="locationStatus" class="ms-caption">{{ locationStatus }}</span>
-				<div class="h-[170px] w-full overflow-hidden rounded-[20px] border border-brand-roots/[.12]">
+				<p
+					v-if="locationStatus"
+					class="w-full rounded-2xl px-3 py-2.5 text-center text-[13.5px]"
+					:class="location === 'failed' ? 'bg-state-danger/[.12] text-state-danger-text' : 'ms-caption'"
+				>
+					{{ locationStatus }}
+				</p>
+				<button v-if="location === 'failed'" type="button" class="ms-link" @click="fetchLocation">
+					{{ __("Try Again") }}
+				</button>
+				<div v-if="location === 'found'" class="h-[170px] w-full overflow-hidden rounded-[20px] border border-brand-roots/[.12]">
 					<iframe
 						width="100%"
 						height="170"
@@ -99,7 +108,7 @@
 			<button
 				type="button"
 				class="ms-primary-button"
-				:disabled="checkins.insert.loading || blocked"
+				:disabled="checkins.insert.loading || blocked || (needsLocation && location !== 'found')"
 				@click="submitLog(nextAction.action)"
 			>
 				{{ __("Confirm {0}", [nextAction.label]) }}
@@ -138,6 +147,10 @@ const checkinTimestamp = ref(null)
 const latitude = ref(0)
 const longitude = ref(0)
 const locationStatus = ref("")
+// Where the phone is, when HR Settings records it: "locating", "found" or "failed" (the
+// site refuses a check-in without it, so confirming waits for it).
+const location = ref("")
+const needsLocation = computed(() => Boolean(settings.data?.allow_geolocation_tracking))
 // From the site (ms_hrms.checkin_guard): its time, and whether this phone may check in.
 const context = ref(null)
 const blocked = computed(() => Boolean(context.value?.blocked))
@@ -217,24 +230,31 @@ const clock = (moment) => moment.format("h:mm a")
 function handleLocationSuccess(position) {
 	latitude.value = position.coords.latitude
 	longitude.value = position.coords.longitude
-
-	locationStatus.value = [
-		__("Latitude: {0}°", [Number(latitude.value).toFixed(5)]),
-		__("Longitude: {0}°", [Number(longitude.value).toFixed(5)]),
-	].join(", ")
+	location.value = "found"
+	locationStatus.value = __("Location found, within {0} m", [Math.round(position.coords.accuracy || 0)])
 }
 
 function handleLocationError(error) {
-	locationStatus.value = __("Unable to retrieve your location")
-	if (error) locationStatus.value += `: ERROR(${error.code}): ${error.message}`
+	location.value = "failed"
+	locationStatus.value =
+		error?.code === 1
+			? __("Location is not allowed for the app. Allow it in your phone's settings for this app (or the browser), then try again.")
+			: __("Your location could not be found. Turn on your phone's location and try again.")
 }
 
 const fetchLocation = () => {
+	latitude.value = longitude.value = 0
 	if (!navigator.geolocation) {
+		location.value = "failed"
 		locationStatus.value = __("Geolocation is not supported by your current browser")
 	} else {
-		locationStatus.value = __("Locating...")
-		navigator.geolocation.getCurrentPosition(handleLocationSuccess, handleLocationError)
+		location.value = "locating"
+		locationStatus.value = __("Finding your location...")
+		navigator.geolocation.getCurrentPosition(handleLocationSuccess, handleLocationError, {
+			enableHighAccuracy: true,
+			timeout: 20000,
+			maximumAge: 0,
+		})
 	}
 }
 
