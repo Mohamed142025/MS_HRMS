@@ -305,3 +305,22 @@ ion-modal.ms-sheet {
 	line-height: 1.4;
 	color: rgb(var(--ms-ink-rgb, 22, 33, 28));
 }
+
+/* Text written in the desk's text editor (Quill), such as HR's announcements: its
+   alignment, direction and indents, which are classes of the editor's own. */
+.ms-rich-text {
+	font-size: 15px;
+	line-height: 1.75;
+	overflow-wrap: anywhere;
+}
+.ms-rich-text .ql-align-center { text-align: center; }
+.ms-rich-text .ql-align-right { text-align: right; }
+.ms-rich-text .ql-align-left { text-align: left; }
+.ms-rich-text .ql-align-justify { text-align: justify; }
+.ms-rich-text .ql-direction-rtl { direction: rtl; }
+.ms-rich-text .ql-indent-1 { padding-inline-start: 2em; }
+.ms-rich-text .ql-indent-2 { padding-inline-start: 4em; }
+.ms-rich-text .ql-indent-3 { padding-inline-start: 6em; }
+.ms-rich-text img { border-radius: 14px; }
+.ms-rich-text table { display: block; overflow-x: auto; }
+.ms-rich-text :where(p, li):empty::before { content: "\200b"; }

@@ -9,6 +9,7 @@ import salarySlipRoutes from "./salary_slips"
 import permissionRequestRoutes from "./permission_requests"
 import overtimeRequestRoutes from "./overtime_requests"
 import evaluationRoutes from "./evaluations"
+import announcementRoutes from "./announcements"
 
 const routes = [
 	{
@@ -113,6 +114,7 @@ const routes = [
 	...permissionRequestRoutes,
 	...overtimeRequestRoutes,
 	...evaluationRoutes,
+	...announcementRoutes,
 ]
 
 const router = createRouter({

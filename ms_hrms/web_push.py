@@ -15,6 +15,7 @@ must be served over HTTPS.
 import base64
 import json
 import re
+from html import unescape
 
 import frappe
 from frappe import _
@@ -39,6 +40,7 @@ ROUTES = {
 	"Employee Advance": "employee-advances/{name}",
 	"Salary Slip": "salary-slips/{name}",
 	"Employee Evaluation": "evaluations/{name}",
+	"HR Announcement": "announcements/{name}",
 	"Shift Type": "not-checked-in",
 	"Employee Checkin": "home",
 }
@@ -192,7 +194,7 @@ def send_notification(notification):
 def _as_text(message):
 	"""The notification's text without its markup, its line breaks kept."""
 	text = re.sub(r"<br\s*/?>", "\n", message or "", flags=re.I)
-	return strip_html(text).strip()
+	return unescape(strip_html(text)).strip()
 
 
 def get_title(doc):

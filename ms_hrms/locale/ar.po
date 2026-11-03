@@ -2807,3 +2807,9 @@ msgstr "{0} علّق على تقييمه لفترة {1}"
 
 msgid "Your evaluation for {0} is ready: {1}"
 msgstr "تقييمك لفترة {0} جاهز: {1}"
+
+msgid "This announcement was not sent to you."
+msgstr "هذا الإعلان لم يُرسل إليك."
+
+msgid "Shown with its formatting in the app; the phone's notification shows its text."
+msgstr "يظهر بتنسيقه في التطبيق، ويظهر نصه فقط في إشعار الهاتف."

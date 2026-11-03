@@ -120,12 +120,13 @@ const DETAIL_VIEWS = [
 	"Employee Advance",
 	"Salary Slip",
 	"Employee Evaluation",
+	"HR Announcement",
 ]
 
 function getItemRoute(item) {
 	// Sent by ms_hrms.attendance_watch for a shift whose employees have not checked in.
 	if (item.reference_document_type === "Shift Type") return { name: "NotCheckedIn" }
-	// Reminders, greetings and announcements (ms_hrms.app_notifications) are read here.
+	// Reminders and greetings (ms_hrms.app_notifications) are read here.
 	if (!DETAIL_VIEWS.includes(item.reference_document_type) || !item.reference_document_name) return { name: "Notifications" }
 	return {
 		name: `${item.reference_document_type.replace(/\s+/g, "")}DetailView`,

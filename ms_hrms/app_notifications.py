@@ -19,7 +19,9 @@ HR Settings > App Notifications turns each of them on and off.
 """
 
 import functools
+import re
 from datetime import timedelta
+from html import unescape
 
 import frappe
 from frappe import _
@@ -404,10 +406,42 @@ def send_announcement(doc):
 	if doc.audience == "Department":
 		filters["department"] = doc.department
 	users = set(frappe.get_all("Employee", filters=filters, pluck="user_id"))
-	body = f"<b>{frappe.utils.escape_html(doc.title)}</b><br>{frappe.utils.escape_html(doc.message)}"
+	# The list and the phone show the beginning of its text; the announcement's page in the
+	# app shows it whole, with its formatting (get_announcement).
+	text = frappe.utils.escape_html(excerpt(doc.message)).replace("\n", "<br>")
+	body = f"<b>{frappe.utils.escape_html(doc.title)}</b><br>{text}"
 	for user in users:
 		notify(user, body, "HR Announcement", doc.name)
 	return len(users)
+
+
+def excerpt(message, length=160):
+	text = re.sub(r"<br\s*/?>|</(p|div|li|h\d)>", "\n", message or "", flags=re.I)
+	text = re.sub(r"[ \t\xa0]*\n\s*", "\n", unescape(frappe.utils.strip_html(text))).strip()
+	return text if len(text) <= length else text[:length].rstrip() + "…"
+
+
+@frappe.whitelist()
+def get_announcement(name):
+	"""An announcement, for those it was sent to and HR."""
+	from ms_hrms.request_approvers import sees_all
+
+	user = frappe.session.user
+	sent_to = frappe.db.exists("PWA Notification", {"to_user": user, "reference_document_type": "HR Announcement", "reference_document_name": name})
+	if not (sent_to or sees_all(user)) or not frappe.db.exists("HR Announcement", {"name": name, "docstatus": 1}):
+		frappe.throw(_("This announcement was not sent to you."), frappe.PermissionError)
+	doc = frappe.get_doc("HR Announcement", name)
+	message = doc.message or ""
+	if not frappe.utils.is_html(message):
+		# Written before the message was formatted.
+		message = frappe.utils.escape_html(message).replace("\n", "<br>")
+	return {
+		"name": doc.name,
+		"title": doc.title,
+		"message": frappe.utils.sanitize_html(message),
+		"sent_on": doc.sent_on,
+		"department": doc.department if doc.audience == "Department" else None,
+	}
 
 
 # Occasions
