@@ -8,11 +8,15 @@
   Check-in Device). On another phone the app is closed to them and a check-in is blocked
   or, as HR Settings may say instead, recorded and marked for review, until HR resets the
   registered device on the employee. The desk is not affected.
+- Location: when HR Settings track check-in locations, the phone's location is asked of an
+  employee checking themselves in only. Check-ins made for them (by an approved Permission
+  Request, the biometric device's imports, HR) carry no location and are not held to it.
 """
 
 import frappe
 from frappe import _
 from frappe.utils import now_datetime
+from hrms.hr.doctype.employee_checkin.employee_checkin import EmployeeCheckin as HRMSEmployeeCheckin
 
 DEVICE_FIELD = "custom_checkin_device"
 DEVICE_NAME_FIELD = "custom_checkin_device_name"
@@ -225,3 +229,10 @@ def reset_device(employee):
 	frappe.get_doc("Employee", employee).add_comment(
 		"Info", _("Check-in device reset (was {0}). The next phone checked in from is registered.").format(old or _("none"))
 	)
+
+
+class EmployeeCheckin(HRMSEmployeeCheckin):
+	def validate_distance_from_shift_location(self):
+		if self.get("custom_permission_request") or not is_self_checkin(self):
+			return
+		super().validate_distance_from_shift_location()

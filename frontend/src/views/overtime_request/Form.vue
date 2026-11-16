@@ -54,6 +54,10 @@ const formFields = createResource({
 				field.read_only = true
 			}
 
+			// Not asked of the employee: the cost center is theirs (set on the server).
+			if (field.fieldname === "project") field.hidden = true
+			if (field.fieldname === "cost_center") field.read_only = true
+
 			if (field.fieldname === "employee") {
 				field.default = currEmployee.value
 			}
@@ -63,5 +67,16 @@ const formFields = createResource({
 	},
 })
 formFields.reload()
+
+// The employee's cost center, shown read only; the server sets it anyway.
+createResource({
+	url: "ms_hrms.custom_hrms.doctype.overtime_request.overtime_request.get_cost_center",
+	params: { employee: currEmployee.value },
+	auto: !props.id && Boolean(currEmployee.value),
+	onSuccess(costCenter) {
+		if (costCenter && !overtimeRequest.value.cost_center) overtimeRequest.value.cost_center = costCenter
+	},
+})
+
 function validateForm() { return true }
 </script>

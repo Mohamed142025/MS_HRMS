@@ -199,8 +199,11 @@ const expensesTableFields = createResource({
 	url: "hrms.api.get_doctype_fields",
 	params: { doctype: "Expense Claim Detail" },
 	transform(data) {
-		const excludeFields = ["description_sb", "amounts_sb", "base_amount", "base_sanctioned_amount"]
-		return data.filter((field) => !excludeFields.includes(field.fieldname))
+		const excludeFields = ["description_sb", "amounts_sb", "base_amount", "base_sanctioned_amount", "project"]
+		return data
+			.filter((field) => !excludeFields.includes(field.fieldname))
+			// The claim's cost center, not chosen per item.
+			.map((field) => (field.fieldname === "cost_center" ? { ...field, read_only: 1 } : field))
 	},
 })
 expensesTableFields.reload()

@@ -56,6 +56,22 @@ class OvertimeRequest(Document):
         if self.is_new() and self.get(self.STATUS_FIELD) in (None, "", self.STATUS_DRAFT):
             self.set(self.STATUS_FIELD, self.STATUS_PENDING_APPROVAL)
 
+        self.set_cost_center()
+
+    def set_cost_center(self):
+        """
+        The employee's cost center, not one they choose (the app shows
+        it read only): the employee's payroll cost center, else their
+        department's, else the company's default.
+        """
+
+        if not self.employee or (self.cost_center and not self.is_new()):
+            return
+
+        cost_center = get_employee_cost_center(self.employee, self.company)
+        if cost_center:
+            self.cost_center = cost_center
+
     def validate(self):
         """
         Main validation pipeline.
@@ -879,3 +895,41 @@ def get_user_employee():
     return {
         "employee": employee or None
     }
+
+def get_employee_cost_center(employee, company=None):
+    """
+    The employee's payroll cost center, else their department's,
+    else the company's default.
+    """
+
+    row = frappe.db.get_value(
+        "Employee",
+        employee,
+        ["payroll_cost_center", "department", "company"],
+        as_dict=True,
+    )
+    if not row:
+        return None
+
+    cost_center = row.payroll_cost_center
+    if not cost_center and row.department:
+        cost_center = frappe.db.get_value(
+            "Department", row.department, "payroll_cost_center"
+        )
+    if not cost_center:
+        cost_center = frappe.get_cached_value(
+            "Company", company or row.company, "cost_center"
+        )
+    return cost_center
+
+
+@frappe.whitelist()
+def get_cost_center(employee):
+    """
+    The cost center a new Overtime Request of this employee takes,
+    shown read only in the app.
+    """
+
+    if frappe.db.get_value("Employee", employee, "user_id") != frappe.session.user:
+        frappe.has_permission("Employee", "read", employee, throw=True)
+    return get_employee_cost_center(employee)

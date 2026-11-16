@@ -1,8 +1,10 @@
 """Who approves employee requests, and who may see them.
 
-As with Frappe HR's Leave, Expense and Shift approvers, the approver set on the employee
-(Employee > Approvers) comes first; when none is set, the approvers listed on the
-employee's department approve.
+The approver set on the employee (Employee > Approvers) and every approver listed on the
+employee's department approve the employee's requests, so a department with several
+managers has each of them see and decide its employees' requests. The request names one
+of them (the employee's own approver, else the department's first): the employee does not
+choose it, in the app or anywhere else (set_request_approver).
 
 An employee sees their own requests, the ones they created, and the requests of the
 employees they manage (Reports To) or approve. The System Manager (and Administrator)
@@ -49,7 +51,8 @@ DECISIONS = ("Approved", "Rejected")
 
 
 def get_approvers(doctype, employee):
-	"""The users who approve this employee's requests of this type."""
+	"""The users who approve this employee's requests of this type: the employee's own
+	approver first, then the department's, in their order."""
 	request = REQUESTS[doctype]
 	if not request.employee_field:
 		return []
@@ -58,20 +61,61 @@ def get_approvers(doctype, employee):
 	)
 	if not employee_row:
 		return []
-	if employee_row.get(request.employee_field):
-		return [employee_row.get(request.employee_field)]
-	if not employee_row.department:
-		return []
-	return frappe.get_all(
-		"Department Approver",
-		filters={
-			"parenttype": "Department",
-			"parent": employee_row.department,
-			"parentfield": request.department_field,
-		},
-		pluck="approver",
-		order_by="idx",
-	)
+	approvers = [employee_row.get(request.employee_field)] if employee_row.get(request.employee_field) else []
+	if employee_row.department:
+		approvers += frappe.get_all(
+			"Department Approver",
+			filters={
+				"parenttype": "Department",
+				"parent": employee_row.department,
+				"parentfield": request.department_field,
+			},
+			pluck="approver",
+			order_by="idx",
+		)
+	return list(dict.fromkeys(approvers))
+
+
+def set_request_approver(doc, method=None):
+	"""before_validate: the approver named on a request the employee makes or edits is
+	theirs by the rules above, whatever was sent (the app no longer offers a choice)."""
+	request = REQUESTS.get(doc.doctype)
+	if not request or not request.request_field or not doc.get("employee") or doc.docstatus != 0:
+		return
+	if frappe.db.get_value("Employee", doc.employee, "user_id") != frappe.session.user:
+		return
+	if not (doc.is_new() or doc.has_value_changed(request.request_field) or doc.has_value_changed("employee")):
+		return
+	approvers = get_approvers(doc.doctype, doc.employee)
+	doc.set(request.request_field, approvers[0] if approvers else None)
+
+
+# Whether HR Settings require the approver on the request.
+APPROVER_MANDATORY = {
+	"Leave Application": "leave_approver_mandatory_in_leave_application",
+	"Expense Claim": "expense_approver_mandatory_in_expense_claim",
+}
+
+
+@frappe.whitelist()
+def get_approval_details(doctype, employee):
+	"""For the app's request form: the approver a new request is named to and the
+	employee's approvers, in the shape of Frappe HR's get_leave_approval_details. Frappe
+	HR's own asks for read access to the department, which employees do not have."""
+	request = REQUESTS.get(doctype)
+	if not request or not request.request_field:
+		frappe.throw(frappe._("This request type is not listed here."))
+	if frappe.db.get_value("Employee", employee, "user_id") != frappe.session.user:
+		frappe.has_permission("Employee", "read", employee, throw=True)
+	approvers = get_approvers(doctype, employee)
+	field = request.request_field
+	setting = APPROVER_MANDATORY.get(doctype)
+	return {
+		"is_mandatory": 1 if setting and frappe.db.get_single_value("HR Settings", setting) else 0,
+		field: approvers[0] if approvers else None,
+		f"{field}_name": frappe.utils.get_fullname(approvers[0]) if approvers else None,
+		"department_approvers": [{"name": user, "full_name": frappe.utils.get_fullname(user)} for user in approvers],
+	}
 
 
 def is_approver(doctype, employee, user=None):
@@ -167,6 +211,7 @@ def get_requests_to_approve(doctype, fields=None):
 	me = frappe.db.get_value("Employee", {"user_id": user}, "name")
 	waiting = WAITING[doctype]
 	filters = {"docstatus": 0}
+	or_filters = None
 	others_only = False
 
 	workflow = get_workflow(doctype)
@@ -185,7 +230,13 @@ def get_requests_to_approve(doctype, fields=None):
 			else:
 				others_only = True
 		elif waiting.approver_field:
-			filters[waiting.approver_field] = user
+			# Named on the request, or one of the employee's approvers (a department's
+			# managers all see its employees' requests).
+			employees = _employees_approved_by(doctype, user)
+			if employees is not None:
+				or_filters = {waiting.approver_field: user}
+				if employees:
+					or_filters["employee"] = ("in", sorted(employees))
 			if doctype == "Leave Application" and frappe.db.get_single_value("HR Settings", "prevent_self_leave_approval"):
 				others_only = True
 		else:
@@ -203,6 +254,7 @@ def get_requests_to_approve(doctype, fields=None):
 		doctype,
 		fields=fields,
 		filters=filters,
+		or_filters=or_filters,
 		order_by=listed.order_by if listed else "creation desc",
 		group_by=listed.get("group_by") if listed else None,
 		limit=0,
@@ -214,8 +266,8 @@ def get_requests_to_approve(doctype, fields=None):
 
 
 def _employees_approved_by(doctype, user):
-	"""The employees whose requests of this type the user approves (None: every
-	employee, for the Administrator)."""
+	"""The employees whose requests of this type the user approves, as their own approver
+	or as one of their department's (None: every employee, for the Administrator)."""
 	if user == "Administrator":
 		return None
 	request = REQUESTS[doctype]
@@ -227,20 +279,15 @@ def _employees_approved_by(doctype, user):
 	)
 	if departments:
 		employees |= set(
-			frappe.get_all(
-				"Employee",
-				filters={"department": ("in", departments), request.employee_field: ("is", "not set")},
-				pluck="name",
-			)
+			frappe.get_all("Employee", filters={"department": ("in", departments)}, pluck="name")
 		)
 	return employees
 
 
 def get_condition(doctype, user=None):
 	"""The requests a user may see: their own, the ones they created, those whose
-	employee reports to them, and those they approve, either named on the request or by
-	the employee's own approver field or, when it is empty, by the department's
-	approvers table."""
+	employee reports to them, and those they approve: named on the request, as the
+	employee's own approver or as one of their department's approvers."""
 	user = user or frappe.session.user
 	if sees_all(user):
 		return ""
@@ -263,7 +310,7 @@ def get_condition(doctype, user=None):
 				on approver.parent = employee.department
 				and approver.parenttype = 'Department'
 				and approver.parentfield = '{request.department_field}'
-			where ifnull(employee.`{field}`, '') = '' and approver.approver = {user_value}""",
+			where approver.approver = {user_value}""",
 		]
 	conditions = [
 		f"{table}.employee in ({' union '.join(employees)})",

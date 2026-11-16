@@ -235,9 +235,19 @@ doc_events = {
 		"before_update_after_submit": "ms_hrms.advance_repayment.validate_schedule",
 		"on_update_after_submit": "ms_hrms.advance_repayment.on_schedule_update",
 	},
-	"Leave Application": {"on_cancel": "ms_hrms.app_notifications.on_request_cancel"},
-	"Expense Claim": {"on_cancel": "ms_hrms.app_notifications.on_request_cancel"},
-	"Shift Request": {"on_cancel": "ms_hrms.app_notifications.on_request_cancel"},
+	# The request's approver is set for the employee, not chosen (request_approvers).
+	"Leave Application": {
+		"before_validate": "ms_hrms.request_approvers.set_request_approver",
+		"on_cancel": "ms_hrms.app_notifications.on_request_cancel",
+	},
+	"Expense Claim": {
+		"before_validate": "ms_hrms.request_approvers.set_request_approver",
+		"on_cancel": "ms_hrms.app_notifications.on_request_cancel",
+	},
+	"Shift Request": {
+		"before_validate": "ms_hrms.request_approvers.set_request_approver",
+		"on_cancel": "ms_hrms.app_notifications.on_request_cancel",
+	},
 	# The employee told their evaluation is ready (my_evaluations).
 	"Employee Evaluation": {"on_submit": "ms_hrms.my_evaluations.on_submit"},
 	# App check-ins at the site's time, from the employee's registered phone (checkin_guard).
@@ -398,4 +408,6 @@ scheduler_events = {
 # Shift Assignment Tool assigns shifts by day of the week as well (shift_by_weekday).
 override_doctype_class = {
     "Shift Assignment Tool": "ms_hrms.shift_by_weekday.WeekdayShiftAssignmentTool",
+    # The location is asked of an employee checking themselves in only (checkin_guard).
+    "Employee Checkin": "ms_hrms.checkin_guard.EmployeeCheckin",
 }

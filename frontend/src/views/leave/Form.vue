@@ -119,6 +119,9 @@ const formFields = createResource({
 
 			if (field.fieldname === "posting_date") field.default = today
 
+			// Set for the employee, not chosen (ms_hrms.request_approvers).
+			if (field.fieldname === "leave_approver") field.read_only = 1
+
 			// New applications choose the type from the cards above the form.
 			if (field.fieldname === "leave_type" && !props.id) field.hidden = true
 
@@ -133,8 +136,8 @@ const formFields = createResource({
 formFields.reload()
 
 const leaveApprovalDetails = createResource({
-	url: "hrms.api.get_leave_approval_details",
-	params: { employee: currEmployee.value },
+	url: "ms_hrms.request_approvers.get_approval_details",
+	params: { doctype: "Leave Application", employee: currEmployee.value },
 	onSuccess(data) {
 		setLeaveApprovers(data)
 	},
@@ -325,17 +328,22 @@ function setLeaveApprovers(data) {
 		(field) => field.fieldname === "leave_approver"
 	)
 	leave_approver.reqd = data?.is_mandatory
-	leave_approver.documentList = data?.department_approvers.map((approver) => ({
+	// Set for the employee, not chosen (ms_hrms.request_approvers.set_request_approver).
+	leave_approver.read_only = true
+	const approvers = [...(data?.department_approvers || [])]
+	if (data?.leave_approver && !approvers.some((approver) => approver.name === data.leave_approver))
+		approvers.unshift({ name: data.leave_approver, full_name: data.leave_approver_name })
+	leave_approver.documentList = approvers.map((approver) => ({
 		label: approver.full_name
 			? `${approver.name} : ${approver.full_name}`
 			: approver.name,
 		value: approver.name,
 	}))
-	if (!leaveApplication.value.leave_approver){
+	if (!props.id) {
 		leaveApplication.value.leave_approver = data?.leave_approver
 		leaveApplication.value.leave_approver_name = data?.leave_approver_name
 	}
-	
+
 }
 
 function setLeaveTypes(data) {

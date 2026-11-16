@@ -40,23 +40,27 @@ const formFields = createResource({
 	auto: true,
 	transform(data) {
 		if (props.id) return data
-		return data.filter(
-			(field) => !["employee", "employee_name", "status", "company"].includes(field.fieldname)
-		)
+		return data
+			.filter((field) => !["employee", "employee_name", "status", "company"].includes(field.fieldname))
+			.map((field) => (field.fieldname === "approver" ? { ...field, read_only: 1 } : field))
 	},
 })
 
+// The employee's approvers; the request is named to the first, not chosen
+// (ms_hrms.request_approvers.set_request_approver).
 createResource({
-	url: "hrms.api.get_shift_request_approvers",
-	params: { employee: employee.data.name },
+	url: "ms_hrms.request_approvers.get_approval_details",
+	params: { doctype: "Shift Request", employee: employee.data.name },
 	auto: !props.id,
 	onSuccess(data) {
+		shiftRequest.value.approver = data?.approver
 		const approver = formFields.data?.find((field) => field.fieldname === "approver")
-		approver.documentList = data?.map((approver) => ({
+		if (!approver) return
+		approver.read_only = true
+		approver.documentList = data?.department_approvers?.map((approver) => ({
 			label: approver.full_name ? `${approver.name} : ${approver.full_name}` : approver.name,
 			value: approver.name,
 		}))
-		shiftRequest.value.approver = data[0]?.name
 	},
 })
 

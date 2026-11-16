@@ -101,6 +101,9 @@ const formFields = createResource({
 
 		return fields.map((field) => {
 			if (field.fieldname === "posting_date") field.default = today
+			if (field.fieldname === "cost_center") field.read_only = 1
+			// Set for the employee, not chosen (ms_hrms.request_approvers).
+			if (field.fieldname === "expense_approver") field.read_only = 1
 			return applyFilters(field)
 		})
 	},
@@ -171,8 +174,8 @@ function onFormReloaded() {
 }
 
 const expenseApproverDetails = createResource({
-	url: "hrms.api.get_expense_approval_details",
-	params: { employee: currEmployee.value },
+	url: "ms_hrms.request_approvers.get_approval_details",
+	params: { doctype: "Expense Claim", employee: currEmployee.value },
 	onSuccess(data) {
 		setExpenseApprover(data)
 	},
@@ -272,6 +275,8 @@ function getFilteredFields(fields) {
 		"task",
 		"taxes_and_charges_sb",
 		"advance_payments_sb",
+		// Not asked of the employee: the cost center is the company's, shown read only.
+		"project",
 	]
 	const extraFields = [
 		"employee",
@@ -323,7 +328,12 @@ function setExpenseApprover(data) {
 		(field) => field.fieldname === "expense_approver"
 	)
 	expense_approver.reqd = data?.is_mandatory
-	expense_approver.documentList = data?.department_approvers.map(
+	// Set for the employee, not chosen (ms_hrms.request_approvers.set_request_approver).
+	expense_approver.read_only = true
+	const approvers = [...(data?.department_approvers || [])]
+	if (data?.expense_approver && !approvers.some((approver) => approver.name === data.expense_approver))
+		approvers.unshift({ name: data.expense_approver, full_name: data.expense_approver_name })
+	expense_approver.documentList = approvers.map(
 		(approver) => ({
 			label: approver.full_name
 				? `${approver.name} : ${approver.full_name}`
