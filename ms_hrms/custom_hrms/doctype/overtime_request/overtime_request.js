@@ -215,7 +215,18 @@ frappe.ui.form.on("Overtime Request", {
     // Refresh
     // =========================================================================
 
+    set_cost_center(frm) {
+        if (!frm.doc.employee || frm.doc.docstatus !== 0) return;
+        frappe.call({
+            method: "ms_hrms.custom_hrms.doctype.overtime_request.overtime_request.get_cost_center",
+            args: { employee: frm.doc.employee },
+        }).then((r) => {
+            if (r.message && r.message !== frm.doc.cost_center) frm.set_value("cost_center", r.message);
+        });
+    },
+
     refresh(frm) {
+        if (frm.is_new() && frm.doc.employee && !frm.doc.cost_center) frm.events.set_cost_center(frm);
 
         frm.trigger(
             "setup_form_state"
@@ -244,6 +255,9 @@ frappe.ui.form.on("Overtime Request", {
     // =========================================================================
 
     employee(frm) {
+
+        // The employee's cost center (hidden; the server sets it too).
+        frm.events.set_cost_center(frm);
 
         // ---------------------------------------------------------------------
         // Employee Cleared

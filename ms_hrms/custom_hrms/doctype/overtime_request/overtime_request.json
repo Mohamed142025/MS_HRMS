@@ -142,11 +142,13 @@
   {
    "fieldname": "project__cost_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Project / Cost"
   },
   {
    "fieldname": "project",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Project",
    "options": "Project"
   },
@@ -157,6 +159,7 @@
   {
    "fieldname": "cost_center",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Cost Center",
    "options": "Cost Center"
   },
@@ -184,7 +187,8 @@
    "fieldname": "approved_by",
    "fieldtype": "Link",
    "label": "Approved By",
-   "options": "User"
+   "options": "User",
+   "read_only": 1
   },
   {
    "fieldname": "approval_date",
@@ -197,7 +201,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-08-23 01:47:53.433359",
+ "modified": "2026-11-16 21:50:57.660882",
  "modified_by": "Administrator",
  "module": "Custom Hrms",
  "name": "Overtime Request",

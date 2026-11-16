@@ -56,6 +56,12 @@ class OvertimeRequest(Document):
         if self.is_new() and self.get(self.STATUS_FIELD) in (None, "", self.STATUS_DRAFT):
             self.set(self.STATUS_FIELD, self.STATUS_PENDING_APPROVAL)
 
+        # Approved By and the approval date are the server's, set when the request is
+        # approved (set_status_audit_fields); a new request carries neither.
+        if self.is_new():
+            self.set(self.APPROVED_BY_FIELD, None)
+            self.set(self.APPROVAL_DATE_FIELD, None)
+
         self.set_cost_center()
 
     def set_cost_center(self):
