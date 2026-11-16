@@ -2813,3 +2813,222 @@ msgstr "هذا الإعلان لم يُرسل إليك."
 
 msgid "Shown with its formatting in the app; the phone's notification shows its text."
 msgstr "يظهر بتنسيقه في التطبيق، ويظهر نصه فقط في إشعار الهاتف."
+
+msgid "Annual Increment"
+msgstr "الزيادة السنوية"
+
+msgid "Annual Increment Component"
+msgstr "مكون الزيادة السنوية"
+
+msgid "Annual Increment Employee"
+msgstr "موظف الزيادة السنوية"
+
+msgid "Effective Date"
+msgstr "تاريخ السريان"
+
+msgid "Apply To"
+msgstr "تطبيق على"
+
+msgid "Increment"
+msgstr "الزيادة"
+
+msgid "Salary Components"
+msgstr "مكونات الراتب"
+
+msgid "Components of the employee's latest salary structure to raise, by a percentage or an amount. The others are kept as they are."
+msgstr "مكونات آخر هيكل راتب للموظف التي تُزاد، بنسبة أو بمبلغ. باقي المكونات تبقى كما هي."
+
+msgid "Base Increase (%)"
+msgstr "زيادة الأساسي Base (%)"
+
+msgid "Incentive Increase (%)"
+msgstr "زيادة الحافز (%)"
+
+msgid "On the assignment's Base."
+msgstr "على Base في تعيين هيكل الراتب."
+
+msgid "On the assignment's Incentive Amount."
+msgstr "على مبلغ الحافز في تعيين هيكل الراتب."
+
+msgid "Increment Type"
+msgstr "نوع الزيادة"
+
+msgid "Percentage"
+msgstr "نسبة"
+
+msgid "Value"
+msgstr "القيمة"
+
+msgid "A percentage, or an amount added to the component."
+msgstr "نسبة مئوية، أو مبلغ يُضاف على المكون."
+
+msgid "Current Assignment"
+msgstr "التعيين الحالي"
+
+msgid "Current Salary Structure"
+msgstr "هيكل الراتب الحالي"
+
+msgid "Old Base"
+msgstr "الأساسي القديم"
+
+msgid "New Base"
+msgstr "الأساسي الجديد"
+
+msgid "Old Incentive"
+msgstr "الحافز القديم"
+
+msgid "New Incentive"
+msgstr "الحافز الجديد"
+
+msgid "Old Earnings"
+msgstr "الاستحقاقات القديمة"
+
+msgid "New Earnings"
+msgstr "الاستحقاقات الجديدة"
+
+msgid "The structure's fixed earnings."
+msgstr "الاستحقاقات الثابتة في الهيكل."
+
+msgid "Increase"
+msgstr "الزيادة"
+
+msgid "Changes"
+msgstr "التغييرات"
+
+msgid "Assignments to Cancel"
+msgstr "تعيينات سيتم إلغاؤها"
+
+msgid "Assignments from the effective date on, cancelled on submit."
+msgstr "التعيينات من تاريخ السريان وما بعده، تُلغى عند الاعتماد."
+
+msgid "New Salary Structure"
+msgstr "هيكل الراتب الجديد"
+
+msgid "New Assignment"
+msgstr "التعيين الجديد"
+
+msgid "Get Employees"
+msgstr "جلب الموظفين"
+
+msgid "No active employees match this selection."
+msgstr "لا يوجد موظفون نشطون في هذا الاختيار."
+
+msgid "Set the increase: salary components, the Base or the Incentive percentage."
+msgstr "حدد الزيادة: مكونات الراتب أو نسبة الأساسي أو نسبة الحافز."
+
+msgid "Row {0}: {1} is listed twice."
+msgstr "الصف {0}: {1} مكرر."
+
+msgid "Row {0}: the percentage must be above -100."
+msgstr "الصف {0}: النسبة يجب أن تكون أكبر من -100."
+
+msgid "Employee {0} is listed twice."
+msgstr "الموظف {0} مكرر."
+
+msgid "Select the employee."
+msgstr "اختر الموظف."
+
+msgid "Select the department."
+msgstr "اختر القسم."
+
+msgid "Select the grade."
+msgstr "اختر الدرجة."
+
+msgid "Employee {0} ({1}) has no submitted Salary Structure Assignment on {2}."
+msgstr "الموظف {0} ({1}) ليس له تعيين هيكل راتب معتمد في {2}."
+
+msgid "{0} is calculated by a formula in {1}; it is kept as it is."
+msgstr "{0} محسوب بمعادلة في {1}، ويبقى كما هو."
+
+msgid "{0} is not in {1}'s salary structure."
+msgstr "{0} غير موجود في هيكل راتب {1}."
+
+msgid "No change"
+msgstr "لا تغيير"
+
+msgid "Base"
+msgstr "الأساسي"
+
+msgid "Incentive"
+msgstr "الحافز"
+
+msgid "Please Note"
+msgstr "تنبيه"
+
+msgid "Submitting gives {0} employees a new salary structure and a new Salary Structure Assignment from {1}."
+msgstr "الاعتماد سيعمل لـ {0} موظف هيكل راتب جديد وتعيين هيكل راتب جديد اعتباراً من {1}."
+
+msgid "These assignments, from the effective date on, will be cancelled:"
+msgstr "سيتم إلغاء هذه التعيينات (من تاريخ السريان وما بعده):"
+
+msgid "Continue?"
+msgstr "هل تريد المتابعة؟"
+
+msgid "Not submitted"
+msgstr "لم يتم الاعتماد"
+
+msgid "Annual Increment Comparison"
+msgstr "مقارنة الزيادة السنوية"
+
+msgid "Old and New Salaries"
+msgstr "الرواتب القديمة والجديدة"
+
+msgid "Salary"
+msgstr "الراتب"
+
+msgid "{0} Old"
+msgstr "{0} القديم"
+
+msgid "{0} New"
+msgstr "{0} الجديد"
+
+msgid "{0} Increase"
+msgstr "زيادة {0}"
+
+msgid "{0} Increase %"
+msgstr "نسبة زيادة {0} %"
+
+msgid "Show Components"
+msgstr "عرض المكونات"
+
+msgid "Employees"
+msgstr "الموظفين"
+
+msgid "Old Salaries"
+msgstr "الرواتب القديمة"
+
+msgid "New Salaries"
+msgstr "الرواتب الجديدة"
+
+msgid "Total Increase"
+msgstr "إجمالي الزيادة"
+
+msgid "Increase %"
+msgstr "نسبة الزيادة %"
+
+msgid "Current Amount"
+msgstr "القيمة الحالية"
+
+msgid "In the employee's latest salary structure (one employee)."
+msgstr "في آخر هيكل راتب للموظف (عند اختيار موظف واحد)."
+
+msgid "Base Increment Type"
+msgstr "نوع زيادة الأساسي"
+
+msgid "Incentive Increment Type"
+msgstr "نوع زيادة الحافز"
+
+msgid "Base Increase"
+msgstr "زيادة الأساسي"
+
+msgid "Incentive Increase"
+msgstr "زيادة الحافز"
+
+msgid "On the assignment's Base: a percentage, or an amount added to it."
+msgstr "على Base في تعيين هيكل الراتب: نسبة، أو مبلغ يُضاف عليه."
+
+msgid "On the assignment's Incentive Amount: a percentage, or an amount added to it."
+msgstr "على مبلغ الحافز في تعيين هيكل الراتب: نسبة، أو مبلغ يُضاف عليه."
+
+msgid "{0}: the percentage must be above -100."
+msgstr "{0}: النسبة يجب أن تكون أكبر من -100."
