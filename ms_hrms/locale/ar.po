@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  ms_hrms\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-19 16:18+0053\n"
+"POT-Creation-Date: 2026-11-19 16:19+0053\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ar\n"
@@ -82,6 +82,14 @@ msgstr "غائب"
 #: ms_hrms/custom_hrms/report/shift_attendance_test/shift_attendance_test.py:189
 msgid "Absent Records"
 msgstr "سجلات الغياب"
+
+#: ms_hrms/pwa_labels.py:36
+msgid "Account Head"
+msgstr "رأس الحساب"
+
+#: ms_hrms/pwa_labels.py:31
+msgid "Accounting Details"
+msgstr "التفاصيل المحاسبية"
 
 #: frontend/src/views/evaluation/Detail.vue:68
 msgid "Acknowledge it, with a comment for HR if you have one. Only HR reads your comment."
@@ -176,9 +184,17 @@ msgstr "تم إنشاء الراتب الإضافي بالفعل لاحتساب 
 msgid "Additional Settings"
 msgstr "إعدادات إضافية"
 
+#: ms_hrms/pwa_labels.py:43
+msgid "Advance Account"
+msgstr "حساب السلف"
+
 #: frontend/src/views/employee_advance/List.vue:67
 msgid "Advance Amount"
 msgstr "مبلغ السلفة"
+
+#: ms_hrms/pwa_labels.py:24
+msgid "Advances"
+msgstr "السلف"
 
 #: frontend/src/views/Approvals.vue:322
 #: frontend/src/views/Notifications.vue:152 frontend/src/views/Requests.vue:150
@@ -499,6 +515,10 @@ msgstr "تقويم الحضور"
 #: ms_hrms/custom_hrms/report/shift_attendance_test/shift_attendance_test.py:47
 msgid "Attendance Date"
 msgstr "تاريخ الحضور"
+
+#: ms_hrms/pwa_labels.py:47
+msgid "Attendance Dates"
+msgstr "أيام الحضور"
 
 #. Label of a number card in the Custom HR Workspace
 #: ms_hrms/custom_hrms/workspace/custom_hr/custom_hr.json
@@ -1062,6 +1082,10 @@ msgstr "الحضور اليومي حسب الشيفت"
 msgid "Date"
 msgstr "التاريخ"
 
+#: ms_hrms/pwa_labels.py:15
+msgid "Dates & Reason"
+msgstr "التواريخ والسبب"
+
 #: frontend/src/components/NewRequestSheet.vue:72
 msgid "Days off from work"
 msgstr "أيام راحة من العمل"
@@ -1130,6 +1154,10 @@ msgstr "الخصومات"
 #: frontend/src/components/AdvanceRepaymentSchedule.vue:11
 msgid "Deductions start once the advance is paid to you."
 msgstr "الخصم هيبدأ بعد ما السلفة تتصرف لك."
+
+#: ms_hrms/pwa_labels.py:33
+msgid "Default Account"
+msgstr "الحساب الافتراضي"
 
 #: frontend/src/components/ExpenseTaxesTable.vue:104
 #: frontend/src/components/ExpensesTable.vue:109
@@ -1278,6 +1306,10 @@ msgstr "تم"
 #: frontend/src/views/evaluation/Detail.vue:18
 msgid "Down {0} points on last time"
 msgstr "أقل {0} نقطة عن المرة اللي فاتت"
+
+#: ms_hrms/pwa_labels.py:57
+msgid "Download Failed"
+msgstr "تعذّر التحميل"
 
 #: frontend/src/components/FormView.vue:39
 #: frontend/src/views/salary_slip/Dashboard.vue:41
@@ -1757,6 +1789,10 @@ msgstr "كل ما يخص عملك، في جيبك."
 msgid "Excellent"
 msgstr "ممتاز"
 
+#: ms_hrms/pwa_labels.py:23
+msgid "Exchange Rate"
+msgstr "سعر الصرف"
+
 #. Label of the exit_grace_period (Int) field in DocType 'Attendance Penalty
 #. Policy'
 #: ms_hrms/custom_hrms/doctype/attendance_penalty_policy/attendance_penalty_policy.json
@@ -1768,6 +1804,10 @@ msgstr "فترة السماح للانصراف"
 #: ms_hrms/custom_hrms/doctype/attendance_penalty_policy/attendance_penalty_policy.py:11
 msgid "Exit Rules"
 msgstr "قواعد الانصراف"
+
+#: ms_hrms/pwa_labels.py:22
+msgid "Expense Approver"
+msgstr "معتمد المصروفات"
 
 #: frontend/src/utils/requestTypes.js:144
 #: frontend/src/views/expense_claim/Dashboard.vue:82
@@ -1844,6 +1884,10 @@ msgstr "جاري تحديد موقعك..."
 msgid "First Check-in"
 msgstr "أول بصمة"
 
+#: ms_hrms/pwa_labels.py:40
+msgid "First Repayment Month"
+msgstr "شهر أول قسط"
+
 #. Option for the 'Calculation Basis' (Select) field in DocType 'Overtime
 #. Policy'
 #. Label of the fixed_hourly_rate (Currency) field in DocType 'Overtime Policy'
@@ -1906,6 +1950,10 @@ msgstr "لا يمكن أن يكون «من تاريخ» بعد «إلى تاري
 msgid "From Date is mandatory."
 msgstr "«من تاريخ» إلزامي."
 
+#: ms_hrms/pwa_labels.py:21
+msgid "From Employee"
+msgstr "من الموظف"
+
 #: frontend/src/views/Announcement.vue:4 ms_hrms/web_push.py:206
 msgid "From HR"
 msgstr "من الموارد البشرية"
@@ -1951,6 +1999,10 @@ msgstr "يجب أن يكون «من وقت» قبل «إلى وقت»."
 #: ms_hrms/custom_hrms/doctype/attendance_penalty_rule/attendance_penalty_rule.json
 msgid "Full Day"
 msgstr "يوم كامل"
+
+#: ms_hrms/pwa_labels.py:30
+msgid "Gain Loss Account"
+msgstr "حساب أرباح وخسائر الصرف"
 
 #. Label of the additional_salary_links (HTML) field in DocType 'Attendance
 #. Penalty Processing'
@@ -2210,6 +2262,10 @@ msgstr "نوع زيادة الحافز"
 msgid "Incentive {0}"
 msgstr "الحافز {0}"
 
+#: ms_hrms/pwa_labels.py:46
+msgid "Include Holidays"
+msgstr "يشمل العطلات"
+
 #: ms_hrms/custom_hrms/report/shift_attendance_test/shift_attendance_test.js:64
 msgid "Include Shift Attendance Without Checkins"
 msgstr "تضمين حضور الوردية بدون بصمات"
@@ -2410,6 +2466,10 @@ msgstr "تغيير حالة غير صالح: {0} ← {1}."
 msgid "Is Active"
 msgstr "نشط"
 
+#: ms_hrms/pwa_labels.py:32
+msgid "Is Paid"
+msgstr "مدفوع"
+
 #: frontend/src/views/salary_slip/Detail.vue:106
 msgid "Issue date"
 msgstr "تاريخ الإصدار"
@@ -2506,10 +2566,18 @@ msgstr "متأخرون اليوم:"
 msgid "Later"
 msgstr "لاحقاً"
 
+#: ms_hrms/pwa_labels.py:16
+msgid "Leave Approver"
+msgstr "معتمد الإجازة"
+
 #: frontend/src/views/Home.vue:135 frontend/src/views/Profile.vue:279
 #: frontend/src/views/leave/Dashboard.vue:4
 msgid "Leave Balance"
 msgstr "رصيد الإجازات"
+
+#: ms_hrms/pwa_labels.py:18
+msgid "Leave Dates"
+msgstr "أيام الإجازة"
 
 #: frontend/src/views/leave/List.vue:5
 msgid "Leave History"
@@ -2713,6 +2781,10 @@ msgstr "الدقائق × المعامل"
 msgid "Missed"
 msgstr "لم يُخصم"
 
+#: ms_hrms/pwa_labels.py:42
+msgid "Missed Installments"
+msgstr "الأقساط الفائتة"
+
 #: ms_hrms/custom_hrms/doctype/overtime_policy/overtime_policy.js:773
 msgid "Missing Calculation Salary Component"
 msgstr "مكون راتب الاحتساب غير محدد"
@@ -2778,6 +2850,10 @@ msgstr "ملخص الشهر"
 #: ms_hrms/custom_hrms/doctype/attendance_penalty_policy/attendance_penalty_policy.json
 msgid "Monthly"
 msgstr "شهري"
+
+#: ms_hrms/pwa_labels.py:41
+msgid "Monthly Installment"
+msgstr "القسط الشهري"
 
 #: ms_hrms/custom_hrms/doctype/permission_request/permission_request.py:1110
 msgid "Monthly Permission Hours Limit"
@@ -3213,6 +3289,10 @@ msgstr "تم تفعيل الإشعارات"
 msgid "Notifications are still blocked on this device"
 msgstr "الإشعارات لسه مقفولة على الجهاز ده"
 
+#: ms_hrms/pwa_labels.py:39
+msgid "Number of Months"
+msgstr "عدد الأشهر"
+
 #: frontend/src/views/Login.vue:139
 msgid "OTP Code"
 msgstr "رمز التحقق"
@@ -3353,6 +3433,10 @@ msgstr "افتح الإعدادات في الآيفون"
 #: frontend/src/views/Login.vue:122
 msgid "Opens full screen, like any app"
 msgstr "يفتح بملء الشاشة مثل أي تطبيق"
+
+#: ms_hrms/pwa_labels.py:17
+msgid "Other Details"
+msgstr "تفاصيل أخرى"
 
 #: frontend/src/views/leave/Dashboard.vue:40
 msgid "Other leave types"
@@ -4000,6 +4084,10 @@ msgstr "الالتزام بالمواعيد"
 msgid "Punctuality counts for half, attendance for 40% and leaving on time for 10%."
 msgstr "يُحسب من الالتزام بالمواعيد 50%، والحضور 40%، والانصراف في الموعد 10%."
 
+#: ms_hrms/pwa_labels.py:38
+msgid "Purpose & Amount"
+msgstr "الغرض والمبلغ"
+
 #: frontend/src/composables/pushNotifications.js:122
 msgid "Push Notification permission denied"
 msgstr "تم رفض إذن الإشعارات"
@@ -4131,6 +4219,10 @@ msgstr "تذكيرات وإعلانات الموارد البشرية"
 #: frontend/src/components/AdvanceRepaymentSchedule.vue:15
 msgid "Repaid From Salary"
 msgstr "المسدَّد من الراتب"
+
+#: ms_hrms/pwa_labels.py:44
+msgid "Repay Unclaimed Amount from Salary"
+msgstr "سداد المبلغ غير المُطالَب به من الراتب"
 
 #: frontend/src/components/AdvanceRepaymentSchedule.vue:6
 #: ms_hrms/public/js/employee_advance.js:41
@@ -4369,6 +4461,14 @@ msgstr "مثل {0}"
 msgid "Sanctioned"
 msgstr "معتمد"
 
+#: ms_hrms/pwa_labels.py:34
+msgid "Sanctioned Amount"
+msgstr "المبلغ المعتمد"
+
+#: ms_hrms/pwa_labels.py:35
+msgid "Sanctioned Amount (Company Currency)"
+msgstr "المبلغ المعتمد (بعملة الشركة)"
+
 #. Option for the 'من يوم' (Select) field in DocType 'Weekday Shift Range'
 #. Option for the 'إلى يوم' (Select) field in DocType 'Weekday Shift Range'
 #: ms_hrms/custom_hrms/doctype/weekday_shift_range/weekday_shift_range.json
@@ -4390,6 +4490,10 @@ msgstr "مجدول"
 #: frontend/src/views/NotCheckedIn.vue:45
 msgid "Search by employee name"
 msgstr "ابحث باسم الموظف"
+
+#: ms_hrms/pwa_labels.py:19
+msgid "Select Leave Approver"
+msgstr "اختر معتمد الإجازة"
 
 #: ms_hrms/custom_hrms/doctype/attendance_penalty_processing/attendance_penalty_processing.py:42
 msgid "Select a Payroll Period covering the processing dates."
@@ -4497,6 +4601,14 @@ msgstr "سجل تعيينات الورديات"
 msgid "Shift Attendance Test"
 msgstr "اختبار حضور الوردية"
 
+#: ms_hrms/pwa_labels.py:52
+msgid "Shift Dates"
+msgstr "أيام الوردية"
+
+#: ms_hrms/pwa_labels.py:49
+msgid "Shift Details"
+msgstr "تفاصيل الوردية"
+
 #. Label of the shift_end (Datetime) field in DocType 'Attendance Penalty
 #. Detail'
 #: ms_hrms/custom_hrms/doctype/attendance_penalty_detail/attendance_penalty_detail.json
@@ -4508,6 +4620,14 @@ msgstr "نهاية الوردية"
 msgid "Shift End Time"
 msgstr "وقت انتهاء الوردية"
 
+#: ms_hrms/pwa_labels.py:50
+msgid "Shift Location"
+msgstr "موقع الوردية"
+
+#: ms_hrms/pwa_labels.py:51
+msgid "Shift Schedule Assignment"
+msgstr "تعيين جدول الورديات"
+
 #. Label of the shift_start (Datetime) field in DocType 'Attendance Penalty
 #. Detail'
 #: ms_hrms/custom_hrms/doctype/attendance_penalty_detail/attendance_penalty_detail.json
@@ -4518,6 +4638,10 @@ msgstr "بداية الوردية"
 #: ms_hrms/custom_hrms/report/shift_attendance_test/shift_attendance_test.py:59
 msgid "Shift Start Time"
 msgstr "وقت بدء الوردية"
+
+#: ms_hrms/pwa_labels.py:53
+msgid "Shift Timing"
+msgstr "مواعيد الوردية"
 
 #. Label of the shift_type (Link) field in DocType 'Attendance Penalty Detail'
 #: frontend/src/views/attendance/ShiftAssignmentList.vue:24
@@ -5029,11 +5153,23 @@ msgstr "غدًا عطلة: {0}"
 msgid "Total Actual Hours"
 msgstr "إجمالي الساعات الفعلية"
 
+#: ms_hrms/pwa_labels.py:26
+msgid "Total Advance Amount (Company Currency)"
+msgstr "إجمالي مبلغ السلف (بعملة الشركة)"
+
+#: ms_hrms/pwa_labels.py:48
+msgid "Total Attendance Days"
+msgstr "إجمالي أيام الحضور"
+
 #. Label of the total_calculated_hours (Float) field in DocType 'Overtime
 #. Calculation'
 #: ms_hrms/custom_hrms/doctype/overtime_calculation/overtime_calculation.json
 msgid "Total Calculated Hours"
 msgstr "إجمالي الساعات المحتسبة"
+
+#: ms_hrms/pwa_labels.py:27
+msgid "Total Claimed Amount (Company Currency)"
+msgstr "إجمالي المبلغ المطالب به (بعملة الشركة)"
 
 #: frontend/src/views/salary_slip/Dashboard.vue:27
 msgid "Total Deduction"
@@ -5049,6 +5185,10 @@ msgstr "إجمالي الموظفين"
 #: ms_hrms/custom_hrms/doctype/attendance_penalty_processing/attendance_penalty_processing.json
 msgid "Total Entry Deduction"
 msgstr "إجمالي خصم الحضور"
+
+#: ms_hrms/pwa_labels.py:29
+msgid "Total Exchange Gain/Loss"
+msgstr "إجمالي أرباح/خسائر الصرف"
 
 #. Label of the total_exit_deduction (Currency) field in DocType 'Attendance
 #. Penalty Processing'
@@ -5080,6 +5220,18 @@ msgstr "إجمالي الساعات المطلوبة"
 #: ms_hrms/custom_hrms/doctype/overtime_calculation/overtime_calculation.json
 msgid "Total Requests"
 msgstr "إجمالي الطلبات"
+
+#: ms_hrms/pwa_labels.py:25
+msgid "Total Sanctioned Amount (Company Currency)"
+msgstr "إجمالي المبلغ المعتمد (بعملة الشركة)"
+
+#: ms_hrms/pwa_labels.py:54
+msgid "Total Shift Days"
+msgstr "إجمالي أيام الوردية"
+
+#: ms_hrms/pwa_labels.py:28
+msgid "Total Taxes and Charges"
+msgstr "إجمالي الضرائب والرسوم"
 
 #: ms_hrms/custom_hrms/report/shift_attendance_test/__init__.py:82
 #: ms_hrms/custom_hrms/report/shift_attendance_test/shift_attendance_test.py:83
@@ -5195,6 +5347,10 @@ msgstr "القيمة"
 #: frontend/src/views/Login.vue:142
 msgid "Verify"
 msgstr "تحقق"
+
+#: ms_hrms/pwa_labels.py:56
+msgid "View Details"
+msgstr "عرض التفاصيل"
 
 #: frontend/src/views/leave/Dashboard.vue:6
 msgid "View Leave History"
@@ -5602,6 +5758,10 @@ msgstr "أو"
 #: frontend/src/views/expense_claim/Dashboard.vue:40
 msgid "outstanding"
 msgstr "متبقية"
+
+#: ms_hrms/pwa_labels.py:58
+msgid "submission"
+msgstr "التسجيل النهائي"
 
 #: frontend/src/components/RequestActionSheet.vue:372
 msgid "submitted"

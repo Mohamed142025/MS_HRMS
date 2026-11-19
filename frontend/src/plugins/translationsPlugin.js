@@ -36,7 +36,9 @@ function makeTranslationFunction() {
 			translated_text = messages[`${key}:${context}`];
 		}
 		if (!translated_text) {
-			translated_text = messages[key] || txt;
+			// As the server does, also without surrounding spaces (Frappe HR labels a
+			// field "Currency ").
+			translated_text = messages[key] || messages[key.trim()] || txt;
 		}
 		if (replace && typeof replace === "object") {
 			translated_text = format(translated_text, replace);

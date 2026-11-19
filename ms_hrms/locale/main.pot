@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Custom HR VERSION\n"
 "Report-Msgid-Bugs-To: Mohameddbs53@gmail.com\n"
-"POT-Creation-Date: 2026-11-19 16:18+0053\n"
-"PO-Revision-Date: 2026-11-19 16:18+0053\n"
+"POT-Creation-Date: 2026-11-19 16:19+0053\n"
+"PO-Revision-Date: 2026-11-19 16:19+0053\n"
 "Last-Translator: Mohameddbs53@gmail.com\n"
 "Language-Team: Mohameddbs53@gmail.com\n"
 "MIME-Version: 1.0\n"
@@ -80,6 +80,14 @@ msgstr ""
 #: ms_hrms/custom_hrms/report/shift_attendance_test/__init__.py:187
 #: ms_hrms/custom_hrms/report/shift_attendance_test/shift_attendance_test.py:189
 msgid "Absent Records"
+msgstr ""
+
+#: ms_hrms/pwa_labels.py:36
+msgid "Account Head"
+msgstr ""
+
+#: ms_hrms/pwa_labels.py:31
+msgid "Accounting Details"
 msgstr ""
 
 #: frontend/src/views/evaluation/Detail.vue:68
@@ -175,8 +183,16 @@ msgstr ""
 msgid "Additional Settings"
 msgstr ""
 
+#: ms_hrms/pwa_labels.py:43
+msgid "Advance Account"
+msgstr ""
+
 #: frontend/src/views/employee_advance/List.vue:67
 msgid "Advance Amount"
+msgstr ""
+
+#: ms_hrms/pwa_labels.py:24
+msgid "Advances"
 msgstr ""
 
 #: frontend/src/views/Approvals.vue:322
@@ -499,6 +515,10 @@ msgstr ""
 #: ms_hrms/custom_hrms/report/shift_attendance_test/__init__.py:46
 #: ms_hrms/custom_hrms/report/shift_attendance_test/shift_attendance_test.py:47
 msgid "Attendance Date"
+msgstr ""
+
+#: ms_hrms/pwa_labels.py:47
+msgid "Attendance Dates"
 msgstr ""
 
 #. Label of a number card in the Custom HR Workspace
@@ -1063,6 +1083,10 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
+#: ms_hrms/pwa_labels.py:15
+msgid "Dates & Reason"
+msgstr ""
+
 #: frontend/src/components/NewRequestSheet.vue:72
 msgid "Days off from work"
 msgstr ""
@@ -1132,6 +1156,10 @@ msgstr ""
 
 #: frontend/src/components/AdvanceRepaymentSchedule.vue:11
 msgid "Deductions start once the advance is paid to you."
+msgstr ""
+
+#: ms_hrms/pwa_labels.py:33
+msgid "Default Account"
 msgstr ""
 
 #: frontend/src/components/ExpenseTaxesTable.vue:104
@@ -1282,6 +1310,10 @@ msgstr ""
 
 #: frontend/src/views/evaluation/Detail.vue:18
 msgid "Down {0} points on last time"
+msgstr ""
+
+#: ms_hrms/pwa_labels.py:57
+msgid "Download Failed"
 msgstr ""
 
 #: frontend/src/components/FormView.vue:39
@@ -1765,6 +1797,10 @@ msgstr ""
 msgid "Excellent"
 msgstr ""
 
+#: ms_hrms/pwa_labels.py:23
+msgid "Exchange Rate"
+msgstr ""
+
 #. Label of the exit_grace_period (Int) field in DocType 'Attendance Penalty
 #. Policy'
 #: ms_hrms/custom_hrms/doctype/attendance_penalty_policy/attendance_penalty_policy.json
@@ -1775,6 +1811,10 @@ msgstr ""
 #: ms_hrms/custom_hrms/doctype/attendance_penalty_policy/attendance_penalty_policy.json
 #: ms_hrms/custom_hrms/doctype/attendance_penalty_policy/attendance_penalty_policy.py:11
 msgid "Exit Rules"
+msgstr ""
+
+#: ms_hrms/pwa_labels.py:22
+msgid "Expense Approver"
 msgstr ""
 
 #: frontend/src/utils/requestTypes.js:144
@@ -1852,6 +1892,10 @@ msgstr ""
 msgid "First Check-in"
 msgstr ""
 
+#: ms_hrms/pwa_labels.py:40
+msgid "First Repayment Month"
+msgstr ""
+
 #. Option for the 'Calculation Basis' (Select) field in DocType 'Overtime
 #. Policy'
 #. Label of the fixed_hourly_rate (Currency) field in DocType 'Overtime Policy'
@@ -1914,6 +1958,10 @@ msgstr ""
 msgid "From Date is mandatory."
 msgstr ""
 
+#: ms_hrms/pwa_labels.py:21
+msgid "From Employee"
+msgstr ""
+
 #: frontend/src/views/Announcement.vue:4 ms_hrms/web_push.py:206
 msgid "From HR"
 msgstr ""
@@ -1959,6 +2007,10 @@ msgstr ""
 #: ms_hrms/custom_hrms/doctype/attendance_penalty_detail/attendance_penalty_detail.json
 #: ms_hrms/custom_hrms/doctype/attendance_penalty_rule/attendance_penalty_rule.json
 msgid "Full Day"
+msgstr ""
+
+#: ms_hrms/pwa_labels.py:30
+msgid "Gain Loss Account"
 msgstr ""
 
 #. Label of the additional_salary_links (HTML) field in DocType 'Attendance
@@ -2221,6 +2273,10 @@ msgstr ""
 msgid "Incentive {0}"
 msgstr ""
 
+#: ms_hrms/pwa_labels.py:46
+msgid "Include Holidays"
+msgstr ""
+
 #: ms_hrms/custom_hrms/report/shift_attendance_test/shift_attendance_test.js:64
 msgid "Include Shift Attendance Without Checkins"
 msgstr ""
@@ -2421,6 +2477,10 @@ msgstr ""
 msgid "Is Active"
 msgstr ""
 
+#: ms_hrms/pwa_labels.py:32
+msgid "Is Paid"
+msgstr ""
+
 #: frontend/src/views/salary_slip/Detail.vue:106
 msgid "Issue date"
 msgstr ""
@@ -2517,9 +2577,17 @@ msgstr ""
 msgid "Later"
 msgstr ""
 
+#: ms_hrms/pwa_labels.py:16
+msgid "Leave Approver"
+msgstr ""
+
 #: frontend/src/views/Home.vue:135 frontend/src/views/Profile.vue:279
 #: frontend/src/views/leave/Dashboard.vue:4
 msgid "Leave Balance"
+msgstr ""
+
+#: ms_hrms/pwa_labels.py:18
+msgid "Leave Dates"
 msgstr ""
 
 #: frontend/src/views/leave/List.vue:5
@@ -2726,6 +2794,10 @@ msgstr ""
 msgid "Missed"
 msgstr ""
 
+#: ms_hrms/pwa_labels.py:42
+msgid "Missed Installments"
+msgstr ""
+
 #: ms_hrms/custom_hrms/doctype/overtime_policy/overtime_policy.js:773
 msgid "Missing Calculation Salary Component"
 msgstr ""
@@ -2790,6 +2862,10 @@ msgstr ""
 #. Policy'
 #: ms_hrms/custom_hrms/doctype/attendance_penalty_policy/attendance_penalty_policy.json
 msgid "Monthly"
+msgstr ""
+
+#: ms_hrms/pwa_labels.py:41
+msgid "Monthly Installment"
 msgstr ""
 
 #: ms_hrms/custom_hrms/doctype/permission_request/permission_request.py:1110
@@ -3227,6 +3303,10 @@ msgstr ""
 msgid "Notifications are still blocked on this device"
 msgstr ""
 
+#: ms_hrms/pwa_labels.py:39
+msgid "Number of Months"
+msgstr ""
+
 #: frontend/src/views/Login.vue:139
 msgid "OTP Code"
 msgstr ""
@@ -3367,6 +3447,10 @@ msgstr ""
 #: frontend/src/components/InstallPrompt.vue:74
 #: frontend/src/views/Login.vue:122
 msgid "Opens full screen, like any app"
+msgstr ""
+
+#: ms_hrms/pwa_labels.py:17
+msgid "Other Details"
 msgstr ""
 
 #: frontend/src/views/leave/Dashboard.vue:40
@@ -4018,6 +4102,10 @@ msgstr ""
 msgid "Punctuality counts for half, attendance for 40% and leaving on time for 10%."
 msgstr ""
 
+#: ms_hrms/pwa_labels.py:38
+msgid "Purpose & Amount"
+msgstr ""
+
 #: frontend/src/composables/pushNotifications.js:122
 msgid "Push Notification permission denied"
 msgstr ""
@@ -4149,6 +4237,10 @@ msgstr ""
 
 #: frontend/src/components/AdvanceRepaymentSchedule.vue:15
 msgid "Repaid From Salary"
+msgstr ""
+
+#: ms_hrms/pwa_labels.py:44
+msgid "Repay Unclaimed Amount from Salary"
 msgstr ""
 
 #: frontend/src/components/AdvanceRepaymentSchedule.vue:6
@@ -4388,6 +4480,14 @@ msgstr ""
 msgid "Sanctioned"
 msgstr ""
 
+#: ms_hrms/pwa_labels.py:34
+msgid "Sanctioned Amount"
+msgstr ""
+
+#: ms_hrms/pwa_labels.py:35
+msgid "Sanctioned Amount (Company Currency)"
+msgstr ""
+
 #. Option for the 'من يوم' (Select) field in DocType 'Weekday Shift Range'
 #. Option for the 'إلى يوم' (Select) field in DocType 'Weekday Shift Range'
 #: ms_hrms/custom_hrms/doctype/weekday_shift_range/weekday_shift_range.json
@@ -4408,6 +4508,10 @@ msgstr ""
 #: frontend/src/views/NotCheckedIn.vue:39
 #: frontend/src/views/NotCheckedIn.vue:45
 msgid "Search by employee name"
+msgstr ""
+
+#: ms_hrms/pwa_labels.py:19
+msgid "Select Leave Approver"
 msgstr ""
 
 #: ms_hrms/custom_hrms/doctype/attendance_penalty_processing/attendance_penalty_processing.py:42
@@ -4516,6 +4620,14 @@ msgstr ""
 msgid "Shift Attendance Test"
 msgstr ""
 
+#: ms_hrms/pwa_labels.py:52
+msgid "Shift Dates"
+msgstr ""
+
+#: ms_hrms/pwa_labels.py:49
+msgid "Shift Details"
+msgstr ""
+
 #. Label of the shift_end (Datetime) field in DocType 'Attendance Penalty
 #. Detail'
 #: ms_hrms/custom_hrms/doctype/attendance_penalty_detail/attendance_penalty_detail.json
@@ -4527,6 +4639,14 @@ msgstr ""
 msgid "Shift End Time"
 msgstr ""
 
+#: ms_hrms/pwa_labels.py:50
+msgid "Shift Location"
+msgstr ""
+
+#: ms_hrms/pwa_labels.py:51
+msgid "Shift Schedule Assignment"
+msgstr ""
+
 #. Label of the shift_start (Datetime) field in DocType 'Attendance Penalty
 #. Detail'
 #: ms_hrms/custom_hrms/doctype/attendance_penalty_detail/attendance_penalty_detail.json
@@ -4536,6 +4656,10 @@ msgstr ""
 #: ms_hrms/custom_hrms/report/shift_attendance_test/__init__.py:58
 #: ms_hrms/custom_hrms/report/shift_attendance_test/shift_attendance_test.py:59
 msgid "Shift Start Time"
+msgstr ""
+
+#: ms_hrms/pwa_labels.py:53
+msgid "Shift Timing"
 msgstr ""
 
 #. Label of the shift_type (Link) field in DocType 'Attendance Penalty Detail'
@@ -5048,10 +5172,22 @@ msgstr ""
 msgid "Total Actual Hours"
 msgstr ""
 
+#: ms_hrms/pwa_labels.py:26
+msgid "Total Advance Amount (Company Currency)"
+msgstr ""
+
+#: ms_hrms/pwa_labels.py:48
+msgid "Total Attendance Days"
+msgstr ""
+
 #. Label of the total_calculated_hours (Float) field in DocType 'Overtime
 #. Calculation'
 #: ms_hrms/custom_hrms/doctype/overtime_calculation/overtime_calculation.json
 msgid "Total Calculated Hours"
+msgstr ""
+
+#: ms_hrms/pwa_labels.py:27
+msgid "Total Claimed Amount (Company Currency)"
 msgstr ""
 
 #: frontend/src/views/salary_slip/Dashboard.vue:27
@@ -5067,6 +5203,10 @@ msgstr ""
 #. Penalty Processing'
 #: ms_hrms/custom_hrms/doctype/attendance_penalty_processing/attendance_penalty_processing.json
 msgid "Total Entry Deduction"
+msgstr ""
+
+#: ms_hrms/pwa_labels.py:29
+msgid "Total Exchange Gain/Loss"
 msgstr ""
 
 #. Label of the total_exit_deduction (Currency) field in DocType 'Attendance
@@ -5098,6 +5238,18 @@ msgstr ""
 #. Label of the total_requests (Int) field in DocType 'Overtime Calculation'
 #: ms_hrms/custom_hrms/doctype/overtime_calculation/overtime_calculation.json
 msgid "Total Requests"
+msgstr ""
+
+#: ms_hrms/pwa_labels.py:25
+msgid "Total Sanctioned Amount (Company Currency)"
+msgstr ""
+
+#: ms_hrms/pwa_labels.py:54
+msgid "Total Shift Days"
+msgstr ""
+
+#: ms_hrms/pwa_labels.py:28
+msgid "Total Taxes and Charges"
 msgstr ""
 
 #: ms_hrms/custom_hrms/report/shift_attendance_test/__init__.py:82
@@ -5213,6 +5365,10 @@ msgstr ""
 
 #: frontend/src/views/Login.vue:142
 msgid "Verify"
+msgstr ""
+
+#: ms_hrms/pwa_labels.py:56
+msgid "View Details"
 msgstr ""
 
 #: frontend/src/views/leave/Dashboard.vue:6
@@ -5620,6 +5776,10 @@ msgstr ""
 
 #: frontend/src/views/expense_claim/Dashboard.vue:40
 msgid "outstanding"
+msgstr ""
+
+#: ms_hrms/pwa_labels.py:58
+msgid "submission"
 msgstr ""
 
 #: frontend/src/components/RequestActionSheet.vue:372
