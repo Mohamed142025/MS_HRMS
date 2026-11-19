@@ -25,7 +25,7 @@
 				class="w-full py-5"
 				:variant="action.variant"
 				:theme="action.theme"
-				@click="applyWorkflow({ workflowAction: action.text })"
+				@click="applyWorkflow({ workflowAction: action.data.action })"
 			>
 				<template #prefix v-if="action.featherIcon">
 					<FeatherIcon :name="action.featherIcon" class="w-4" />
@@ -47,6 +47,8 @@
 import { IonActionSheet, modalController } from "@ionic/vue"
 import { computed, ref, onMounted, inject } from "vue"
 import { FeatherIcon } from "frappe-ui"
+
+import { askRejectionReason } from "@/composables/approval"
 
 const props = defineProps({
 	doc: {
@@ -117,9 +119,16 @@ const showTransitions = () => {
 }
 
 const applyWorkflow = async ({ event = "", workflowAction = "" }) => {
-	const action = workflowAction || event.detail.data?.action
+	const action = workflowAction || event?.detail?.data?.action
+	showActionSheet.value = false
 	if (action) {
-		await props.workflow.applyWorkflow(props.doc, action)
+		// Rejecting asks for the reason first (optional), kept with the decision.
+		let remarks = ""
+		if (action.toLowerCase().includes("reject")) {
+			remarks = await askRejectionReason()
+			if (remarks === null) return
+		}
+		await props.workflow.applyWorkflow(props.doc, action, remarks)
 		modalController.dismiss()
 		emit("workflow-applied")
 	}

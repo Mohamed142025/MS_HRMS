@@ -1,6 +1,7 @@
 import { createResource, toast } from "frappe-ui"
 import { computed } from "vue"
 import { userResource } from "@/data/user"
+import { __ } from "@/plugins/translationsPlugin"
 
 export default function useWorkflow(doctype) {
 	const workflowDoc = createResource({
@@ -62,14 +63,16 @@ export default function useWorkflow(doctype) {
 		return !roles.some((role) => userResource.data.roles.includes(role))
 	}
 
-	const applyWorkflow = async (doc, action) => {
+	// With the approver's remarks (the reason, when rejecting), kept with the decision
+	// (ms_hrms.request_approvers.apply_workflow).
+	const applyWorkflow = async (doc, action, remarks = "") => {
 		const applyWorkflow = createResource({
-			url: "frappe.model.workflow.apply_workflow",
-			params: { doc: doc, action: action },
+			url: "ms_hrms.request_approvers.apply_workflow",
+			params: { doc: doc, action: action, remarks: remarks || "" },
 			onSuccess() {
 				toast({
-					title: "Success",
-					text: `Workflow action '${action}' applied successfully`,
+					title: __("Success"),
+					text: __("{0} successfully!", [__(action, null, doc.doctype)]),
 					icon: "check-circle",
 					position: "bottom-center",
 					iconClasses: "text-green-500",
@@ -77,8 +80,8 @@ export default function useWorkflow(doctype) {
 			},
 			onError() {
 				toast({
-					title: "Error",
-					text: `Error applying workflow action: ${action}`,
+					title: __("Error"),
+					text: __("{0} failed!", [__(action, null, doc.doctype)]),
 					icon: "alert-circle",
 					position: "bottom-center",
 					iconClasses: "text-red-500",

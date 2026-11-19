@@ -405,18 +405,47 @@ def set_decision_remarks(doc, remarks):
 	if field:
 		doc.set(field, remarks)
 		return
+	add_comment(doc, REMARKS_SUBJECT, frappe.utils.escape_html(remarks).replace("\n", "<br>"))
+
+
+def add_comment(doc, subject, content, comment_type="Comment"):
 	frappe.get_doc(
 		{
 			"doctype": "Comment",
-			"comment_type": "Comment",
-			"subject": REMARKS_SUBJECT,
+			"comment_type": comment_type,
+			"subject": subject,
 			"reference_doctype": doc.doctype,
 			"reference_name": doc.name,
 			"comment_email": frappe.session.user,
 			"comment_by": frappe.utils.get_fullname(frappe.session.user),
-			"content": frappe.utils.escape_html(remarks).replace("\n", "<br>"),
+			"content": content,
 		}
 	).insert(ignore_permissions=True)
+
+
+@frappe.whitelist(methods=["POST"])
+def apply_workflow(doc, action, remarks=None):
+	"""A workflow action on a request (frappe.model.workflow.apply_workflow), with the
+	approver's remarks (the reason, when rejecting): saved before the action, as Comments
+	(and in the remarks field where the request has one), so the decision's notification
+	carries them."""
+	from frappe.model.workflow import apply_workflow as apply
+
+	from ms_hrms.request_history import REQUESTS as DECIDED
+
+	data = frappe.parse_json(doc)
+	doctype, name = data.get("doctype"), data.get("name")
+	remarks = (remarks or "").strip()
+	target = None
+	if remarks and doctype in DECIDED:
+		target = frappe.get_doc(doctype, name)
+		target.check_permission("read")
+		add_comment(target, REMARKS_SUBJECT, frappe.utils.escape_html(remarks).replace("\n", "<br>"))
+	result = apply(data, action)
+	field = REMARKS_FIELDS.get(doctype)
+	if target and field:
+		frappe.db.set_value(doctype, name, field, remarks)
+	return result
 
 
 def get_decision_remarks(doc):
