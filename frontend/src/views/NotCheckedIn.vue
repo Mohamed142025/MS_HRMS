@@ -201,7 +201,7 @@ const emptyText = computed(() => {
 const department_name = (value) => (value || "").replace(/ - [^-]+$/, "")
 function details(person) {
 	// Shift names are the site's own, shown as they are.
-	const shift = person.shift ? `${person.shift} · ${clock(person.shift_start)}` : ""
+	const shift = person.shift ? `${__(person.shift)} · ${clock(person.shift_start)}` : ""
 	return [department_name(person.department), shift].filter(Boolean).join(" · ")
 }
 

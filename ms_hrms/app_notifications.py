@@ -183,7 +183,9 @@ def day_label(value, lang, with_month=True):
 		return str(getdate(value))
 
 
-# What a request is for, in a few words
+# What a request is for, in a few words. Names the site gives (leave and shift types,
+# holidays) go through the translation too, in the recipient's language: a Translation
+# record (Setup > Translation) gives them in Arabic.
 
 
 def describe(doc, lang):
@@ -206,7 +208,7 @@ def describe(doc, lang):
 	elif doc.doctype == "Overtime Request":
 		parts = [day_label(doc.overtime_date, lang), _("{0} hours", lang=lang).format(f"{flt(doc.requested_hours, 2):g}")]
 	elif doc.doctype == "Shift Request":
-		parts = [doc.shift_type, period(doc.from_date, doc.to_date)]
+		parts = [_(doc.shift_type, lang=lang), period(doc.from_date, doc.to_date)]
 	elif doc.doctype == "Attendance Request":
 		parts = [_(doc.reason, lang=lang) if doc.reason else "", period(doc.from_date, doc.to_date)]
 	elif doc.doctype == "Expense Claim":
@@ -508,7 +510,8 @@ def _holidays_tomorrow(employees, today):
 		holiday_list = get_holiday_list_for_employee(employee.name, raise_exception=False, as_on=tomorrow)
 		if holiday_list in holidays:
 			lang = lang_of(employee.user_id)
-			what = frappe.utils.strip_html(holidays[holiday_list] or "").strip() or _("Holiday", lang=lang)
+			what = frappe.utils.strip_html(holidays[holiday_list] or "").strip()
+			what = _(what, lang=lang) if what else _("Holiday", lang=lang)
 			notify(employee.user_id, t(N_("Tomorrow is a holiday: {0}"), lang, what), "Holiday List", holiday_list, from_user="Administrator")
 
 
@@ -589,7 +592,7 @@ def remind_check_in(now=None):
 		lang = lang_of(user)
 		notify(
 			user,
-			t(N_("Your {0} shift started at {1} and you have not checked in yet."), lang, row.shift, row.shift_start.strftime("%H:%M")),
+			t(N_("Your {0} shift started at {1} and you have not checked in yet."), lang, _(row.shift, lang=lang), row.shift_start.strftime("%H:%M")),
 			"Employee Checkin",
 			None,
 			from_user="Administrator",

@@ -4,7 +4,7 @@
 			<ShiftIcon class="h-5 w-5 text-gray-500" />
 			<div class="flex flex-col items-start gap-1.5">
 				<div class="text-base font-normal text-gray-800">
-					{{ props.doc.shift_type }}
+					{{ __(props.doc.shift_type) }}
 				</div>
 				<div class="text-xs font-normal text-gray-500">
 					<span>{{ props.doc.shift_dates || getShiftDates(props.doc) }}</span>

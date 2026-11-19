@@ -391,8 +391,9 @@ def notify_not_checked_in(now=None):
 			):
 				continue
 			# In the language of the user it goes to, not the scheduler's.
-			message = _("{0} have not checked in yet · {1} shift ({2})", lang=lang_of(user)).format(
-				len(rows), shift, rows[0].shift_start.strftime("%H:%M")
+			lang = lang_of(user)
+			message = _("{0} have not checked in yet · {1} shift ({2})", lang=lang).format(
+				len(rows), _(shift, lang=lang), rows[0].shift_start.strftime("%H:%M")
 			)
 			frappe.get_doc(
 				{
