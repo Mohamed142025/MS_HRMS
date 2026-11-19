@@ -62,5 +62,5 @@ const rows = computed(() => {
 	].filter((row) => row.value)
 })
 
-defineExpose({ reload: () => decision.reload() })
+defineExpose({ reload: () => decision.reload(), status: computed(() => decision.data?.status) })
 </script>

@@ -518,6 +518,25 @@ def can_decide(doc, user=None):
 	return False
 
 
+@frappe.whitelist()
+def get_decision_actions(doctype, name):
+	"""For the request's sheet in the app: whether the user may approve and reject it
+	there ({"approve": bool, "reject": bool})."""
+	if doctype not in REQUESTS:
+		return {"approve": False, "reject": False}
+	doc = frappe.get_doc(doctype, name)
+	doc.check_permission("read")
+	if not can_decide(doc):
+		return {"approve": False, "reject": False}
+	if doctype == "Employee Advance":
+		approve = can_approve(doc)
+	elif doctype == "Attendance Request":
+		approve = bool(doc.has_permission("submit"))
+	else:
+		approve = True
+	return {"approve": approve, "reject": True}
+
+
 @frappe.whitelist(methods=["POST"])
 def apply_workflow(doc, action, remarks=None):
 	"""A workflow action on a request (frappe.model.workflow.apply_workflow), with the

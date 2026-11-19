@@ -83,28 +83,19 @@
 			view="actionSheet"
 		/>
 
-		<!-- Approved by submitting, by the employee's manager or approver (ms_hrms). -->
+		<!-- Approve and reject, for who may decide the request (ms_hrms.request_approvers
+		     .get_decision_actions): its approver or manager. Rejecting asks for the reason. -->
 		<div
-			v-else-if="approvedHere && document?.doc?.docstatus === 0 && canApprove.data"
-			class="flex w-full flex-row items-center justify-between gap-3 sticky bottom-0 border-t z-[100] p-4"
-		>
-			<Button @click="approveHere" class="w-full py-5" variant="solid" theme="green" :loading="approving">
-				<template #prefix>
-					<FeatherIcon name="check" class="w-4" />
-				</template>
-				{{ __("Approve") }}
-			</Button>
-		</div>
-
-		<div
-			v-else-if="['Open', 'Draft'].includes(document?.doc?.[approvalField]) && hasPermission('approval')"
-			class="flex w-full flex-row items-center justify-between gap-3 sticky bottom-0 border-t z-[100] p-4"
+			v-else-if="decisionActions.data?.approve || decisionActions.data?.reject"
+			class="ms-decision-actions flex w-full flex-row items-center justify-between gap-3 sticky bottom-0 border-t z-[100] p-4"
 		>
 			<Button
+				v-if="decisionActions.data.reject"
 				@click="rejectHere"
 				class="w-full py-5"
 				variant="subtle"
 				theme="red"
+				:disabled="deciding"
 			>
 				<template #prefix>
 					<FeatherIcon name="x" class="w-4" />
@@ -113,10 +104,12 @@
 			</Button>
 
 			<Button
-				@click="updateDocumentStatus({ status: 'Approved' })"
+				v-if="decisionActions.data.approve"
+				@click="approveHere"
 				class="w-full py-5"
 				variant="solid"
 				theme="green"
+				:loading="deciding"
 			>
 				<template #prefix>
 					<FeatherIcon name="check" class="w-4" />
@@ -128,7 +121,7 @@
 		<div
 			v-else-if="
 				document?.doc?.docstatus === 0 &&
-				(document?.doc?.doctype === 'Attendance Request' ||
+				((document?.doc?.doctype === 'Attendance Request' && decision?.status !== 'Rejected') ||
 					['Approved', 'Rejected'].includes(document?.doc?.[approvalField])) &&
 				hasPermission('submit')
 			"
@@ -256,37 +249,47 @@ const permittedWriteFields = createResource({
 
 const sessionEmployee = inject("$employee")
 
-// Employee Advances: approved here by the employee's manager or approver.
-const approvedHere = computed(() => Boolean(approvalFlow(props.modelValue.doctype)?.approveMethod))
-const canApprove = createResource({
-	url: "ms_hrms.request_approvers.get_can_approve",
+// Whether the user may approve and reject the request here.
+const decisionActions = createResource({
+	url: "ms_hrms.request_approvers.get_decision_actions",
 	params: { doctype: props.modelValue.doctype, name: props.modelValue.name },
-	auto: approvedHere.value,
+	auto: true,
 })
-const approving = ref(false)
+const deciding = ref(false)
 
+function notifyDecision(ok, text) {
+	toast({
+		title: ok ? __("Success") : __("Error"),
+		text,
+		icon: ok ? "check-circle" : "alert-circle",
+		position: "bottom-center",
+		iconClasses: ok ? "text-green-500" : "text-red-500",
+	})
+}
+
+async function afterDecision() {
+	await document.reload()
+	decisionActions.reload()
+	decision.value?.reload()
+}
+
+// Approving: the decision on the request's status field, or submitting it where approving
+// is submitting (attendance, advance).
 async function approveHere() {
-	approving.value = true
+	deciding.value = true
 	try {
-		await submit(props.modelValue)
-		modalController.dismiss()
-		toast({
-			title: __("Success"),
-			text: __("{0} successfully!", [__("Approved")]),
-			icon: "check-circle",
-			position: "bottom-center",
-			iconClasses: "text-green-500",
-		})
+		if (approvalFlow(props.modelValue.doctype)?.field) {
+			await decide(props.modelValue, "Approved")
+			await afterDecision()
+		} else {
+			await submit(props.modelValue)
+			modalController.dismiss()
+		}
+		notifyDecision(true, __("{0} successfully!", [__("Approved")]))
 	} catch (error) {
-		toast({
-			title: __("Error"),
-			text: error.messages?.[0] || __("{0} failed!", [__("Approval")]),
-			icon: "alert-circle",
-			position: "bottom-center",
-			iconClasses: "text-red-500",
-		})
+		notifyDecision(false, error.messages?.[0] || __("{0} failed!", [__("Approval")]))
 	} finally {
-		approving.value = false
+		deciding.value = false
 	}
 }
 
@@ -294,24 +297,15 @@ async function approveHere() {
 async function rejectHere() {
 	const reason = await askRejectionReason()
 	if (reason === null) return
+	deciding.value = true
 	try {
 		await decide(props.modelValue, "Rejected", reason)
-		await document.reload()
-		toast({
-			title: __("Success"),
-			text: __("{0} successfully!", [__("Rejected")]),
-			icon: "check-circle",
-			position: "bottom-center",
-			iconClasses: "text-green-500",
-		})
+		await afterDecision()
+		notifyDecision(true, __("{0} successfully!", [__("Rejected")]))
 	} catch (error) {
-		toast({
-			title: __("Error"),
-			text: error.messages?.[0] || __("{0} failed!", [__("Rejection")]),
-			icon: "alert-circle",
-			position: "bottom-center",
-			iconClasses: "text-red-500",
-		})
+		notifyDecision(false, error.messages?.[0] || __("{0} failed!", [__("Rejection")]))
+	} finally {
+		deciding.value = false
 	}
 }
 
