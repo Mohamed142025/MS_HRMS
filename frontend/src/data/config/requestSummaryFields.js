@@ -347,7 +347,8 @@ export const EMPLOYEE_CHECKIN_FIELDS = [
 	{
 		fieldname: "formatted_time",
 		label: "Time",
-		fieldtype: "Time",
+		// Already formatted ("9:05 am", ListView).
+		fieldtype: "Data",
 	},
 	{
 		fieldname: "formatted_latitude",

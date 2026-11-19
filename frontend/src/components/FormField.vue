@@ -137,10 +137,10 @@
 		<input
 			v-else-if="props.fieldtype === 'Time'"
 			type="time"
-			:value="modelValue"
+			:value="toTimeInput(modelValue)"
 			:placeholder="__('Select {0}', [props.label])"
-			@input="(e) => emit('update:modelValue', e.target.value)"
-			@change="(e) => emit('change', e.target.value)"
+			@input="(e) => emit('update:modelValue', normalizeTime(e.target.value))"
+			@change="(e) => emit('change', normalizeTime(e.target.value))"
 			v-bind="$attrs"
 			:disabled="isReadOnly"
 			class="border-gray-400 placeholder-gray-500 form-input block w-full"
@@ -166,6 +166,7 @@ import { Autocomplete, DateTimePicker, ErrorMessage, Input, TextEditor } from "f
 import { computed, onMounted, inject } from "vue"
 
 import Link from "@/components/Link.vue"
+import { normalizeTime, toTimeInput } from "@/utils/time"
 
 const __ = inject("$translate")
 

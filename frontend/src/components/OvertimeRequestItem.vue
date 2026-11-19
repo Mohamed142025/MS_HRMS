@@ -33,6 +33,7 @@ import { Badge, FeatherIcon } from "frappe-ui"
 import ListItem from "@/components/ListItem.vue"
 import AttendanceIcon from "@/components/icons/AttendanceIcon.vue"
 import dayjs from "@/utils/dayjs"
+import { shortTime } from "@/utils/time"
 
 const props = defineProps({
 	doc: {
@@ -56,8 +57,8 @@ const status = computed(() => {
 const formatDate = (value) => (value ? dayjs(value).format("D MMM") : "")
 const formatTimeRange = (request) => {
 	if (!request.from_time && !request.to_time) return ""
-	const start = request.from_time ? request.from_time.slice(0, 5) : "00:00"
-	const end = request.to_time ? request.to_time.slice(0, 5) : "00:00"
+	const start = request.from_time ? shortTime(request.from_time) : "00:00"
+	const end = request.to_time ? shortTime(request.to_time) : "00:00"
 	return `${start} - ${end}`
 }
 

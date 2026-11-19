@@ -126,6 +126,7 @@ import AppIcon from "@/components/ui/AppIcon.vue"
 import { insights } from "@/data/pwa"
 import { TONES } from "@/utils/requestTypes"
 import { formatNumber } from "@/utils/formatters"
+import { formatTime } from "@/utils/time"
 
 const __ = inject("$translate")
 const dayjs = inject("$dayjs")
@@ -145,7 +146,7 @@ const periodLabel = computed(() => {
 	return `${dayjs(data.value.from_date).format("D MMM YYYY")} – ${dayjs().format("D MMM YYYY")}`
 })
 
-const clock = (time) => dayjs(`2000-01-01 ${time}`).format("h:mm a")
+const clock = (time) => formatTime(time)
 
 const indexLabel = computed(() => {
 	const index = data.value?.index

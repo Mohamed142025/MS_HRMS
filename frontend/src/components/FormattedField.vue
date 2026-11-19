@@ -9,6 +9,10 @@
 		size="md"
 	/>
 
+	<div v-else-if="props.fieldtype === 'Time'" dir="ltr" class="text-gray-900 text-base">
+		{{ formatTime(props.value) || props.value }}
+	</div>
+
 	<div v-else-if="props.fieldtype === 'Date'" class="text-gray-900 text-base">
 		{{ dayjs(props.value).format("D MMM YYYY") }}
 	</div>
@@ -62,6 +66,7 @@ import { inject } from "vue"
 import { Badge, FormControl, Input } from "frappe-ui"
 
 import EmployeeAvatar from "@/components/EmployeeAvatar.vue"
+import { formatTime } from "@/utils/time"
 
 const dayjs = inject("$dayjs")
 

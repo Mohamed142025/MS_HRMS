@@ -255,6 +255,7 @@ import {
 } from "@/data/attendance"
 import { TONES, typeLabel } from "@/utils/requestTypes"
 import { formatNumber } from "@/utils/formatters"
+import { formatTime } from "@/utils/time"
 
 const __ = inject("$translate")
 const dayjs = inject("$dayjs")
@@ -298,7 +299,7 @@ async function refresh(event) {
 
 const initial = computed(() => Array.from(employee.data?.employee_name || user.data?.first_name || "?")[0])
 const greeting = computed(() => (now.value.hour() < 12 ? __("Good morning") : __("Good evening")))
-const clock = (time) => dayjs(`2000-01-01 ${time}`).format("h:mm a")
+const clock = (time) => formatTime(time)
 
 const dateLine = computed(() => {
 	const parts = [dayjs().format("dddd D MMMM")]

@@ -1,6 +1,7 @@
 // The request types the app handles: how each looks in lists (icon, tone, title,
 // details), its status, and where to create one or see them all.
 import dayjs from "@/utils/dayjs"
+import { formatTime } from "@/utils/time"
 import { formatCurrency } from "@/utils/formatters"
 import { __ } from "@/plugins/translationsPlugin"
 
@@ -154,7 +155,7 @@ export function requestTitle(doc) {
 
 const day = (value) => (value ? dayjs(value).format("ddd D MMM") : "")
 const shortDay = (value) => (value ? dayjs(value).format("D MMM") : "")
-const time = (value) => (value ? dayjs(`2000-01-01 ${value}`).format("h:mm a") : "")
+const time = (value) => formatTime(value)
 
 function range(from, to) {
 	if (!to || from === to) return day(from)

@@ -211,6 +211,7 @@ import {
 import { approvalFlow, canSubmit, decide, submit } from "@/composables/approval"
 import useWorkflow from "@/composables/workflow"
 import { REQUEST_TYPES, TONES, requestDates, requestDetails, requestTitle, typeLabel } from "@/utils/requestTypes"
+import { formatTime } from "@/utils/time"
 
 const __ = inject("$translate")
 const dayjs = inject("$dayjs")
@@ -397,7 +398,7 @@ const teamParts = computed(() => {
 	]
 })
 const team = computed(() => teamToday.data)
-const clock = (time) => (time ? dayjs(`2000-01-01 ${time}`).format("h:mm a") : "")
+const clock = (time) => formatTime(time)
 
 const selected = ref(null)
 function onSheetClosed() {

@@ -118,6 +118,7 @@ import { IonPage, IonContent, IonRefresher, IonRefresherContent } from "@ionic/v
 
 import SubHeader from "@/components/ui/SubHeader.vue"
 import AppIcon from "@/components/ui/AppIcon.vue"
+import { formatTime } from "@/utils/time"
 import { attendanceBoard as board } from "@/data/pwa"
 
 const __ = inject("$translate")
@@ -138,7 +139,7 @@ async function refresh(event) {
 }
 
 const data = computed(() => board.data)
-const clock = (time) => (time ? dayjs(`2000-01-01 ${time}`).format("h:mm a") : "")
+const clock = (time) => formatTime(time)
 const subtitle = computed(() => (data.value ? __("Today · as of {0}", [clock(data.value.as_of)]) : ""))
 
 const tiles = computed(() => {

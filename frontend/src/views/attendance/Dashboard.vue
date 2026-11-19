@@ -160,6 +160,7 @@ import { attendanceMonth } from "@/data/pwa"
 import { getShiftDates, getShiftTiming } from "@/data/attendance"
 import { TONES } from "@/utils/requestTypes"
 import { formatNumber } from "@/utils/formatters"
+import { formatTime } from "@/utils/time"
 
 const __ = inject("$translate")
 const dayjs = inject("$dayjs")
@@ -229,7 +230,7 @@ const legend = [
 	{ label: __("Holiday"), swatch: "bg-brand-roots/[.08]" },
 ]
 
-const clock = (time) => dayjs(`2000-01-01 ${time}`).format("h:mm a")
+const clock = (time) => formatTime(time)
 const hoursText = (hours) => __("{0} h {1} m", [Math.floor(hours), Math.round((hours % 1) * 60)])
 const dayName = (date) => {
 	const day = dayjs(date)
