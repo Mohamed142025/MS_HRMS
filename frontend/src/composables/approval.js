@@ -7,7 +7,9 @@
 // (ms_hrms.request_approvers.approve) as Frappe HR leaves them to a role. Permission and
 // Overtime Requests, which the Employee role may not
 // write, are decided through ms_hrms' approver check (ms_hrms.request_approvers.decide).
-// Doctypes with a workflow are decided in the request sheet instead.
+// Attendance Requests and Employee Advances, which have no rejected state, are rejected
+// through decide too: they stay drafts, recorded as rejected.
+// Doctypes with a workflow are decided in the request sheet instead (WorkflowActionSheet).
 import { call } from "frappe-ui"
 import { alertController } from "@ionic/vue"
 

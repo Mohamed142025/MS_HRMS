@@ -17,7 +17,7 @@ from frappe.utils import get_fullname
 
 from hrms.api import get_current_employee, get_workflow_state_field
 
-from ms_hrms.request_approvers import get_decision_remarks
+from ms_hrms.request_approvers import get_decision_remarks, get_rejected_names, get_rejection
 
 # What My Requests shows of the requests Frappe HR lists (as hrms.api returns them).
 MY_REQUESTS = {
@@ -161,6 +161,11 @@ def get_my_requests(doctype):
 	if workflow_state_field:
 		for row in requests:
 			row["workflow_state_field"] = workflow_state_field
+	# Rejected drafts of the requests with no rejected state (request_approvers.REJECTED_HERE).
+	rejected = set(get_rejected_names(doctype))
+	for row in requests:
+		if row.get("docstatus") == 0 and row.get("name") in rejected:
+			row["rejected"] = 1
 	return requests
 
 
@@ -192,6 +197,11 @@ def get_request_decision(doctype, name):
 				decision.update(status="Submitted", by=version.owner, on=version.creation)
 			elif fieldname == "docstatus" and new == 2:
 				decision.update(cancelled_by=version.owner, cancelled_on=version.creation)
+
+	# A draft rejected without a rejected state of its own (request_approvers.REJECTED_HERE).
+	rejection = get_rejection(doctype, name) if doc.docstatus == 0 else None
+	if rejection:
+		decision.update(status="Rejected", by=rejection.owner, on=rejection.creation)
 
 	# Decided before its changes were tracked: what the request itself records.
 	if not decision.status:

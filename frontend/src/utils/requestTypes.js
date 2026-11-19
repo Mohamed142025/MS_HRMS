@@ -72,6 +72,8 @@ export const REQUEST_TYPES = {
 export function requestStatus(doc) {
 	if (doc.workflow_state_field) return doc[doc.workflow_state_field]
 	if (doc.docstatus === 2) return "Cancelled"
+	// A rejected draft of a request with no rejected state (attendance, advance).
+	if (doc.rejected && doc.docstatus === 0) return "Rejected"
 	switch (doc.doctype) {
 		case "Expense Claim":
 			if (doc.approval_status === "Rejected") return "Rejected"

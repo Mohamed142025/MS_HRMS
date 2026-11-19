@@ -245,6 +245,10 @@ def get_requests_to_approve(doctype, fields=None):
 	if others_only and me:
 		filters["employee"] = ("!=", me) if "employee" not in filters else filters["employee"]
 
+	rejected = get_rejected_names(doctype)
+	if rejected:
+		filters["name"] = ("not in", rejected)
+
 	listed = MY_REQUESTS.get(doctype)
 	fields = frappe.parse_json(fields) if fields else list(listed.fields if listed else ["name"])
 	state_field = get_workflow_state_field(doctype)
@@ -369,6 +373,13 @@ WAITING_STATUSES = {
 # them, else a Comment on it (its timeline in the desk), marked by this subject.
 REMARKS_FIELDS = {"Overtime Request": "approval_remarks"}
 REMARKS_SUBJECT = "ms_hrms:decision_remarks"
+# Requests approved by submitting them, which have no rejected state: Frappe HR's
+# Attendance Request has no status, and an Employee Advance's status follows its payment
+# (Draft, Unpaid, Paid...). Rejecting one keeps it a draft, so nothing is marked or
+# payable, and records the rejection as a Comment on it with this subject: the approvals
+# lists leave it out, and the employee sees it rejected, with the reason.
+REJECTED_HERE = ("Attendance Request", "Employee Advance")
+REJECTED_SUBJECT = "ms_hrms:rejected"
 
 
 @frappe.whitelist(methods=["POST"])
@@ -377,6 +388,12 @@ def decide(doctype, name, status, remarks=None):
 	reason, when rejecting). Permission and Overtime Requests are decided as their
 	approver; leaves, expense claims and shift requests with the user's own permissions.
 	The request's own validation still checks the change."""
+	if doctype in REJECTED_HERE and status == "Rejected":
+		doc = frappe.get_doc(doctype, name)
+		if not can_decide(doc):
+			frappe.throw(frappe._("You are not the approver of this request."), frappe.PermissionError)
+		reject_here(doc, (remarks or "").strip())
+		return status
 	if doctype not in DECISION_FIELDS or status not in DECISIONS:
 		frappe.throw(frappe._("This request cannot be decided here."))
 
@@ -423,6 +440,84 @@ def add_comment(doc, subject, content, comment_type="Comment"):
 	).insert(ignore_permissions=True)
 
 
+def reject_here(doc, remarks=""):
+	"""Reject an Attendance Request or Employee Advance (REJECTED_HERE): it stays a draft,
+	the rejection and its reason are Comments on it, and the employee is told."""
+	from ms_hrms.app_notifications import is_on, safe, tell_employee_of_decision
+
+	if doc.docstatus != 0 or get_rejection(doc.doctype, doc.name):
+		frappe.throw(frappe._("This request is not awaiting approval."))
+	if remarks:
+		set_decision_remarks(doc, remarks)
+	add_comment(doc, REJECTED_SUBJECT, frappe._("Rejected"), comment_type="Info")
+	if is_on("requests"):
+		safe(tell_employee_of_decision)(doc, "Rejected", remarks or None)
+
+
+def get_rejection(doctype, name):
+	"""The rejection of a draft Attendance Request or Employee Advance: {owner, creation}."""
+	if doctype not in REJECTED_HERE:
+		return None
+	return frappe.db.get_value(
+		"Comment",
+		{"reference_doctype": doctype, "reference_name": name, "subject": REJECTED_SUBJECT},
+		["owner", "creation"],
+		as_dict=True,
+		order_by="creation desc",
+	)
+
+
+def get_rejected_names(doctype):
+	if doctype not in REJECTED_HERE:
+		return []
+	return frappe.get_all(
+		"Comment",
+		filters={"reference_doctype": doctype, "subject": REJECTED_SUBJECT},
+		pluck="reference_name",
+		distinct=True,
+	)
+
+
+def can_decide(doc, user=None):
+	"""Whether the user may approve or reject this request in the app (outside a workflow,
+	whose transitions decide): the employee's approver or manager, or who sees every
+	request, while the request awaits its decision."""
+	from hrms.api import get_workflow
+
+	user = user or frappe.session.user
+	doctype = doc.doctype
+	if doc.docstatus != 0 or get_workflow(doctype):
+		return False
+	own = frappe.db.get_value("Employee", doc.employee, "user_id") == user
+	if doctype in DECISION_FIELDS:
+		if doc.get(DECISION_FIELDS[doctype]) not in WAITING_STATUSES[doctype]:
+			return False
+		if doctype in DECIDED_HERE:
+			return user == "Administrator" or is_approver(doctype, doc.employee, user)
+		if (
+			doctype == "Leave Application"
+			and own
+			and frappe.db.get_single_value("HR Settings", "prevent_self_leave_approval")
+		):
+			return False
+		if not doc.has_permission("write", user=user):
+			return False
+		field = REQUESTS[doctype].request_field
+		return (
+			sees_all(user)
+			or (field and doc.get(field) == user)
+			or is_approver(doctype, doc.employee, user)
+			or is_manager(doc.employee, user)
+		)
+	if doctype in REJECTED_HERE:
+		if get_rejection(doctype, doc.name):
+			return False
+		if sees_all(user):
+			return True
+		return not own and (is_manager(doc.employee, user) or is_approver(doctype, doc.employee, user))
+	return False
+
+
 @frappe.whitelist(methods=["POST"])
 def apply_workflow(doc, action, remarks=None):
 	"""A workflow action on a request (frappe.model.workflow.apply_workflow), with the
@@ -436,6 +531,7 @@ def apply_workflow(doc, action, remarks=None):
 	data = frappe.parse_json(doc)
 	doctype, name = data.get("doctype"), data.get("name")
 	remarks = (remarks or "").strip()
+	rejecting = "reject" in (action or "").lower()
 	target = None
 	if remarks and doctype in DECIDED:
 		target = frappe.get_doc(doctype, name)
@@ -445,6 +541,13 @@ def apply_workflow(doc, action, remarks=None):
 	field = REMARKS_FIELDS.get(doctype)
 	if target and field:
 		frappe.db.set_value(doctype, name, field, remarks)
+	# Rejecting a request with no rejected state of its own (REJECTED_HERE) tells its
+	# employee here; the others are told when their status changes.
+	if rejecting and doctype in REJECTED_HERE:
+		from ms_hrms.app_notifications import is_on, safe, tell_employee_of_decision
+
+		if is_on("requests"):
+			safe(tell_employee_of_decision)(frappe.get_doc(doctype, name), "Rejected", remarks or None)
 	return result
 
 

@@ -152,8 +152,22 @@
 						<button type="button" class="ms-secondary-button w-full" @click="selected = doc">{{ __("Review request") }}</button>
 					</div>
 
-					<div v-else-if="!approvalFlow(doc.doctype).field" class="mt-3">
-						<button type="button" class="ms-primary-button h-[46px] text-[14.5px]" :disabled="state[key(doc)]?.busy" @click="submitDoc(doc)">
+					<!-- Approved by submitting (attendance, advance); rejecting keeps it a draft. -->
+					<div v-else-if="!approvalFlow(doc.doctype).field" class="mt-3 grid grid-cols-2 gap-2">
+						<button
+							type="button"
+							class="h-[46px] rounded-[14px] border-[1.5px] border-state-danger/[.28] bg-white text-[14.5px] font-bold text-state-danger-text disabled:opacity-60"
+							:disabled="state[key(doc)]?.busy"
+							@click="rejectDoc(doc)"
+						>
+							{{ __("Reject") }}
+						</button>
+						<button
+							type="button"
+							class="h-[46px] rounded-[14px] bg-brand-emerald text-[14.5px] font-bold text-white disabled:opacity-60"
+							:disabled="state[key(doc)]?.busy"
+							@click="submitDoc(doc)"
+						>
 							{{ __("Approve") }}
 						</button>
 					</div>
@@ -345,7 +359,9 @@ const workflowDoctypes = computed(
 	() => new Set(Object.keys(workflows).filter((doctype) => workflows[doctype].hasWorkflow.value))
 )
 
-const reason = (doc) => doc.reason || doc.description || doc.explanation || ""
+// An attendance request's reason is its type (On Duty, Work From Home), already its title.
+const reason = (doc) =>
+	doc.doctype === "Attendance Request" ? doc.explanation || "" : doc.reason || doc.description || doc.explanation || ""
 
 function notify(ok, text) {
 	toast({
@@ -369,7 +385,8 @@ async function decideDoc(doc, decision, remarks = "") {
 		await decide(doc, decision, remarks)
 		kept[key(doc)] = doc
 		entry.decided = decision
-		entry.canSubmit = approvalFlow(doc.doctype).submitAfter && (await canSubmit(doc))
+		const flow = approvalFlow(doc.doctype)
+		entry.canSubmit = Boolean(flow.field) && flow.submitAfter && (await canSubmit(doc))
 		notify(true, __("{0} successfully!", [__(decision)]))
 		sources[doc.doctype].reload()
 	} catch (error) {
