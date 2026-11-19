@@ -163,7 +163,7 @@
 							type="button"
 							class="h-[46px] rounded-[14px] border-[1.5px] border-state-danger/[.28] bg-white text-[14.5px] font-bold text-state-danger-text disabled:opacity-60"
 							:disabled="state[key(doc)]?.busy"
-							@click="decideDoc(doc, 'Rejected')"
+							@click="rejectDoc(doc)"
 						>
 							{{ __("Reject") }}
 						</button>
@@ -208,7 +208,7 @@ import {
 	teamPermissionRequests,
 	teamOvertimeRequests,
 } from "@/data/attendance"
-import { approvalFlow, canSubmit, decide, submit } from "@/composables/approval"
+import { approvalFlow, askRejectionReason, canSubmit, decide, submit } from "@/composables/approval"
 import useWorkflow from "@/composables/workflow"
 import { REQUEST_TYPES, TONES, requestDates, requestDetails, requestTitle, typeLabel } from "@/utils/requestTypes"
 import { formatTime } from "@/utils/time"
@@ -357,10 +357,16 @@ function notify(ok, text) {
 	})
 }
 
-async function decideDoc(doc, decision) {
+// Rejecting asks for the reason first (optional); dismissing the question keeps the request.
+async function rejectDoc(doc) {
+	const reason = await askRejectionReason()
+	if (reason !== null) await decideDoc(doc, "Rejected", reason)
+}
+
+async function decideDoc(doc, decision, remarks = "") {
 	const entry = (state[key(doc)] = { busy: true })
 	try {
-		await decide(doc, decision)
+		await decide(doc, decision, remarks)
 		kept[key(doc)] = doc
 		entry.decided = decision
 		entry.canSubmit = approvalFlow(doc.doctype).submitAfter && (await canSubmit(doc))

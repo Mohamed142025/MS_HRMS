@@ -168,6 +168,15 @@
 					/>
 				</div>
 
+				<!-- A request's decision, with the approver's remarks or reason for rejecting. -->
+				<RequestDecision
+					v-if="id && DECIDED_REQUESTS.includes(doctype)"
+					:doctype="doctype"
+					:name="id"
+					:version="documentResource.doc?.modified || ''"
+					class="mx-4 mt-3"
+				/>
+
 				<slot name="bottom" :formModel="formModel" :isFormReadOnly="isFormReadOnly" />
 			</div>
 
@@ -332,12 +341,24 @@ import FormField from "@/components/FormField.vue"
 import AppIcon from "@/components/ui/AppIcon.vue"
 import FileUploaderView from "@/components/FileUploaderView.vue"
 import WorkflowActionSheet from "@/components/WorkflowActionSheet.vue"
+import RequestDecision from "@/components/RequestDecision.vue"
 
 import { FileAttachment, guessStatusColor } from "@/composables"
 import useWorkflow from "@/composables/workflow"
 import { getCompanyCurrency } from "@/data/currencies"
 import { formatCurrency } from "@/utils/formatters"
 import { useDownloadPDF } from "@/utils/commonUtils"
+
+// Requests whose decision the form shows (ms_hrms.request_history).
+const DECIDED_REQUESTS = [
+	"Leave Application",
+	"Expense Claim",
+	"Shift Request",
+	"Attendance Request",
+	"Employee Advance",
+	"Permission Request",
+	"Overtime Request",
+]
 
 const props = defineProps({
 	doctype: {

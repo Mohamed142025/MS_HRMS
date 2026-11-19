@@ -1,6 +1,7 @@
 // Approving and rejecting requests from the approvals screen. The same calls Frappe HR's
 // request sheet makes (RequestActionSheet): the decision is saved on the request's status
-// field, and requests that are submitted afterwards (leave, expense claim, shift request)
+// field (through ms_hrms.request_approvers.decide, which also keeps the approver's remarks),
+// and requests that are submitted afterwards (leave, expense claim, shift request)
 // are submitted as a second, separate step. Attendance requests are approved by
 // submitting them, and so are Employee Advances, through ms_hrms' approver check
 // (ms_hrms.request_approvers.approve) as Frappe HR leaves them to a role. Permission and
@@ -8,28 +9,57 @@
 // write, are decided through ms_hrms' approver check (ms_hrms.request_approvers.decide).
 // Doctypes with a workflow are decided in the request sheet instead.
 import { call } from "frappe-ui"
+import { alertController } from "@ionic/vue"
+
+import { __ } from "@/plugins/translationsPlugin"
 
 const FLOWS = {
 	"Leave Application": { field: "status", submitAfter: true },
 	"Expense Claim": { field: "approval_status", submitAfter: true },
 	"Shift Request": { field: "status", submitAfter: true },
-	"Permission Request": { field: "status", submitAfter: false, method: "ms_hrms.request_approvers.decide" },
-	"Overtime Request": { field: "status", submitAfter: false, method: "ms_hrms.request_approvers.decide" },
+	"Permission Request": { field: "status", submitAfter: false },
+	"Overtime Request": { field: "status", submitAfter: false },
 	"Attendance Request": { field: null, submitAfter: true },
 	"Employee Advance": { field: null, submitAfter: true, approveMethod: "ms_hrms.request_approvers.approve" },
 }
 
 export const approvalFlow = (doctype) => FLOWS[doctype]
 
-export function decide(doc, decision) {
-	const flow = FLOWS[doc.doctype]
-	if (flow.method) return call(flow.method, { doctype: doc.doctype, name: doc.name, status: decision })
-	return call("frappe.client.set_value", {
+// The decision, with the approver's remarks (the reason, when rejecting), which the
+// employee sees on the request and in its notification.
+export function decide(doc, decision, remarks = "") {
+	return call("ms_hrms.request_approvers.decide", {
 		doctype: doc.doctype,
 		name: doc.name,
-		fieldname: flow.field,
-		value: decision,
+		status: decision,
+		remarks: remarks || "",
 	})
+}
+
+// Asks the approver why they reject the request (optional). Resolves to the reason ("" for
+// none), or null when they think again.
+export async function askRejectionReason() {
+	const alert = await alertController.create({
+		header: __("Reject this request?"),
+		message: __("You may give the reason. The employee sees it on the request and in its notification."),
+		cssClass: "ms-reject-alert",
+		inputs: [
+			{
+				name: "reason",
+				type: "textarea",
+				placeholder: __("Reason for rejection (optional)"),
+				attributes: { maxlength: 500, rows: 3 },
+			},
+		],
+		buttons: [
+			{ text: __("Cancel"), role: "cancel" },
+			{ text: __("Reject"), role: "confirm", cssClass: "ms-alert-danger" },
+		],
+	})
+	await alert.present()
+	const { data, role } = await alert.onDidDismiss()
+	if (role !== "confirm") return null
+	return (data?.values?.reason || "").trim()
 }
 
 export async function canSubmit(doc) {

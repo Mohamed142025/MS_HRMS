@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  ms_hrms\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-19 16:15+0053\n"
+"POT-Creation-Date: 2026-11-19 16:18+0053\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ar\n"
@@ -364,7 +364,7 @@ msgstr "حقل «تطبيق على» إلزامي."
 #. Label of the approval_section (Section Break) field in DocType 'Overtime
 #. Request'
 #. Label of the approval (Section Break) field in DocType 'Permission Request'
-#: frontend/src/components/RequestActionSheet.vue:387
+#: frontend/src/components/RequestActionSheet.vue:379
 #: ms_hrms/custom_hrms/doctype/overtime_request/overtime_request.json
 #: ms_hrms/custom_hrms/doctype/permission_request/permission_request.json
 msgid "Approval"
@@ -387,8 +387,8 @@ msgstr "لا تملك صلاحية الاعتماد"
 msgid "Approval Remarks"
 msgstr "ملاحظات الاعتماد"
 
-#: frontend/src/components/RequestActionSheet.vue:113
-#: frontend/src/components/RequestActionSheet.vue:142
+#: frontend/src/components/RequestActionSheet.vue:95
+#: frontend/src/components/RequestActionSheet.vue:124
 #: frontend/src/views/Approvals.vue:157 frontend/src/views/Approvals.vue:176
 #: frontend/src/views/employee_advance/Form.vue:18
 #: ms_hrms/public/js/employee_advance.js:12
@@ -413,11 +413,11 @@ msgstr "معتمد"
 msgid "Approved By"
 msgstr "معتمد من"
 
-#: frontend/src/components/RequestActionSheet.vue:261
+#: frontend/src/components/RequestDecision.vue:56
 msgid "Approved by"
 msgstr "اعتمده"
 
-#: frontend/src/components/RequestActionSheet.vue:90
+#: frontend/src/components/RequestDecision.vue:19
 msgid "Approver's remarks"
 msgstr "ملاحظات المعتمد"
 
@@ -440,7 +440,7 @@ msgstr "هل أنت متأكد من إنشاء راتب إضافي لكل موظ
 msgid "Are you sure you want to delete the attachment"
 msgstr "هل أنت متأكد من حذف المرفق"
 
-#: frontend/src/components/FormView.vue:227
+#: frontend/src/components/FormView.vue:236
 msgid "Are you sure you want to delete the {0}"
 msgstr "هل أنت متأكد من حذف {0}"
 
@@ -734,8 +734,9 @@ msgid "Call {0}"
 msgstr "اتصال بـ {0}"
 
 #: frontend/src/components/FileUploaderView.vue:65
-#: frontend/src/components/FormView.vue:239
-#: frontend/src/components/RequestActionSheet.vue:177
+#: frontend/src/components/FormView.vue:248
+#: frontend/src/components/RequestActionSheet.vue:159
+#: frontend/src/composables/approval.js:55
 msgid "Cancel"
 msgstr "إلغاء"
 
@@ -752,11 +753,11 @@ msgstr "إلغاء"
 msgid "Cancelled"
 msgstr "ملغي"
 
-#: frontend/src/components/RequestActionSheet.vue:265
+#: frontend/src/components/RequestDecision.vue:60
 msgid "Cancelled by"
 msgstr "ألغاه"
 
-#: frontend/src/components/RequestActionSheet.vue:266
+#: frontend/src/components/RequestDecision.vue:61
 msgid "Cancelled on"
 msgstr "تاريخ الإلغاء"
 
@@ -952,8 +953,8 @@ msgstr "الشركة إلزامية."
 msgid "Components of the employee's latest salary structure to raise, by a percentage or an amount. The others are kept as they are."
 msgstr "مكونات آخر هيكل راتب للموظف التي تُزاد، بنسبة أو بمبلغ. باقي المكونات تبقى كما هي."
 
-#: frontend/src/components/FormView.vue:255
-#: frontend/src/components/FormView.vue:286
+#: frontend/src/components/FormView.vue:264
+#: frontend/src/components/FormView.vue:295
 msgid "Confirm"
 msgstr "تأكيد"
 
@@ -1069,11 +1070,11 @@ msgstr "أيام راحة من العمل"
 msgid "Days present"
 msgstr "أيام الحضور"
 
-#: frontend/src/components/RequestActionSheet.vue:264
+#: frontend/src/components/RequestDecision.vue:59
 msgid "Decided on"
 msgstr "تاريخ القرار"
 
-#: frontend/src/components/RequestActionSheet.vue:79
+#: frontend/src/components/RequestDecision.vue:7
 msgid "Decision"
 msgstr "القرار"
 
@@ -1134,7 +1135,7 @@ msgstr "الخصم هيبدأ بعد ما السلفة تتصرف لك."
 #: frontend/src/components/ExpensesTable.vue:109
 #: frontend/src/components/FileUploaderView.vue:73
 #: frontend/src/components/FormView.vue:33
-#: frontend/src/components/FormView.vue:247
+#: frontend/src/components/FormView.vue:256
 msgid "Delete"
 msgstr "حذف"
 
@@ -1142,7 +1143,7 @@ msgstr "حذف"
 msgid "Delete Attachment"
 msgstr "حذف المرفق"
 
-#: frontend/src/components/FormView.vue:223
+#: frontend/src/components/FormView.vue:232
 msgid "Delete {0}"
 msgstr "حذف {0}"
 
@@ -1261,12 +1262,12 @@ msgstr "مؤشر الانضباط"
 msgid "Dismiss"
 msgstr "تجاهل"
 
-#: frontend/src/components/RequestActionSheet.vue:389
-#: frontend/src/views/Approvals.vue:386
+#: frontend/src/components/RequestActionSheet.vue:381
+#: frontend/src/views/Approvals.vue:392
 msgid "Document {0} failed!"
 msgstr "فشل {0} المستند!"
 
-#: frontend/src/views/Approvals.vue:383
+#: frontend/src/views/Approvals.vue:389
 msgid "Document {0} successfully!"
 msgstr "تم تحديث المستند بنجاح ({0})"
 
@@ -1700,12 +1701,13 @@ msgid "Entry Rules"
 msgstr "قواعد الحضور"
 
 #: frontend/src/components/CheckInPanel.vue:308
-#: frontend/src/components/FormView.vue:550
-#: frontend/src/components/FormView.vue:576
-#: frontend/src/components/FormView.vue:598
+#: frontend/src/components/FormView.vue:571
+#: frontend/src/components/FormView.vue:597
+#: frontend/src/components/FormView.vue:619
 #: frontend/src/components/NotificationPrompt.vue:125
-#: frontend/src/components/RequestActionSheet.vue:315
-#: frontend/src/components/RequestActionSheet.vue:416
+#: frontend/src/components/RequestActionSheet.vue:282
+#: frontend/src/components/RequestActionSheet.vue:309
+#: frontend/src/components/RequestActionSheet.vue:408
 #: frontend/src/composables/language.js:18
 #: frontend/src/composables/pushNotifications.js:112
 #: frontend/src/composables/salarySlip.js:36
@@ -1715,11 +1717,11 @@ msgstr "قواعد الحضور"
 msgid "Error"
 msgstr "خطأ"
 
-#: frontend/src/components/FormView.vue:551
+#: frontend/src/components/FormView.vue:572
 msgid "Error creating {0}"
 msgstr "حدث خطأ أثناء إنشاء {0}"
 
-#: frontend/src/components/FormView.vue:599
+#: frontend/src/components/FormView.vue:620
 msgid "Error deleting {0}"
 msgstr "حدث خطأ أثناء حذف {0}"
 
@@ -1727,7 +1729,7 @@ msgstr "حدث خطأ أثناء حذف {0}"
 msgid "Error downloading PDF"
 msgstr "حدث خطأ أثناء تنزيل ملف PDF"
 
-#: frontend/src/components/FormView.vue:577
+#: frontend/src/components/FormView.vue:598
 msgid "Error updating {0}"
 msgstr "حدث خطأ أثناء تحديث {0}"
 
@@ -2081,11 +2083,11 @@ msgstr "نصف يوم"
 msgid "Half Day Records"
 msgstr "سجلات نصف اليوم"
 
-#: ms_hrms/app_notifications.py:533
+#: ms_hrms/app_notifications.py:550
 msgid "Happy birthday, {0}! Wishing you a wonderful year."
 msgstr "عيد ميلاد سعيد يا {0}! نتمنى لك عامًا رائعًا."
 
-#: ms_hrms/app_notifications.py:535
+#: ms_hrms/app_notifications.py:552
 msgid "Happy work anniversary, {0}! {1} years with us today."
 msgstr "ذكرى سنوية سعيدة يا {0}! أكملت اليوم {1} سنوات معنا."
 
@@ -2105,7 +2107,7 @@ msgstr "إخفاء كلمة المرور"
 #: frontend/src/views/NotCheckedIn.vue:151
 #: frontend/src/views/attendance/Dashboard.vue:213
 #: frontend/src/views/attendance/Dashboard.vue:230
-#: ms_hrms/app_notifications.py:494
+#: ms_hrms/app_notifications.py:511
 #: ms_hrms/custom_hrms/report/daily_shift_attendance/daily_shift_attendance.js:28
 #: ms_hrms/web_push.py:210
 msgid "Holiday"
@@ -2456,7 +2458,7 @@ msgstr "الشهر الماضي"
 msgid "Last {0} slips · average {1}"
 msgstr "آخر {0} قسائم · المتوسط {1}"
 
-#: frontend/src/views/Approvals.vue:395 frontend/src/views/Insights.vue:77
+#: frontend/src/views/Approvals.vue:401 frontend/src/views/Insights.vue:77
 #: frontend/src/views/attendance/Dashboard.vue:192
 #: frontend/src/views/attendance/Dashboard.vue:210
 #: frontend/src/views/attendance/Dashboard.vue:227
@@ -2949,8 +2951,8 @@ msgstr "إنشاء {0}"
 msgid "Next month"
 msgstr "الشهر التالي"
 
-#: frontend/src/components/FormView.vue:271
-#: frontend/src/components/FormView.vue:302
+#: frontend/src/components/FormView.vue:280
+#: frontend/src/components/FormView.vue:311
 msgid "No"
 msgstr "لا"
 
@@ -3124,7 +3126,7 @@ msgstr "لا شيء"
 msgid "Normal Working Day"
 msgstr "يوم عمل عادي"
 
-#: frontend/src/views/Approvals.vue:397
+#: frontend/src/views/Approvals.vue:403
 msgid "Not checked in"
 msgstr "لم يسجّل"
 
@@ -3261,7 +3263,7 @@ msgstr "الرواتب القديمة"
 msgid "Old and New Salaries"
 msgstr "الرواتب القديمة والجديدة"
 
-#: frontend/src/views/Approvals.vue:396 frontend/src/views/NotCheckedIn.vue:150
+#: frontend/src/views/Approvals.vue:402 frontend/src/views/NotCheckedIn.vue:150
 #: frontend/src/views/attendance/Dashboard.vue:193
 #: frontend/src/views/attendance/Dashboard.vue:211
 #: frontend/src/views/attendance/Dashboard.vue:228
@@ -3685,11 +3687,11 @@ msgstr "نسبة"
 msgid "Period"
 msgstr "الفترة"
 
-#: frontend/src/components/FormView.vue:290
+#: frontend/src/components/FormView.vue:299
 msgid "Permanently cancel {0}"
 msgstr "إلغاء {0} نهائياً"
 
-#: frontend/src/components/FormView.vue:259
+#: frontend/src/components/FormView.vue:268
 msgid "Permanently submit {0}"
 msgstr "تسجيل {0} نهائياً"
 
@@ -3903,7 +3905,7 @@ msgstr "مؤجل من {0}"
 msgid "Preferences"
 msgstr "التفضيلات"
 
-#: frontend/src/views/Approvals.vue:394 frontend/src/views/NotCheckedIn.vue:148
+#: frontend/src/views/Approvals.vue:400 frontend/src/views/NotCheckedIn.vue:148
 #: frontend/src/views/attendance/Dashboard.vue:191
 #: frontend/src/views/attendance/Dashboard.vue:209
 #: ms_hrms/custom_hrms/report/daily_shift_attendance/daily_shift_attendance.js:25
@@ -4048,6 +4050,14 @@ msgstr "إجراءات سريعة"
 msgid "Reason"
 msgstr "السبب"
 
+#: frontend/src/components/RequestDecision.vue:19
+msgid "Reason for rejection"
+msgstr "سبب الرفض"
+
+#: frontend/src/composables/approval.js:50
+msgid "Reason for rejection (optional)"
+msgstr "سبب الرفض (اختياري)"
+
 #: frontend/src/views/expense_claim/Dashboard.vue:67
 #: frontend/src/views/expense_claim/Dashboard.vue:69
 msgid "Recent Expenses"
@@ -4066,10 +4076,14 @@ msgstr "سجّل ساعاتك الإضافية"
 msgid "Recovered from your salary"
 msgstr "تُسترد من الراتب"
 
-#: frontend/src/components/RequestActionSheet.vue:130
-#: frontend/src/views/Approvals.vue:168
+#: frontend/src/components/RequestActionSheet.vue:112
+#: frontend/src/composables/approval.js:56 frontend/src/views/Approvals.vue:168
 msgid "Reject"
 msgstr "رفض"
+
+#: frontend/src/composables/approval.js:43
+msgid "Reject this request?"
+msgstr "رفض هذا الطلب؟"
 
 #. Option for the 'Status' (Select) field in DocType 'Overtime Request'
 #. Option for the 'Status' (Select) field in DocType 'Permission Request'
@@ -4079,12 +4093,12 @@ msgstr "رفض"
 msgid "Rejected"
 msgstr "مرفوض"
 
-#: frontend/src/components/RequestActionSheet.vue:261
+#: frontend/src/components/RequestDecision.vue:56
 msgid "Rejected by"
 msgstr "رفضه"
 
-#: frontend/src/components/RequestActionSheet.vue:387
-#: frontend/src/views/Approvals.vue:370
+#: frontend/src/components/RequestActionSheet.vue:379
+#: frontend/src/views/Approvals.vue:376
 msgid "Rejection"
 msgstr "الرفض"
 
@@ -4109,10 +4123,6 @@ msgstr "المتبقي للسداد"
 #: ms_hrms/custom_hrms/doctype/attendance_penalty_detail/attendance_penalty_detail.json
 msgid "Remarks"
 msgstr "ملاحظات"
-
-#: ms_hrms/app_notifications.py:289
-msgid "Remarks: {0}"
-msgstr "الملاحظات: {0}"
 
 #: frontend/src/components/NotificationPrompt.vue:78
 msgid "Reminders and announcements from HR"
@@ -4600,7 +4610,7 @@ msgstr "يبدأ في"
 msgid "Status"
 msgstr "الحالة"
 
-#: frontend/src/components/RequestActionSheet.vue:160
+#: frontend/src/components/RequestActionSheet.vue:142
 #: frontend/src/views/Approvals.vue:146
 #: ms_hrms/custom_hrms/doctype/overtime_request/overtime_request.js:891
 msgid "Submit"
@@ -4627,11 +4637,12 @@ msgid "Subscription"
 msgstr "الاشتراك"
 
 #: frontend/src/components/CheckInPanel.vue:296
-#: frontend/src/components/FormView.vue:535
-#: frontend/src/components/FormView.vue:567
-#: frontend/src/components/FormView.vue:589
-#: frontend/src/components/RequestActionSheet.vue:307
-#: frontend/src/components/RequestActionSheet.vue:407
+#: frontend/src/components/FormView.vue:556
+#: frontend/src/components/FormView.vue:588
+#: frontend/src/components/FormView.vue:610
+#: frontend/src/components/RequestActionSheet.vue:274
+#: frontend/src/components/RequestActionSheet.vue:301
+#: frontend/src/components/RequestActionSheet.vue:399
 #: frontend/src/composables/pushNotifications.js:112
 #: frontend/src/views/Approvals.vue:352
 #: frontend/src/views/ChangePassword.vue:74
@@ -4839,7 +4850,7 @@ msgstr "هؤلاء الموظفون ليس لهم شيفت معيّن ولا ش�
 msgid "This Permission Request overlaps with an existing Permission Request ({0}) for the same Employee on {1} from {2} to {3}."
 msgstr "طلب الإذن هذا يتداخل مع طلب إذن موجود ({0}) لنفس الموظف يوم {1} من {2} إلى {3}."
 
-#: frontend/src/views/Announcement.vue:7 ms_hrms/app_notifications.py:434
+#: frontend/src/views/Announcement.vue:7 ms_hrms/app_notifications.py:451
 msgid "This announcement was not sent to you."
 msgstr "هذا الإعلان لم يُرسل إليك."
 
@@ -4888,20 +4899,20 @@ msgstr "الموبايل ده مش الجهاز المسجّل لك لتسجيل
 msgid "This phone is not your registered device: HR will review this check-in."
 msgstr "الموبايل ده مش جهازك المسجّل: الموارد البشرية هتراجع التسجيل ده."
 
-#: ms_hrms/request_approvers.py:402
+#: ms_hrms/request_approvers.py:476
 msgid "This request cannot be approved here."
 msgstr "الطلب ده مينفعش يتعتمد من هنا."
 
-#: ms_hrms/request_approvers.py:357
+#: ms_hrms/request_approvers.py:381
 msgid "This request cannot be decided here."
 msgstr "لا يمكن البت في هذا الطلب من هنا."
 
-#: ms_hrms/request_approvers.py:363 ms_hrms/request_approvers.py:405
+#: ms_hrms/request_approvers.py:392 ms_hrms/request_approvers.py:479
 msgid "This request is not awaiting approval."
 msgstr "الطلب ده مش مستني اعتماد."
 
 #: ms_hrms/request_approvers.py:107 ms_hrms/request_approvers.py:209
-#: ms_hrms/request_history.py:140 ms_hrms/request_history.py:174
+#: ms_hrms/request_history.py:142 ms_hrms/request_history.py:176
 msgid "This request type is not listed here."
 msgstr "نوع الطلب هذا غير مدرج هنا."
 
@@ -4996,7 +5007,7 @@ msgstr "يجب أن يختلف «إلى وقت» عن «من وقت»."
 msgid "Today"
 msgstr "اليوم"
 
-#: ms_hrms/app_notifications.py:545
+#: ms_hrms/app_notifications.py:562
 msgid "Today is {0}'s birthday. Wish them a happy birthday!"
 msgstr "اليوم عيد ميلاد {0}. هنّئه بعيد ميلاده!"
 
@@ -5008,7 +5019,7 @@ msgstr "اليوم · حتى {0}"
 msgid "Tomorrow"
 msgstr "غداً"
 
-#: ms_hrms/app_notifications.py:495
+#: ms_hrms/app_notifications.py:512
 msgid "Tomorrow is a holiday: {0}"
 msgstr "غدًا عطلة: {0}"
 
@@ -5290,8 +5301,8 @@ msgstr "سنوي"
 msgid "Years of service"
 msgstr "سنوات الخدمة"
 
-#: frontend/src/components/FormView.vue:278
-#: frontend/src/components/FormView.vue:309
+#: frontend/src/components/FormView.vue:287
+#: frontend/src/components/FormView.vue:318
 msgid "Yes"
 msgstr "نعم"
 
@@ -5327,7 +5338,7 @@ msgstr "غير مسموح لك بمتابعة حضور الموظفين."
 msgid "You are not authorized to change the Status of this Overtime Request. Only the configured Overtime Approver for the employee's Department can change the Status."
 msgstr "ليس لديك صلاحية تغيير حالة طلب العمل الإضافي هذا. فقط مسؤول اعتماد العمل الإضافي المحدد لقسم الموظف يمكنه تغيير الحالة."
 
-#: ms_hrms/request_approvers.py:361 ms_hrms/request_approvers.py:407
+#: ms_hrms/request_approvers.py:387 ms_hrms/request_approvers.py:481
 msgid "You are not the approver of this request."
 msgstr "إنت مش المسؤول عن اعتماد الطلب ده."
 
@@ -5367,6 +5378,10 @@ msgstr "ليس لديك طلبات"
 #: frontend/src/views/Notifications.vue:72
 msgid "You have no unread notifications"
 msgstr "ليس لديك إشعارات غير مقروءة"
+
+#: frontend/src/composables/approval.js:44
+msgid "You may give the reason. The employee sees it on the request and in its notification."
+msgstr "يمكنك كتابة السبب، وسيراه الموظف في الطلب وفي إشعاره."
 
 #: ms_hrms/custom_hrms/doctype/permission_request/permission_request.py:298
 #: ms_hrms/custom_hrms/doctype/permission_request/permission_request.py:1796
@@ -5461,7 +5476,7 @@ msgstr "سجلّك وتحليلاته"
 msgid "Your salary and expenses"
 msgstr "رواتبك ومصروفاتك"
 
-#: ms_hrms/app_notifications.py:396
+#: ms_hrms/app_notifications.py:413
 msgid "Your salary slip for {0} is ready: {1}"
 msgstr "قسيمة راتبك عن {0} جاهزة: {1}"
 
@@ -5482,23 +5497,35 @@ msgstr "فريقك اليوم"
 msgid "Your upcoming leaves"
 msgstr "إجازاتك القادمة"
 
-#: ms_hrms/app_notifications.py:283 ms_hrms/app_notifications.py:372
+#: ms_hrms/app_notifications.py:298
 msgid "Your {0} ({1}) was approved by {2}"
 msgstr "تم اعتماد {0} الخاص بك ({1}) من {2}"
 
-#: ms_hrms/app_notifications.py:285
+#: ms_hrms/app_notifications.py:293
+msgid "Your {0} ({1}) was approved by {2}. Remarks: {3}"
+msgstr "تم اعتماد {0} الخاص بك ({1}) من {2}. الملاحظات: {3}"
+
+#: ms_hrms/app_notifications.py:300
 msgid "Your {0} ({1}) was cancelled by {2}"
 msgstr "تم إلغاء {0} الخاص بك ({1}) من {2}"
 
-#: ms_hrms/app_notifications.py:284 ms_hrms/app_notifications.py:372
+#: ms_hrms/app_notifications.py:295
+msgid "Your {0} ({1}) was cancelled by {2}. Remarks: {3}"
+msgstr "تم إلغاء {0} الخاص بك ({1}) من {2}. الملاحظات: {3}"
+
+#: ms_hrms/app_notifications.py:299
 msgid "Your {0} ({1}) was rejected by {2}"
 msgstr "تم رفض {0} الخاص بك ({1}) من {2}"
 
-#: ms_hrms/app_notifications.py:575
+#: ms_hrms/app_notifications.py:294
+msgid "Your {0} ({1}) was rejected by {2}. Reason: {3}"
+msgstr "تم رفض {0} الخاص بك ({1}) من {2}. السبب: {3}"
+
+#: ms_hrms/app_notifications.py:592
 msgid "Your {0} shift started at {1} and you have not checked in yet."
 msgstr "بدأت ورديتك {0} الساعة {1} ولم تسجّل حضورك بعد."
 
-#: ms_hrms/app_notifications.py:510
+#: ms_hrms/app_notifications.py:527
 msgid "Your {0} starts tomorrow and ends on {1}"
 msgstr "تبدأ {0} الخاصة بك غدًا وتنتهي يوم {1}"
 
@@ -5506,11 +5533,11 @@ msgstr "تبدأ {0} الخاصة بك غدًا وتنتهي يوم {1}"
 msgid "and {0} days on leave"
 msgstr "و{0} يوم إجازة"
 
-#: frontend/src/components/RequestActionSheet.vue:389
+#: frontend/src/components/RequestActionSheet.vue:381
 msgid "cancellation"
 msgstr "إلغاء"
 
-#: frontend/src/components/RequestActionSheet.vue:380
+#: frontend/src/components/RequestActionSheet.vue:372
 msgid "cancelled"
 msgstr "ملغى"
 
@@ -5576,7 +5603,7 @@ msgstr "أو"
 msgid "outstanding"
 msgstr "متبقية"
 
-#: frontend/src/components/RequestActionSheet.vue:380
+#: frontend/src/components/RequestActionSheet.vue:372
 msgid "submitted"
 msgstr "مُسجّل نهائياً"
 
@@ -5633,7 +5660,7 @@ msgstr "تم تجميع {0} من تفاصيل العمل الإضافي."
 msgid "{0} absent today"
 msgstr "{0} غائبون اليوم"
 
-#: ms_hrms/app_notifications.py:304
+#: ms_hrms/app_notifications.py:315
 msgid "{0} cancelled their {1}: {2}"
 msgstr "ألغى {0} {1}: {2}"
 
@@ -5645,11 +5672,11 @@ msgstr "لا يمكن أن يكون {0} سالباً."
 msgid "{0} commented on their evaluation for {1}"
 msgstr "{0} علّق على تقييمه لفترة {1}"
 
-#: ms_hrms/app_notifications.py:547
+#: ms_hrms/app_notifications.py:564
 msgid "{0} completes {1} years with us today."
 msgstr "يُكمل {0} اليوم {1} سنوات معنا."
 
-#: frontend/src/components/FormView.vue:536
+#: frontend/src/components/FormView.vue:557
 msgid "{0} created successfully!"
 msgstr "تم إنشاء {0} بنجاح!"
 
@@ -5665,7 +5692,7 @@ msgstr "{0} يوم تنتهي في {1} إذا لم تُستخدم"
 msgid "{0} days of your {1} expire on {2}."
 msgstr "يتبقى لك {0} يوم من {1} تنتهي في {2}."
 
-#: frontend/src/components/FormView.vue:590
+#: frontend/src/components/FormView.vue:611
 msgid "{0} deleted successfully!"
 msgstr "تم حذف {0} بنجاح!"
 
@@ -5674,9 +5701,10 @@ msgid "{0} employees · as of {1}"
 msgstr "{0} موظف · حتى {1}"
 
 #: frontend/src/components/CheckInPanel.vue:309
-#: frontend/src/components/RequestActionSheet.vue:316
-#: frontend/src/components/RequestActionSheet.vue:387
-#: frontend/src/views/Approvals.vue:370
+#: frontend/src/components/RequestActionSheet.vue:283
+#: frontend/src/components/RequestActionSheet.vue:310
+#: frontend/src/components/RequestActionSheet.vue:379
+#: frontend/src/views/Approvals.vue:376
 #: frontend/src/views/employee_advance/Form.vue:95
 msgid "{0} failed!"
 msgstr "فشل {0}!"
@@ -5793,7 +5821,7 @@ msgstr "أقل بـ {0} نقطة من الفترة السابقة"
 msgid "{0} requests await your approval"
 msgstr "{0} طلبات بانتظار موافقتك"
 
-#: ms_hrms/app_notifications.py:268 ms_hrms/app_notifications.py:376
+#: ms_hrms/app_notifications.py:268 ms_hrms/app_notifications.py:393
 msgid "{0} sent a {1} for your approval: {2}"
 msgstr "أرسل {0} {1} لاعتمادك: {2}"
 
@@ -5801,14 +5829,15 @@ msgstr "أرسل {0} {1} لاعتمادك: {2}"
 msgid "{0} successful!"
 msgstr "تم {0} بنجاح!"
 
-#: frontend/src/components/RequestActionSheet.vue:308
-#: frontend/src/components/RequestActionSheet.vue:377
-#: frontend/src/views/Approvals.vue:367
+#: frontend/src/components/RequestActionSheet.vue:275
+#: frontend/src/components/RequestActionSheet.vue:302
+#: frontend/src/components/RequestActionSheet.vue:369
+#: frontend/src/views/Approvals.vue:373
 #: frontend/src/views/employee_advance/Form.vue:86
 msgid "{0} successfully!"
 msgstr "تم التحديث بنجاح: {0}"
 
-#: frontend/src/components/FormView.vue:568
+#: frontend/src/components/FormView.vue:589
 msgid "{0} updated successfully!"
 msgstr "تم تحديث {0} بنجاح!"
 

@@ -17,6 +17,8 @@ from frappe.utils import get_fullname
 
 from hrms.api import get_current_employee, get_workflow_state_field
 
+from ms_hrms.request_approvers import get_decision_remarks
+
 # What My Requests shows of the requests Frappe HR lists (as hrms.api returns them).
 MY_REQUESTS = {
 	"Leave Application": frappe._dict(
@@ -198,14 +200,16 @@ def get_request_decision(doctype, name):
 		elif not request.decision_field and doc.docstatus:
 			decision.status = "Submitted"
 		if decision.status:
-			decision.by = doc.get("approved_by") or doc.get(request.approver_field or "")
-			decision.on = doc.get("approval_date")
+			# Permission Requests record neither who decided them nor, when rejected, when:
+			# the last change is the decision.
+			decision.by = doc.get("approved_by") or doc.get(request.approver_field or "") or doc.modified_by
+			decision.on = doc.get("approval_date") or doc.modified
 	if doc.docstatus == 2 and not decision.cancelled_by:
 		decision.update(cancelled_by=doc.modified_by, cancelled_on=doc.modified)
 
 	if not decision:
 		return None
-	decision.remarks = doc.get("approval_remarks")
+	decision.remarks = get_decision_remarks(doc)
 	for user_field in ("by", "cancelled_by"):
 		if decision.get(user_field):
 			decision[user_field] = get_fullname(decision[user_field])

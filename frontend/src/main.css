@@ -324,3 +324,13 @@ ion-modal.ms-sheet {
 .ms-rich-text img { border-radius: 14px; }
 .ms-rich-text table { display: block; overflow-x: auto; }
 .ms-rich-text :where(p, li):empty::before { content: "\200b"; }
+
+/* The question asked before rejecting a request (composables/approval.js). */
+ion-alert.ms-reject-alert .alert-button.ms-alert-danger {
+	color: var(--ion-color-danger-shade);
+	font-weight: 700;
+}
+ion-alert.ms-reject-alert textarea.alert-input {
+	min-height: 84px;
+	resize: none;
+}

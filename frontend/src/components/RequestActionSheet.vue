@@ -72,26 +72,8 @@
 			</div>
 		</div>
 
-		<!-- How the request was decided (ms_hrms.request_history) -->
-		<div v-if="decision.data" class="w-full px-4 pb-4">
-			<div class="rounded-2xl bg-brand-sand/60 p-3.5 text-[14px] leading-6">
-				<div class="flex items-center justify-between gap-2">
-					<span class="font-bold text-brand-ink">{{ __("Decision") }}</span>
-					<StatusChip
-						v-if="decision.data.status || decision.data.cancelled_by"
-						:status="decision.data.cancelled_by ? 'Cancelled' : decision.data.status"
-					/>
-				</div>
-				<div v-for="row in decisionRows" :key="row.label" class="mt-1.5 flex items-start justify-between gap-3">
-					<span class="shrink-0 text-brand-muted">{{ row.label }}</span>
-					<span class="text-end text-brand-ink">{{ row.value }}</span>
-				</div>
-				<div v-if="decision.data.remarks" class="mt-2 border-t border-brand-roots/[.08] pt-2">
-					<span class="block text-brand-muted">{{ __("Approver's remarks") }}</span>
-					<span class="block whitespace-pre-line text-brand-ink">{{ decision.data.remarks }}</span>
-				</div>
-			</div>
-		</div>
+		<!-- How the request was decided, with the approver's remarks (ms_hrms.request_history) -->
+		<RequestDecision ref="decision" :doctype="props.modelValue.doctype" :name="props.modelValue.name" class="w-full px-4 pb-4" />
 
 		<!-- Actions -->
 		<WorkflowActionSheet
@@ -119,7 +101,7 @@
 			class="flex w-full flex-row items-center justify-between gap-3 sticky bottom-0 border-t z-[100] p-4"
 		>
 			<Button
-				@click="updateDocumentStatus({ status: 'Rejected' })"
+				@click="rejectHere"
 				class="w-full py-5"
 				variant="subtle"
 				theme="red"
@@ -201,7 +183,7 @@ import {
 } from "frappe-ui"
 
 import FormattedField from "@/components/FormattedField.vue"
-import StatusChip from "@/components/ui/StatusChip.vue"
+import RequestDecision from "@/components/RequestDecision.vue"
 import FilePreviewModal from "@/components/FilePreviewModal.vue"
 import WorkflowActionSheet from "@/components/WorkflowActionSheet.vue"
 
@@ -210,7 +192,7 @@ import { settings } from "@/data/settings"
 import { formatCurrency } from "@/utils/formatters"
 
 import useWorkflow from "@/composables/workflow"
-import { approvalFlow, submit } from "@/composables/approval"
+import { approvalFlow, askRejectionReason, decide, submit } from "@/composables/approval"
 
 const __ = inject("$translate")
 const dayjs = inject("$dayjs")
@@ -246,26 +228,11 @@ const document = createDocumentResource({
 	auto: true,
 	onSuccess(doc) {
 		attachedFiles.reload()
-		decision.reload()
+		decision.value?.reload()
 	},
 })
 
-// Who approved, rejected or cancelled the request, and when.
-const decision = createResource({
-	url: "ms_hrms.request_history.get_request_decision",
-	params: { doctype: props.modelValue.doctype, name: props.modelValue.name },
-})
-const when = (value) => (value ? dayjs(value).format("D MMM YYYY · h:mm a") : "")
-const decisionRows = computed(() => {
-	const data = decision.data || {}
-	const decided = data.status === "Rejected" ? __("Rejected by") : __("Approved by")
-	return [
-		{ label: decided, value: data.status && data.by },
-		{ label: __("Decided on"), value: data.status && when(data.on) },
-		{ label: __("Cancelled by"), value: data.cancelled_by },
-		{ label: __("Cancelled on"), value: when(data.cancelled_on) },
-	].filter((row) => row.value)
-})
+const decision = ref(null)
 
 const attachedFiles = createResource({
 	url: "hrms.api.get_attachments",
@@ -320,6 +287,31 @@ async function approveHere() {
 		})
 	} finally {
 		approving.value = false
+	}
+}
+
+// Rejecting asks for the reason first (optional), kept with the decision.
+async function rejectHere() {
+	const reason = await askRejectionReason()
+	if (reason === null) return
+	try {
+		await decide(props.modelValue, "Rejected", reason)
+		await document.reload()
+		toast({
+			title: __("Success"),
+			text: __("{0} successfully!", [__("Rejected")]),
+			icon: "check-circle",
+			position: "bottom-center",
+			iconClasses: "text-green-500",
+		})
+	} catch (error) {
+		toast({
+			title: __("Error"),
+			text: error.messages?.[0] || __("{0} failed!", [__("Rejection")]),
+			icon: "alert-circle",
+			position: "bottom-center",
+			iconClasses: "text-red-500",
+		})
 	}
 }
 
@@ -401,7 +393,7 @@ const updateDocumentStatus = ({ status = "", docstatus = 0 }) => {
 		{
 			onSuccess() {
 				if (docstatus !== 0) modalController.dismiss()
-				decision.reload()
+				decision.value?.reload()
 
 				toast({
 					title: __("Success"),

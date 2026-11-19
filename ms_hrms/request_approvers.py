@@ -349,23 +349,97 @@ def employee_advance_condition(user=None):
 	return get_condition("Employee Advance", user)
 
 
+# Requests decided by their status field: Permission and Overtime Requests through their
+# approver check above, Frappe HR's own with the user's permissions (as the desk does).
+DECISION_FIELDS = {
+	"Permission Request": "status",
+	"Overtime Request": "status",
+	"Leave Application": "status",
+	"Expense Claim": "approval_status",
+	"Shift Request": "status",
+}
+WAITING_STATUSES = {
+	"Permission Request": ("Pending Approval",),
+	"Overtime Request": ("Pending Approval",),
+	"Leave Application": ("Open",),
+	"Expense Claim": ("Draft",),
+	"Shift Request": ("Draft",),
+}
+# The approver's remarks (a rejection's reason): on the request where it has a field for
+# them, else a Comment on it (its timeline in the desk), marked by this subject.
+REMARKS_FIELDS = {"Overtime Request": "approval_remarks"}
+REMARKS_SUBJECT = "ms_hrms:decision_remarks"
+
+
 @frappe.whitelist(methods=["POST"])
-def decide(doctype, name, status):
-	"""Approve or reject a Permission or Overtime Request awaiting approval, as its
-	approver. The request's own validation still checks the change."""
-	if doctype not in DECIDED_HERE or status not in DECISIONS:
+def decide(doctype, name, status, remarks=None):
+	"""Approve or reject a request awaiting approval, with the approver's remarks (the
+	reason, when rejecting). Permission and Overtime Requests are decided as their
+	approver; leaves, expense claims and shift requests with the user's own permissions.
+	The request's own validation still checks the change."""
+	if doctype not in DECISION_FIELDS or status not in DECISIONS:
 		frappe.throw(frappe._("This request cannot be decided here."))
 
 	doc = frappe.get_doc(doctype, name)
-	if frappe.session.user != "Administrator" and not is_approver(doctype, doc.employee):
-		frappe.throw(frappe._("You are not the approver of this request."), frappe.PermissionError)
-	if doc.docstatus != 0 or doc.status != "Pending Approval":
+	field = DECISION_FIELDS[doctype]
+	if doctype in DECIDED_HERE:
+		if frappe.session.user != "Administrator" and not is_approver(doctype, doc.employee):
+			frappe.throw(frappe._("You are not the approver of this request."), frappe.PermissionError)
+		doc.flags.ignore_permissions = True
+	else:
+		doc.check_permission("write")
+	if doc.docstatus != 0 or doc.get(field) not in WAITING_STATUSES[doctype]:
 		frappe.throw(frappe._("This request is not awaiting approval."))
 
-	doc.status = status
-	doc.flags.ignore_permissions = True
+	remarks = (remarks or "").strip()
+	if remarks:
+		set_decision_remarks(doc, remarks)
+	doc.set(field, status)
 	doc.save()
-	return doc.status
+	return doc.get(field)
+
+
+def set_decision_remarks(doc, remarks):
+	"""Before the decision is saved, so that its notification carries them."""
+	field = REMARKS_FIELDS.get(doc.doctype)
+	if field:
+		doc.set(field, remarks)
+		return
+	frappe.get_doc(
+		{
+			"doctype": "Comment",
+			"comment_type": "Comment",
+			"subject": REMARKS_SUBJECT,
+			"reference_doctype": doc.doctype,
+			"reference_name": doc.name,
+			"comment_email": frappe.session.user,
+			"comment_by": frappe.utils.get_fullname(frappe.session.user),
+			"content": frappe.utils.escape_html(remarks).replace("\n", "<br>"),
+		}
+	).insert(ignore_permissions=True)
+
+
+def get_decision_remarks(doc):
+	"""The approver's remarks on the request's decision, as plain text."""
+	from html import unescape
+
+	field = REMARKS_FIELDS.get(doc.doctype)
+	if field and doc.get(field):
+		return doc.get(field)
+	content = frappe.db.get_value(
+		"Comment",
+		{
+			"reference_doctype": doc.doctype,
+			"reference_name": doc.name,
+			"comment_type": "Comment",
+			"subject": REMARKS_SUBJECT,
+		},
+		"content",
+		order_by="creation desc",
+	)
+	if not content:
+		return None
+	return unescape(frappe.utils.strip_html(content.replace("<br>", "\n"))).strip()
 
 
 # Requests approved by submitting them, which Frappe HR leaves to a role (Expense

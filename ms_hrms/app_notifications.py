@@ -279,15 +279,26 @@ def tell_employee_of_decision(doc, decision, remarks=None):
 	if not employee_user or actor == employee_user:
 		return
 	lang = lang_of(employee_user)
-	messages = {
+	message = t(
+		decision_message(decision, remarks), lang, request_label(doc.doctype, lang), describe(doc, lang), name_of(actor), remarks
+	)
+	notify(employee_user, message, doc.doctype, doc.name)
+
+
+def decision_message(decision, remarks=None):
+	"""The sentence telling the employee of a decision, with the approver's remarks (a
+	rejection's reason) when there are any."""
+	if remarks:
+		return {
+			"Approved": N_("Your {0} ({1}) was approved by {2}. Remarks: {3}"),
+			"Rejected": N_("Your {0} ({1}) was rejected by {2}. Reason: {3}"),
+			"Cancelled": N_("Your {0} ({1}) was cancelled by {2}. Remarks: {3}"),
+		}[decision]
+	return {
 		"Approved": N_("Your {0} ({1}) was approved by {2}"),
 		"Rejected": N_("Your {0} ({1}) was rejected by {2}"),
 		"Cancelled": N_("Your {0} ({1}) was cancelled by {2}"),
-	}
-	message = t(messages[decision], lang, request_label(doc.doctype, lang), describe(doc, lang), name_of(actor))
-	if remarks:
-		message += "<br>" + _("Remarks: {0}", lang=lang).format(frappe.utils.escape_html(remarks))
-	notify(employee_user, message, doc.doctype, doc.name)
+	}[decision]
 
 
 def tell_approvers_of_cancel(doc):
@@ -321,7 +332,9 @@ def on_status_request_update(doc, method=None):
 	if doc.status == "Pending Approval":
 		tell_approvers_of_new(doc)
 	elif doc.status in ("Approved", "Rejected"):
-		tell_employee_of_decision(doc, doc.status, doc.get("approval_remarks"))
+		from ms_hrms.request_approvers import get_decision_remarks
+
+		tell_employee_of_decision(doc, doc.status, get_decision_remarks(doc))
 	elif doc.status == "Cancelled":
 		on_request_cancel(doc, was_waiting=previous == "Pending Approval")
 
@@ -368,10 +381,14 @@ def rewrite_hrms_notification(doc, method=None):
 	lang = lang_of(doc.to_user)
 	label = request_label(request.doctype, lang)
 	if doc.to_user == user_of(request.employee):
+		from ms_hrms.request_approvers import get_decision_remarks
+
 		status = request.get(STATUS_FIELDS[request.doctype])
-		message = {"Approved": N_("Your {0} ({1}) was approved by {2}"), "Rejected": N_("Your {0} ({1}) was rejected by {2}")}.get(status)
-		if message:
-			doc.message = t(message, lang, label, describe(request, lang), name_of(doc.from_user))
+		if status in ("Approved", "Rejected"):
+			remarks = get_decision_remarks(request)
+			doc.message = t(
+				decision_message(status, remarks), lang, label, describe(request, lang), name_of(doc.from_user), remarks
+			)
 	else:
 		doc.message = t(N_("{0} sent a {1} for your approval: {2}"), lang, request.employee_name, label, describe(request, lang))
 
