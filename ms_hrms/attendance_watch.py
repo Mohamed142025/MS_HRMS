@@ -375,11 +375,10 @@ def notify_not_checked_in(now=None):
 	if not by_shift:
 		return
 
+	from ms_hrms.app_notifications import lang_of
+
 	recipients = _recipients()
 	for shift, rows in by_shift.items():
-		message = _("{0} have not checked in yet · {1} shift ({2})").format(
-			len(rows), shift, rows[0].shift_start.strftime("%H:%M")
-		)
 		for user in recipients:
 			if frappe.db.exists(
 				"PWA Notification",
@@ -391,6 +390,10 @@ def notify_not_checked_in(now=None):
 				},
 			):
 				continue
+			# In the language of the user it goes to, not the scheduler's.
+			message = _("{0} have not checked in yet · {1} shift ({2})", lang=lang_of(user)).format(
+				len(rows), shift, rows[0].shift_start.strftime("%H:%M")
+			)
 			frappe.get_doc(
 				{
 					"doctype": "PWA Notification",

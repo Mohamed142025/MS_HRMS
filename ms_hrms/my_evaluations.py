@@ -11,7 +11,7 @@ on the desk.
 """
 
 import frappe
-from frappe import _
+from frappe import N_, _
 from frappe.utils import now_datetime
 
 from hrms.api import get_current_employee
@@ -142,6 +142,6 @@ def on_submit(doc, method=None):
 		if not user or not is_on("requests"):
 			return
 		lang = lang_of(user)
-		notify(user, t("Your evaluation for {0} is ready: {1}", lang, doc.payroll_period, f"{doc.final_score:g}%"), DOCTYPE, doc.name)
+		notify(user, t(N_("Your evaluation for {0} is ready: {1}"), lang, doc.payroll_period, f"{doc.final_score:g}%"), DOCTYPE, doc.name)
 
 	send()

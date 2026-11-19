@@ -17,7 +17,7 @@ An installment is:
 import math
 
 import frappe
-from frappe import _
+from frappe import N_, _
 from frappe.query_builder import DocType
 from frappe.utils import add_months, cint, flt, fmt_money, get_first_day, getdate, today
 
@@ -654,7 +654,7 @@ def tell_employee(doc, event, row=None):
 	money = lambda value: fmt_money(value, currency=doc.currency)  # noqa: E731
 	if event == "plan":
 		message = t(
-			"Your advance will be repaid from your salary: {0} a month for {1} months, from {2}",
+			N_("Your advance will be repaid from your salary: {0} a month for {1} months, from {2}"),
 			lang,
 			money(doc.custom_repayment_installment),
 			doc.custom_repayment_months,
@@ -663,7 +663,7 @@ def tell_employee(doc, event, row=None):
 	elif event == "deducted":
 		doc.reload()
 		message = t(
-			"{0} of your advance was deducted from your salary for {1}. Remaining: {2}",
+			N_("{0} of your advance was deducted from your salary for {1}. Remaining: {2}"),
 			lang,
 			money(row.amount),
 			month_label(row.payroll_date, lang),
@@ -673,7 +673,7 @@ def tell_employee(doc, event, row=None):
 		upcoming = [r for r in doc.get(SCHEDULE) if r.status == "Scheduled"]
 		if not upcoming:
 			return
-		message = t("Your advance installments were rescheduled. The next one is in {0}", lang, month_label(upcoming[0].payroll_date, lang))
+		message = t(N_("Your advance installments were rescheduled. The next one is in {0}"), lang, month_label(upcoming[0].payroll_date, lang))
 	notify(user, message, "Employee Advance", doc.name)
 
 

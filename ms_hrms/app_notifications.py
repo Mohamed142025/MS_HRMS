@@ -24,7 +24,7 @@ from datetime import timedelta
 from html import unescape
 
 import frappe
-from frappe import _
+from frappe import N_, _
 from frappe.utils import add_days, cint, flt, fmt_money, get_datetime, getdate, now_datetime
 
 from hrms.utils.holiday_list import get_holiday_list_for_employee
@@ -160,7 +160,9 @@ def lang_of(user):
 
 
 def t(message, lang, *values):
-	"""The message in this language, with its values in bold."""
+	"""The message in this language, with its values in bold. The message is a whole
+	sentence with placeholders, marked N_("...") where it is written so that it is
+	extracted for translation (ms_hrms/locale)."""
 	return _(message, lang=lang).format(*[f"<b>{frappe.utils.escape_html(str(v))}</b>" for v in values])
 
 
@@ -263,7 +265,7 @@ def tell_approvers_of_new(doc):
 		lang = lang_of(user)
 		notify(
 			user,
-			t("{0} sent a {1} for your approval: {2}", lang, doc.employee_name, request_label(doc.doctype, lang), describe(doc, lang)),
+			t(N_("{0} sent a {1} for your approval: {2}"), lang, doc.employee_name, request_label(doc.doctype, lang), describe(doc, lang)),
 			doc.doctype,
 			doc.name,
 			from_user=employee_user,
@@ -278,9 +280,9 @@ def tell_employee_of_decision(doc, decision, remarks=None):
 		return
 	lang = lang_of(employee_user)
 	messages = {
-		"Approved": "Your {0} ({1}) was approved by {2}",
-		"Rejected": "Your {0} ({1}) was rejected by {2}",
-		"Cancelled": "Your {0} ({1}) was cancelled by {2}",
+		"Approved": N_("Your {0} ({1}) was approved by {2}"),
+		"Rejected": N_("Your {0} ({1}) was rejected by {2}"),
+		"Cancelled": N_("Your {0} ({1}) was cancelled by {2}"),
 	}
 	message = t(messages[decision], lang, request_label(doc.doctype, lang), describe(doc, lang), name_of(actor))
 	if remarks:
@@ -299,7 +301,7 @@ def tell_approvers_of_cancel(doc):
 		lang = lang_of(user)
 		notify(
 			user,
-			t("{0} cancelled their {1}: {2}", lang, doc.employee_name, request_label(doc.doctype, lang), describe(doc, lang)),
+			t(N_("{0} cancelled their {1}: {2}"), lang, doc.employee_name, request_label(doc.doctype, lang), describe(doc, lang)),
 			doc.doctype,
 			doc.name,
 			from_user=employee_user,
@@ -367,11 +369,11 @@ def rewrite_hrms_notification(doc, method=None):
 	label = request_label(request.doctype, lang)
 	if doc.to_user == user_of(request.employee):
 		status = request.get(STATUS_FIELDS[request.doctype])
-		message = {"Approved": "Your {0} ({1}) was approved by {2}", "Rejected": "Your {0} ({1}) was rejected by {2}"}.get(status)
+		message = {"Approved": N_("Your {0} ({1}) was approved by {2}"), "Rejected": N_("Your {0} ({1}) was rejected by {2}")}.get(status)
 		if message:
 			doc.message = t(message, lang, label, describe(request, lang), name_of(doc.from_user))
 	else:
-		doc.message = t("{0} sent a {1} for your approval: {2}", lang, request.employee_name, label, describe(request, lang))
+		doc.message = t(N_("{0} sent a {1} for your approval: {2}"), lang, request.employee_name, label, describe(request, lang))
 
 
 # Salary slips
@@ -391,7 +393,7 @@ def on_salary_slip_submit(doc, method=None):
 		month = format_date(getdate(doc.end_date), "MMMM yyyy", locale=lang.replace("-", "_"))
 	except Exception:
 		month = str(doc.end_date)
-	notify(user, t("Your salary slip for {0} is ready: {1}", lang, month, fmt_money(doc.net_pay, currency=doc.currency)), "Salary Slip", doc.name)
+	notify(user, t(N_("Your salary slip for {0} is ready: {1}"), lang, month, fmt_money(doc.net_pay, currency=doc.currency)), "Salary Slip", doc.name)
 
 
 # Announcements
@@ -490,7 +492,7 @@ def _holidays_tomorrow(employees, today):
 		if holiday_list in holidays:
 			lang = lang_of(employee.user_id)
 			what = frappe.utils.strip_html(holidays[holiday_list] or "").strip() or _("Holiday", lang=lang)
-			notify(employee.user_id, t("Tomorrow is a holiday: {0}", lang, what), "Holiday List", holiday_list, from_user="Administrator")
+			notify(employee.user_id, t(N_("Tomorrow is a holiday: {0}"), lang, what), "Holiday List", holiday_list, from_user="Administrator")
 
 
 def _leaves_tomorrow(today):
@@ -505,7 +507,7 @@ def _leaves_tomorrow(today):
 			lang = lang_of(user)
 			notify(
 				user,
-				t("Your {0} starts tomorrow and ends on {1}", lang, _(leave.leave_type, lang=lang), day_label(leave.to_date, lang)),
+				t(N_("Your {0} starts tomorrow and ends on {1}"), lang, _(leave.leave_type, lang=lang), day_label(leave.to_date, lang)),
 				"Leave Application",
 				leave.name,
 				from_user="Administrator",
@@ -528,9 +530,9 @@ def _greet(employees, today, date_field):
 		lang = lang_of(person.user_id)
 		first = person.first_name or person.employee_name
 		if birthday:
-			message = t("Happy birthday, {0}! Wishing you a wonderful year.", lang, first)
+			message = t(N_("Happy birthday, {0}! Wishing you a wonderful year."), lang, first)
 		else:
-			message = t("Happy work anniversary, {0}! {1} years with us today.", lang, first, years)
+			message = t(N_("Happy work anniversary, {0}! {1} years with us today."), lang, first, years)
 		notify(person.user_id, message, "Employee", person.name, from_user="Administrator")
 
 		if not person.department:
@@ -540,9 +542,9 @@ def _greet(employees, today, date_field):
 				continue
 			lang = lang_of(colleague.user_id)
 			if birthday:
-				message = t("Today is {0}'s birthday. Wish them a happy birthday!", lang, person.employee_name)
+				message = t(N_("Today is {0}'s birthday. Wish them a happy birthday!"), lang, person.employee_name)
 			else:
-				message = t("{0} completes {1} years with us today.", lang, person.employee_name, years)
+				message = t(N_("{0} completes {1} years with us today."), lang, person.employee_name, years)
 			notify(colleague.user_id, message, "Employee", person.name, from_user="Administrator")
 
 
@@ -570,7 +572,7 @@ def remind_check_in(now=None):
 		lang = lang_of(user)
 		notify(
 			user,
-			t("Your {0} shift started at {1} and you have not checked in yet.", lang, row.shift, row.shift_start.strftime("%H:%M")),
+			t(N_("Your {0} shift started at {1} and you have not checked in yet."), lang, row.shift, row.shift_start.strftime("%H:%M")),
 			"Employee Checkin",
 			None,
 			from_user="Administrator",

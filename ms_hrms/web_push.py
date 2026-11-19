@@ -18,7 +18,7 @@ import re
 from html import unescape
 
 import frappe
-from frappe import _
+from frappe import N_, _
 from frappe.utils import now_datetime, strip_html
 from frappe.utils.password import get_decrypted_password, set_encrypted_password
 
@@ -205,10 +205,10 @@ def get_title(doc):
 		# word for an advert) as possible spam.
 		return frappe.db.get_value("HR Announcement", doc.reference_document_name, "title") or _("From HR", lang=lang)
 	titles = {
-		"Shift Type": "Attendance Watch",
-		"Employee Checkin": "Check-in reminder",
-		"Holiday List": "Holiday",
-		"Employee": "Occasion",
+		"Shift Type": N_("Attendance Watch"),
+		"Employee Checkin": N_("Check-in reminder"),
+		"Holiday List": N_("Holiday"),
+		"Employee": N_("Occasion"),
 	}
 	label = titles.get(doc.reference_document_type) or doc.reference_document_type
 	return _(label, lang=lang) if label else get_app_title()

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Custom HR VERSION\n"
 "Report-Msgid-Bugs-To: Mohameddbs53@gmail.com\n"
-"POT-Creation-Date: 2026-11-19 11:43+0053\n"
-"PO-Revision-Date: 2026-11-19 11:43+0053\n"
+"POT-Creation-Date: 2026-11-19 16:15+0053\n"
+"PO-Revision-Date: 2026-11-19 16:15+0053\n"
 "Last-Translator: Mohameddbs53@gmail.com\n"
 "Language-Team: Mohameddbs53@gmail.com\n"
 "MIME-Version: 1.0\n"
@@ -26,11 +26,11 @@ msgstr ""
 msgid "1 = first time in the period, 2 = second… 0 = every time (a row with the exact number is used first)."
 msgstr ""
 
-#: frontend/src/views/Insights.vue:137
+#: frontend/src/views/Insights.vue:138
 msgid "12 months"
 msgstr ""
 
-#: frontend/src/views/Insights.vue:136
+#: frontend/src/views/Insights.vue:137
 msgid "3 months"
 msgstr ""
 
@@ -69,10 +69,10 @@ msgstr ""
 msgid "A percentage, or an amount added to the component."
 msgstr ""
 
-#: frontend/src/views/NotCheckedIn.vue:160
-#: frontend/src/views/attendance/Dashboard.vue:193
-#: frontend/src/views/attendance/Dashboard.vue:211
-#: frontend/src/views/attendance/Dashboard.vue:228
+#: frontend/src/views/NotCheckedIn.vue:161
+#: frontend/src/views/attendance/Dashboard.vue:194
+#: frontend/src/views/attendance/Dashboard.vue:212
+#: frontend/src/views/attendance/Dashboard.vue:229
 #: ms_hrms/custom_hrms/report/daily_shift_attendance/daily_shift_attendance.js:22
 msgid "Absent"
 msgstr ""
@@ -179,7 +179,7 @@ msgstr ""
 msgid "Advance Amount"
 msgstr ""
 
-#: frontend/src/views/Approvals.vue:321
+#: frontend/src/views/Approvals.vue:322
 #: frontend/src/views/Notifications.vue:152 frontend/src/views/Requests.vue:150
 #: frontend/src/views/Requests.vue:167
 #: ms_hrms/custom_hrms/report/daily_shift_attendance/daily_shift_attendance.js:20
@@ -211,7 +211,7 @@ msgstr ""
 msgid "All balances"
 msgstr ""
 
-#: frontend/src/views/Approvals.vue:266
+#: frontend/src/views/Approvals.vue:267
 msgid "All dates"
 msgstr ""
 
@@ -546,7 +546,7 @@ msgstr ""
 msgid "Attendance Penalty Rule"
 msgstr ""
 
-#: frontend/src/utils/requestTypes.js:149
+#: frontend/src/utils/requestTypes.js:150
 msgid "Attendance Request"
 msgstr ""
 
@@ -554,11 +554,15 @@ msgstr ""
 msgid "Attendance Request History"
 msgstr ""
 
-#: frontend/src/views/Home.vue:405
+#: ms_hrms/web_push.py:208
+msgid "Attendance Watch"
+msgstr ""
+
+#: frontend/src/views/Home.vue:406
 msgid "Attendance pattern"
 msgstr ""
 
-#: frontend/src/views/Home.vue:352 frontend/src/views/Insights.vue:174
+#: frontend/src/views/Home.vue:353 frontend/src/views/Insights.vue:175
 #: frontend/src/views/Profile.vue:281
 msgid "Attendance rate"
 msgstr ""
@@ -582,7 +586,7 @@ msgstr ""
 msgid "Average arrival"
 msgstr ""
 
-#: frontend/src/views/Insights.vue:194
+#: frontend/src/views/Insights.vue:195
 msgid "Average working hours"
 msgstr ""
 
@@ -803,6 +807,10 @@ msgstr ""
 #: frontend/src/views/attendance/Dashboard.vue:89
 #: frontend/src/views/attendance/Dashboard.vue:91
 msgid "Check-in log"
+msgstr ""
+
+#: ms_hrms/web_push.py:209
+msgid "Check-in reminder"
 msgstr ""
 
 #: frontend/src/components/CheckInPanel.vue:279
@@ -1033,7 +1041,7 @@ msgstr ""
 msgid "Custom HR"
 msgstr ""
 
-#: frontend/src/views/Approvals.vue:271
+#: frontend/src/views/Approvals.vue:272
 msgid "Custom range"
 msgstr ""
 
@@ -1058,7 +1066,7 @@ msgstr ""
 msgid "Days off from work"
 msgstr ""
 
-#: frontend/src/views/Insights.vue:206
+#: frontend/src/views/Insights.vue:207
 msgid "Days present"
 msgstr ""
 
@@ -1259,11 +1267,11 @@ msgid "Dismiss"
 msgstr ""
 
 #: frontend/src/components/RequestActionSheet.vue:389
-#: frontend/src/views/Approvals.vue:385
+#: frontend/src/views/Approvals.vue:386
 msgid "Document {0} failed!"
 msgstr ""
 
-#: frontend/src/views/Approvals.vue:382
+#: frontend/src/views/Approvals.vue:383
 msgid "Document {0} successfully!"
 msgstr ""
 
@@ -1363,7 +1371,7 @@ msgstr ""
 msgid "Early Leave"
 msgstr ""
 
-#: frontend/src/views/Insights.vue:175
+#: frontend/src/views/Insights.vue:176
 msgid "Early exits"
 msgstr ""
 
@@ -1455,7 +1463,7 @@ msgstr ""
 msgid "Employee"
 msgstr ""
 
-#: frontend/src/utils/requestTypes.js:145
+#: frontend/src/utils/requestTypes.js:146
 msgid "Employee Advance"
 msgstr ""
 
@@ -1709,7 +1717,7 @@ msgstr ""
 #: frontend/src/composables/language.js:18
 #: frontend/src/composables/pushNotifications.js:112
 #: frontend/src/composables/salarySlip.js:36
-#: frontend/src/utils/commonUtils.js:45 frontend/src/views/Approvals.vue:351
+#: frontend/src/utils/commonUtils.js:45 frontend/src/views/Approvals.vue:352
 #: frontend/src/views/employee_advance/Form.vue:94
 #: frontend/src/views/evaluation/Detail.vue:130
 msgid "Error"
@@ -1735,7 +1743,7 @@ msgstr ""
 msgid "Evaluated by {0}"
 msgstr ""
 
-#: frontend/src/views/NotCheckedIn.vue:196
+#: frontend/src/views/NotCheckedIn.vue:197
 msgid "Every employee has a shift"
 msgstr ""
 
@@ -1743,7 +1751,7 @@ msgstr ""
 msgid "Everyday HR operations at your fingertips"
 msgstr ""
 
-#: frontend/src/views/Home.vue:316 frontend/src/views/NotCheckedIn.vue:193
+#: frontend/src/views/Home.vue:317 frontend/src/views/NotCheckedIn.vue:194
 msgid "Everyone whose shift started has checked in"
 msgstr ""
 
@@ -1751,7 +1759,7 @@ msgstr ""
 msgid "Everything about your work, in your pocket."
 msgstr ""
 
-#: frontend/src/views/Insights.vue:153
+#: frontend/src/views/Insights.vue:154
 msgid "Excellent"
 msgstr ""
 
@@ -1767,7 +1775,7 @@ msgstr ""
 msgid "Exit Rules"
 msgstr ""
 
-#: frontend/src/utils/requestTypes.js:143
+#: frontend/src/utils/requestTypes.js:144
 #: frontend/src/views/expense_claim/Dashboard.vue:82
 msgid "Expense Claim"
 msgstr ""
@@ -1780,7 +1788,7 @@ msgstr ""
 msgid "Expense Tax"
 msgstr ""
 
-#: frontend/src/components/ExpensesTable.vue:4 frontend/src/views/Home.vue:332
+#: frontend/src/components/ExpensesTable.vue:4 frontend/src/views/Home.vue:333
 msgid "Expenses"
 msgstr ""
 
@@ -1804,7 +1812,7 @@ msgstr ""
 msgid "Failed to update password"
 msgstr ""
 
-#: frontend/src/views/Insights.vue:155
+#: frontend/src/views/Insights.vue:156
 msgid "Fair"
 msgstr ""
 
@@ -1856,7 +1864,7 @@ msgstr ""
 msgid "Fixed Hourly Rate must be greater than zero."
 msgstr ""
 
-#: frontend/src/views/Approvals.vue:330 frontend/src/views/Requests.vue:131
+#: frontend/src/views/Approvals.vue:331 frontend/src/views/Requests.vue:131
 msgid "For approval"
 msgstr ""
 
@@ -1877,7 +1885,7 @@ msgstr ""
 #. Label of the from_date (Date) field in DocType 'Attendance Penalty
 #. Processing'
 #. Label of the from_date (Date) field in DocType 'Overtime Calculation'
-#: frontend/src/views/Approvals.vue:261
+#: frontend/src/views/Approvals.vue:262
 #: frontend/src/views/attendance/AttendanceRequestList.vue:27
 #: frontend/src/views/attendance/ShiftRequestList.vue:57
 #: frontend/src/views/leave/List.vue:56
@@ -1987,15 +1995,15 @@ msgstr ""
 msgid "Go to Reset Password page"
 msgstr ""
 
-#: frontend/src/views/Insights.vue:154
+#: frontend/src/views/Insights.vue:155
 msgid "Good"
 msgstr ""
 
-#: frontend/src/views/Home.vue:300
+#: frontend/src/views/Home.vue:301
 msgid "Good evening"
 msgstr ""
 
-#: frontend/src/views/Home.vue:300
+#: frontend/src/views/Home.vue:301
 msgid "Good morning"
 msgstr ""
 
@@ -2083,6 +2091,14 @@ msgstr ""
 msgid "Half Day Records"
 msgstr ""
 
+#: ms_hrms/app_notifications.py:533
+msgid "Happy birthday, {0}! Wishing you a wonderful year."
+msgstr ""
+
+#: ms_hrms/app_notifications.py:535
+msgid "Happy work anniversary, {0}! {1} years with us today."
+msgstr ""
+
 #: frontend/src/views/evaluation/Detail.vue:67
 msgid "Have you read your evaluation?"
 msgstr ""
@@ -2096,11 +2112,12 @@ msgstr ""
 msgid "Hide password"
 msgstr ""
 
-#: frontend/src/views/NotCheckedIn.vue:150
-#: frontend/src/views/attendance/Dashboard.vue:212
-#: frontend/src/views/attendance/Dashboard.vue:229
-#: ms_hrms/app_notifications.py:492
+#: frontend/src/views/NotCheckedIn.vue:151
+#: frontend/src/views/attendance/Dashboard.vue:213
+#: frontend/src/views/attendance/Dashboard.vue:230
+#: ms_hrms/app_notifications.py:494
 #: ms_hrms/custom_hrms/report/daily_shift_attendance/daily_shift_attendance.js:28
+#: ms_hrms/web_push.py:210
 msgid "Holiday"
 msgstr ""
 
@@ -2171,7 +2188,7 @@ msgstr ""
 msgid "In {0}"
 msgstr ""
 
-#: frontend/src/views/Home.vue:424 frontend/src/views/leave/Dashboard.vue:177
+#: frontend/src/views/Home.vue:425 frontend/src/views/leave/Dashboard.vue:177
 msgid "In {0} days"
 msgstr ""
 
@@ -2442,7 +2459,7 @@ msgstr ""
 msgid "Last Sent"
 msgstr ""
 
-#: frontend/src/views/Approvals.vue:270
+#: frontend/src/views/Approvals.vue:271
 msgid "Last month"
 msgstr ""
 
@@ -2450,10 +2467,10 @@ msgstr ""
 msgid "Last {0} slips · average {1}"
 msgstr ""
 
-#: frontend/src/views/Approvals.vue:394 frontend/src/views/Insights.vue:77
-#: frontend/src/views/attendance/Dashboard.vue:191
-#: frontend/src/views/attendance/Dashboard.vue:209
-#: frontend/src/views/attendance/Dashboard.vue:226
+#: frontend/src/views/Approvals.vue:395 frontend/src/views/Insights.vue:77
+#: frontend/src/views/attendance/Dashboard.vue:192
+#: frontend/src/views/attendance/Dashboard.vue:210
+#: frontend/src/views/attendance/Dashboard.vue:227
 msgid "Late"
 msgstr ""
 
@@ -2480,7 +2497,7 @@ msgstr ""
 msgid "Late Entry By"
 msgstr ""
 
-#: frontend/src/views/NotCheckedIn.vue:161
+#: frontend/src/views/NotCheckedIn.vue:162
 #: ms_hrms/custom_hrms/report/daily_shift_attendance/daily_shift_attendance.js:23
 msgid "Late arrival permission"
 msgstr ""
@@ -2512,7 +2529,7 @@ msgstr ""
 msgid "Leave Type"
 msgstr ""
 
-#: frontend/src/views/Home.vue:404
+#: frontend/src/views/Home.vue:405
 msgid "Leave reminder"
 msgstr ""
 
@@ -2830,7 +2847,7 @@ msgstr ""
 msgid "My Leaves"
 msgstr ""
 
-#: frontend/src/views/Approvals.vue:329 frontend/src/views/Requests.vue:130
+#: frontend/src/views/Approvals.vue:330 frontend/src/views/Requests.vue:130
 msgid "My Requests"
 msgstr ""
 
@@ -2847,11 +2864,11 @@ msgstr ""
 msgid "Needs a shift to judge arrival times"
 msgstr ""
 
-#: frontend/src/views/Home.vue:406
+#: frontend/src/views/Home.vue:407
 msgid "Needs attention"
 msgstr ""
 
-#: frontend/src/views/Insights.vue:156
+#: frontend/src/views/Insights.vue:157
 msgid "Needs improvement"
 msgstr ""
 
@@ -2876,7 +2893,7 @@ msgstr ""
 msgid "Never"
 msgstr ""
 
-#: frontend/src/components/ListView.vue:35 frontend/src/views/Home.vue:449
+#: frontend/src/components/ListView.vue:35 frontend/src/views/Home.vue:450
 #: frontend/src/views/evaluation/List.vue:34
 msgid "New"
 msgstr ""
@@ -3020,7 +3037,7 @@ msgstr ""
 msgid "No check-ins in the last month"
 msgstr ""
 
-#: frontend/src/views/Home.vue:367
+#: frontend/src/views/Home.vue:368
 msgid "No check-ins this month"
 msgstr ""
 
@@ -3032,7 +3049,7 @@ msgstr ""
 msgid "No check-out since {0}"
 msgstr ""
 
-#: frontend/src/views/NotCheckedIn.vue:191
+#: frontend/src/views/NotCheckedIn.vue:192
 msgid "No employees match these filters"
 msgstr ""
 
@@ -3048,11 +3065,11 @@ msgstr ""
 msgid "No installments are left to move."
 msgstr ""
 
-#: frontend/src/views/NotCheckedIn.vue:195
+#: frontend/src/views/NotCheckedIn.vue:196
 msgid "No late arrival permissions today"
 msgstr ""
 
-#: frontend/src/views/Insights.vue:215
+#: frontend/src/views/Insights.vue:216
 msgid "No late arrivals"
 msgstr ""
 
@@ -3072,7 +3089,7 @@ msgstr ""
 msgid "No number"
 msgstr ""
 
-#: frontend/src/views/NotCheckedIn.vue:194
+#: frontend/src/views/NotCheckedIn.vue:195
 msgid "No one is absent"
 msgstr ""
 
@@ -3088,7 +3105,7 @@ msgstr ""
 msgid "No salary slips found"
 msgstr ""
 
-#: frontend/src/views/NotCheckedIn.vue:162
+#: frontend/src/views/NotCheckedIn.vue:163
 #: ms_hrms/custom_hrms/report/daily_shift_attendance/daily_shift_attendance.js:29
 msgid "No shift"
 msgstr ""
@@ -3097,7 +3114,7 @@ msgstr ""
 msgid "No taxes added"
 msgstr ""
 
-#: frontend/src/views/Home.vue:355
+#: frontend/src/views/Home.vue:356
 msgid "No working days yet"
 msgstr ""
 
@@ -3121,7 +3138,7 @@ msgstr ""
 msgid "Normal Working Day"
 msgstr ""
 
-#: frontend/src/views/Approvals.vue:396
+#: frontend/src/views/Approvals.vue:397
 msgid "Not checked in"
 msgstr ""
 
@@ -3145,12 +3162,12 @@ msgstr ""
 msgid "Not deducted: {0}. Move the remaining installments or postpone them."
 msgstr ""
 
-#: frontend/src/views/Insights.vue:152
+#: frontend/src/views/Insights.vue:153
 msgid "Not enough data"
 msgstr ""
 
 #: frontend/src/views/NotCheckedIn.vue:8
-#: frontend/src/views/NotCheckedIn.vue:159
+#: frontend/src/views/NotCheckedIn.vue:160
 #: ms_hrms/custom_hrms/report/daily_shift_attendance/daily_shift_attendance.js:21
 msgid "Not in yet"
 msgstr ""
@@ -3163,7 +3180,7 @@ msgstr ""
 msgid "Not sent to payroll: {0}"
 msgstr ""
 
-#: frontend/src/views/NotCheckedIn.vue:148
+#: frontend/src/views/NotCheckedIn.vue:149
 msgid "Not started yet"
 msgstr ""
 
@@ -3216,6 +3233,10 @@ msgstr ""
 msgid "OTP Verification"
 msgstr ""
 
+#: ms_hrms/web_push.py:211
+msgid "Occasion"
+msgstr ""
+
 #. Label of the occurrence_number (Int) field in DocType 'Attendance Penalty
 #. Detail'
 #. Label of the occurrence_number (Int) field in DocType 'Attendance Penalty
@@ -3255,10 +3276,10 @@ msgstr ""
 msgid "Old and New Salaries"
 msgstr ""
 
-#: frontend/src/views/Approvals.vue:395 frontend/src/views/NotCheckedIn.vue:149
-#: frontend/src/views/attendance/Dashboard.vue:192
-#: frontend/src/views/attendance/Dashboard.vue:210
-#: frontend/src/views/attendance/Dashboard.vue:227
+#: frontend/src/views/Approvals.vue:396 frontend/src/views/NotCheckedIn.vue:150
+#: frontend/src/views/attendance/Dashboard.vue:193
+#: frontend/src/views/attendance/Dashboard.vue:211
+#: frontend/src/views/attendance/Dashboard.vue:228
 #: ms_hrms/custom_hrms/report/daily_shift_attendance/daily_shift_attendance.js:27
 msgid "On Leave"
 msgstr ""
@@ -3283,9 +3304,9 @@ msgstr ""
 msgid "On the assignment's Incentive Amount: a percentage, or an amount added to it."
 msgstr ""
 
-#: frontend/src/views/Insights.vue:76 frontend/src/views/Insights.vue:173
-#: frontend/src/views/attendance/Dashboard.vue:207
-#: frontend/src/views/attendance/Dashboard.vue:225
+#: frontend/src/views/Insights.vue:76 frontend/src/views/Insights.vue:174
+#: frontend/src/views/attendance/Dashboard.vue:208
+#: frontend/src/views/attendance/Dashboard.vue:226
 msgid "On time"
 msgstr ""
 
@@ -3293,7 +3314,7 @@ msgstr ""
 msgid "One column per working day"
 msgstr ""
 
-#: frontend/src/data/attendance.js:10 frontend/src/data/attendance.js:23
+#: frontend/src/data/attendance.js:11 frontend/src/data/attendance.js:24
 msgid "Ongoing"
 msgstr ""
 
@@ -3366,8 +3387,8 @@ msgstr ""
 
 #. Label of a Card Break in the Custom HR Workspace
 #. Label of a Workspace Sidebar Item
-#: frontend/src/views/Home.vue:331 frontend/src/views/Home.vue:408
-#: frontend/src/views/Insights.vue:200
+#: frontend/src/views/Home.vue:332 frontend/src/views/Home.vue:409
+#: frontend/src/views/Insights.vue:201
 #: ms_hrms/custom_hrms/report/shift_attendance_test/__init__.py:88
 #: ms_hrms/custom_hrms/report/shift_attendance_test/shift_attendance_test.py:89
 #: ms_hrms/custom_hrms/workspace/custom_hr/custom_hr.json
@@ -3480,7 +3501,7 @@ msgstr ""
 #. Label of a Link in the Custom HR Workspace
 #. Label of a Workspace Sidebar Item
 #: frontend/src/components/NewRequestSheet.vue:80
-#: frontend/src/utils/requestTypes.js:141
+#: frontend/src/utils/requestTypes.js:142
 #: ms_hrms/custom_hrms/doctype/overtime_calculation_detail/overtime_calculation_detail.json
 #: ms_hrms/custom_hrms/doctype/overtime_request/overtime_request.json
 #: ms_hrms/custom_hrms/workspace/custom_hr/custom_hr.json
@@ -3750,7 +3771,7 @@ msgstr ""
 #. Checkin'
 #. Label of a Workspace Sidebar Item
 #: frontend/src/components/NewRequestSheet.vue:79
-#: frontend/src/utils/requestTypes.js:139 frontend/src/views/Home.vue:330
+#: frontend/src/utils/requestTypes.js:140 frontend/src/views/Home.vue:331
 #: ms_hrms/custom_hrms/doctype/permission_request/permission_request.json
 #: ms_hrms/custom_hrms/workspace/custom_hr/custom_hr.json
 #: ms_hrms/fixtures/custom_field.json ms_hrms/workspace_sidebar/custom_hr.json
@@ -3795,7 +3816,7 @@ msgstr ""
 msgid "Permission duration must be greater than zero."
 msgstr ""
 
-#: frontend/src/views/Insights.vue:212
+#: frontend/src/views/Insights.vue:213
 msgid "Permission hours"
 msgstr ""
 
@@ -3803,7 +3824,7 @@ msgstr ""
 msgid "Permission time is required."
 msgstr ""
 
-#: frontend/src/views/NotCheckedIn.vue:208
+#: frontend/src/views/NotCheckedIn.vue:209
 msgid "Permission until {0}"
 msgstr ""
 
@@ -3900,9 +3921,9 @@ msgstr ""
 msgid "Preferences"
 msgstr ""
 
-#: frontend/src/views/Approvals.vue:393 frontend/src/views/NotCheckedIn.vue:147
-#: frontend/src/views/attendance/Dashboard.vue:190
-#: frontend/src/views/attendance/Dashboard.vue:208
+#: frontend/src/views/Approvals.vue:394 frontend/src/views/NotCheckedIn.vue:148
+#: frontend/src/views/attendance/Dashboard.vue:191
+#: frontend/src/views/attendance/Dashboard.vue:209
 #: ms_hrms/custom_hrms/report/daily_shift_attendance/daily_shift_attendance.js:25
 msgid "Present"
 msgstr ""
@@ -3981,11 +4002,11 @@ msgstr ""
 msgid "Public Holiday"
 msgstr ""
 
-#: frontend/src/views/Home.vue:423
+#: frontend/src/views/Home.vue:424
 msgid "Public holiday"
 msgstr ""
 
-#: frontend/src/views/Home.vue:341 frontend/src/views/Home.vue:345
+#: frontend/src/views/Home.vue:342 frontend/src/views/Home.vue:346
 #: frontend/src/views/Insights.vue:42 frontend/src/views/Insights.vue:45
 #: frontend/src/views/Profile.vue:281
 msgid "Punctuality"
@@ -4082,7 +4103,7 @@ msgid "Rejected by"
 msgstr ""
 
 #: frontend/src/components/RequestActionSheet.vue:387
-#: frontend/src/views/Approvals.vue:369
+#: frontend/src/views/Approvals.vue:370
 msgid "Rejection"
 msgstr ""
 
@@ -4108,7 +4129,7 @@ msgstr ""
 msgid "Remarks"
 msgstr ""
 
-#: ms_hrms/app_notifications.py:287
+#: ms_hrms/app_notifications.py:289
 msgid "Remarks: {0}"
 msgstr ""
 
@@ -4139,7 +4160,7 @@ msgid "Request Attendance"
 msgstr ""
 
 #: frontend/src/components/NewRequestSheet.vue:78
-#: frontend/src/views/Home.vue:329 frontend/src/views/leave/Dashboard.vue:98
+#: frontend/src/views/Home.vue:330 frontend/src/views/leave/Dashboard.vue:98
 msgid "Request Leave"
 msgstr ""
 
@@ -4340,15 +4361,15 @@ msgstr ""
 msgid "Salary slip for {0}"
 msgstr ""
 
-#: frontend/src/views/Home.vue:447
+#: frontend/src/views/Home.vue:448
 msgid "Salary slip for {0} is ready"
 msgstr ""
 
-#: frontend/src/views/Insights.vue:165 frontend/src/views/Insights.vue:182
+#: frontend/src/views/Insights.vue:166 frontend/src/views/Insights.vue:183
 msgid "Same as the previous period"
 msgstr ""
 
-#: frontend/src/views/Home.vue:374
+#: frontend/src/views/Home.vue:375
 msgid "Same as {0}"
 msgstr ""
 
@@ -4631,7 +4652,7 @@ msgstr ""
 #: frontend/src/components/RequestActionSheet.vue:307
 #: frontend/src/components/RequestActionSheet.vue:407
 #: frontend/src/composables/pushNotifications.js:112
-#: frontend/src/views/Approvals.vue:351
+#: frontend/src/views/Approvals.vue:352
 #: frontend/src/views/ChangePassword.vue:74
 #: frontend/src/views/ForgotPassword.vue:63
 #: frontend/src/views/employee_advance/Form.vue:85
@@ -4688,7 +4709,7 @@ msgstr ""
 msgid "Tap the icon beside the address bar"
 msgstr ""
 
-#: frontend/src/views/Home.vue:448
+#: frontend/src/views/Home.vue:449
 msgid "Tap to view or download it"
 msgstr ""
 
@@ -4837,7 +4858,7 @@ msgstr ""
 msgid "This Permission Request overlaps with an existing Permission Request ({0}) for the same Employee on {1} from {2} to {3}."
 msgstr ""
 
-#: frontend/src/views/Announcement.vue:7 ms_hrms/app_notifications.py:432
+#: frontend/src/views/Announcement.vue:7 ms_hrms/app_notifications.py:434
 msgid "This announcement was not sent to you."
 msgstr ""
 
@@ -4861,8 +4882,8 @@ msgstr ""
 msgid "This method is only meant for developer mode"
 msgstr ""
 
-#: frontend/src/views/Approvals.vue:269 frontend/src/views/Home.vue:368
-#: frontend/src/views/Insights.vue:135
+#: frontend/src/views/Approvals.vue:270 frontend/src/views/Home.vue:369
+#: frontend/src/views/Insights.vue:136
 msgid "This month"
 msgstr ""
 
@@ -4903,7 +4924,7 @@ msgstr ""
 msgid "This request type is not listed here."
 msgstr ""
 
-#: frontend/src/views/Approvals.vue:268
+#: frontend/src/views/Approvals.vue:269
 #: frontend/src/views/Notifications.vue:169
 msgid "This week"
 msgstr ""
@@ -4931,7 +4952,7 @@ msgstr ""
 
 #. Label of the to_date (Date) field in DocType 'Attendance Penalty Processing'
 #. Label of the to_date (Date) field in DocType 'Overtime Calculation'
-#: frontend/src/views/Approvals.vue:262
+#: frontend/src/views/Approvals.vue:263
 #: frontend/src/views/attendance/AttendanceRequestList.vue:28
 #: frontend/src/views/attendance/ShiftRequestList.vue:58
 #: frontend/src/views/leave/List.vue:57
@@ -4985,21 +5006,29 @@ msgid "To Time must be different from From Time."
 msgstr ""
 
 #: frontend/src/components/CheckInPanel.vue:4
-#: frontend/src/views/Approvals.vue:267 frontend/src/views/Home.vue:388
-#: frontend/src/views/Home.vue:424 frontend/src/views/Notifications.vue:168
-#: frontend/src/views/attendance/Dashboard.vue:214
-#: frontend/src/views/attendance/Dashboard.vue:236
-#: frontend/src/views/attendance/Dashboard.vue:246
+#: frontend/src/views/Approvals.vue:268 frontend/src/views/Home.vue:389
+#: frontend/src/views/Home.vue:425 frontend/src/views/Notifications.vue:168
+#: frontend/src/views/attendance/Dashboard.vue:215
+#: frontend/src/views/attendance/Dashboard.vue:237
+#: frontend/src/views/attendance/Dashboard.vue:247
 #: frontend/src/views/leave/Dashboard.vue:175
 msgid "Today"
 msgstr ""
 
-#: frontend/src/views/NotCheckedIn.vue:142
+#: ms_hrms/app_notifications.py:545
+msgid "Today is {0}'s birthday. Wish them a happy birthday!"
+msgstr ""
+
+#: frontend/src/views/NotCheckedIn.vue:143
 msgid "Today · as of {0}"
 msgstr ""
 
-#: frontend/src/views/Home.vue:424 frontend/src/views/leave/Dashboard.vue:176
+#: frontend/src/views/Home.vue:425 frontend/src/views/leave/Dashboard.vue:176
 msgid "Tomorrow"
+msgstr ""
+
+#: ms_hrms/app_notifications.py:495
+msgid "Tomorrow is a holiday: {0}"
 msgstr ""
 
 #. Label of the total_actual_hours (Float) field in DocType 'Overtime
@@ -5225,7 +5254,7 @@ msgstr ""
 msgid "Weekly Off"
 msgstr ""
 
-#: frontend/src/views/attendance/Dashboard.vue:213
+#: frontend/src/views/attendance/Dashboard.vue:214
 msgid "Weekly off"
 msgstr ""
 
@@ -5233,7 +5262,7 @@ msgstr ""
 msgid "Welcome to {0}"
 msgstr ""
 
-#: frontend/src/views/Home.vue:407
+#: frontend/src/views/Home.vue:408
 msgid "Well done"
 msgstr ""
 
@@ -5285,7 +5314,7 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: frontend/src/views/attendance/Dashboard.vue:237
+#: frontend/src/views/attendance/Dashboard.vue:238
 msgid "Yesterday"
 msgstr ""
 
@@ -5375,6 +5404,14 @@ msgstr ""
 msgid "You will be notified here of your requests, approvals and announcements."
 msgstr ""
 
+#: ms_hrms/advance_repayment.py:676
+msgid "Your advance installments were rescheduled. The next one is in {0}"
+msgstr ""
+
+#: ms_hrms/advance_repayment.py:657
+msgid "Your advance will be repaid from your salary: {0} a month for {1} months, from {2}"
+msgstr ""
+
 #: frontend/src/views/Insights.vue:53 frontend/src/views/Insights.vue:54
 msgid "Your arrival times"
 msgstr ""
@@ -5401,6 +5438,10 @@ msgstr ""
 
 #: frontend/src/views/evaluation/Detail.vue:74
 msgid "Your comment (optional)"
+msgstr ""
+
+#: ms_hrms/my_evaluations.py:145
+msgid "Your evaluation for {0} is ready: {1}"
 msgstr ""
 
 #: frontend/src/views/evaluation/List.vue:11
@@ -5439,6 +5480,10 @@ msgstr ""
 msgid "Your salary and expenses"
 msgstr ""
 
+#: ms_hrms/app_notifications.py:396
+msgid "Your salary slip for {0} is ready: {1}"
+msgstr ""
+
 #: frontend/src/components/NotificationPrompt.vue:76
 msgid "Your salary slip the moment it is ready"
 msgstr ""
@@ -5456,7 +5501,27 @@ msgstr ""
 msgid "Your upcoming leaves"
 msgstr ""
 
-#: frontend/src/views/Insights.vue:209
+#: ms_hrms/app_notifications.py:283 ms_hrms/app_notifications.py:372
+msgid "Your {0} ({1}) was approved by {2}"
+msgstr ""
+
+#: ms_hrms/app_notifications.py:285
+msgid "Your {0} ({1}) was cancelled by {2}"
+msgstr ""
+
+#: ms_hrms/app_notifications.py:284 ms_hrms/app_notifications.py:372
+msgid "Your {0} ({1}) was rejected by {2}"
+msgstr ""
+
+#: ms_hrms/app_notifications.py:575
+msgid "Your {0} shift started at {1} and you have not checked in yet."
+msgstr ""
+
+#: ms_hrms/app_notifications.py:510
+msgid "Your {0} starts tomorrow and ends on {1}"
+msgstr ""
+
+#: frontend/src/views/Insights.vue:210
 msgid "and {0} days on leave"
 msgstr ""
 
@@ -5480,16 +5545,16 @@ msgstr ""
 msgid "days left"
 msgstr ""
 
-#: frontend/src/views/Insights.vue:197 frontend/src/views/Insights.vue:203
+#: frontend/src/views/Insights.vue:198 frontend/src/views/Insights.vue:204
 #: frontend/src/views/attendance/Dashboard.vue:81
 msgid "h"
 msgstr ""
 
-#: frontend/src/views/Insights.vue:196
+#: frontend/src/views/Insights.vue:197
 msgid "h/day"
 msgstr ""
 
-#: frontend/src/views/Insights.vue:202 frontend/src/views/Insights.vue:214
+#: frontend/src/views/Insights.vue:203 frontend/src/views/Insights.vue:215
 msgid "hours"
 msgstr ""
 
@@ -5513,7 +5578,7 @@ msgstr ""
 msgid "of 100"
 msgstr ""
 
-#: frontend/src/views/Insights.vue:208
+#: frontend/src/views/Insights.vue:209
 #: frontend/src/views/leave/Dashboard.vue:45
 msgid "of {0}"
 msgstr ""
@@ -5538,7 +5603,7 @@ msgstr ""
 msgid "unknown"
 msgstr ""
 
-#: frontend/src/views/Insights.vue:185
+#: frontend/src/views/Insights.vue:186
 msgid "vs previous period"
 msgstr ""
 
@@ -5583,8 +5648,12 @@ msgstr ""
 msgid "{0} Overtime Details collected."
 msgstr ""
 
-#: frontend/src/views/Home.vue:315
+#: frontend/src/views/Home.vue:316
 msgid "{0} absent today"
+msgstr ""
+
+#: ms_hrms/app_notifications.py:304
+msgid "{0} cancelled their {1}: {2}"
 msgstr ""
 
 #: ms_hrms/custom_hrms/doctype/permission_policy/permission_policy.py:38
@@ -5595,11 +5664,15 @@ msgstr ""
 msgid "{0} commented on their evaluation for {1}"
 msgstr ""
 
+#: ms_hrms/app_notifications.py:547
+msgid "{0} completes {1} years with us today."
+msgstr ""
+
 #: frontend/src/components/FormView.vue:536
 msgid "{0} created successfully!"
 msgstr ""
 
-#: frontend/src/utils/requestTypes.js:168 frontend/src/views/leave/Form.vue:54
+#: frontend/src/utils/requestTypes.js:169 frontend/src/views/leave/Form.vue:54
 msgid "{0} days"
 msgstr ""
 
@@ -5622,18 +5695,18 @@ msgstr ""
 #: frontend/src/components/CheckInPanel.vue:309
 #: frontend/src/components/RequestActionSheet.vue:316
 #: frontend/src/components/RequestActionSheet.vue:387
-#: frontend/src/views/Approvals.vue:369
+#: frontend/src/views/Approvals.vue:370
 #: frontend/src/views/employee_advance/Form.vue:95
 msgid "{0} failed!"
 msgstr ""
 
-#: frontend/src/views/Home.vue:390 frontend/src/views/Home.vue:398
+#: frontend/src/views/Home.vue:391 frontend/src/views/Home.vue:399
 #: frontend/src/views/attendance/Dashboard.vue:60
-#: frontend/src/views/attendance/Dashboard.vue:248
+#: frontend/src/views/attendance/Dashboard.vue:249
 msgid "{0} h"
 msgstr ""
 
-#: frontend/src/views/attendance/Dashboard.vue:233
+#: frontend/src/views/attendance/Dashboard.vue:234
 msgid "{0} h {1} m"
 msgstr ""
 
@@ -5641,19 +5714,19 @@ msgstr ""
 msgid "{0} h {1} m left"
 msgstr ""
 
-#: frontend/src/views/NotCheckedIn.vue:212
+#: frontend/src/views/NotCheckedIn.vue:213
 msgid "{0} h {1} min late"
 msgstr ""
 
-#: frontend/src/views/Home.vue:314
+#: frontend/src/views/Home.vue:315
 msgid "{0} have not checked in yet"
 msgstr ""
 
-#: ms_hrms/attendance_watch.py:380
+#: ms_hrms/attendance_watch.py:394
 msgid "{0} have not checked in yet · {1} shift ({2})"
 msgstr ""
 
-#: frontend/src/utils/requestTypes.js:175 ms_hrms/app_notifications.py:205
+#: frontend/src/utils/requestTypes.js:176 ms_hrms/app_notifications.py:207
 #: ms_hrms/custom_hrms/doctype/permission_request/permission_request.py:1464
 msgid "{0} hours"
 msgstr ""
@@ -5683,19 +5756,19 @@ msgstr ""
 msgid "{0} is required when Applies To is {1}."
 msgstr ""
 
-#: frontend/src/views/Insights.vue:215
+#: frontend/src/views/Insights.vue:216
 msgid "{0} late arrivals"
 msgstr ""
 
-#: frontend/src/views/Home.vue:371
+#: frontend/src/views/Home.vue:372
 msgid "{0} min earlier than {1}"
 msgstr ""
 
-#: frontend/src/views/NotCheckedIn.vue:211
+#: frontend/src/views/NotCheckedIn.vue:212
 msgid "{0} min late"
 msgstr ""
 
-#: frontend/src/views/Home.vue:373
+#: frontend/src/views/Home.vue:374
 msgid "{0} min later than {1}"
 msgstr ""
 
@@ -5707,11 +5780,15 @@ msgstr ""
 msgid "{0} minutes × {1}"
 msgstr ""
 
-#: frontend/src/views/Home.vue:348
+#: ms_hrms/advance_repayment.py:666
+msgid "{0} of your advance was deducted from your salary for {1}. Remaining: {2}"
+msgstr ""
+
+#: frontend/src/views/Home.vue:349
 msgid "{0} of {1} days on time"
 msgstr ""
 
-#: frontend/src/views/Home.vue:355
+#: frontend/src/views/Home.vue:356
 msgid "{0} of {1} days present"
 msgstr ""
 
@@ -5723,16 +5800,20 @@ msgstr ""
 msgid "{0} on {1}"
 msgstr ""
 
-#: frontend/src/views/Insights.vue:163
+#: frontend/src/views/Insights.vue:164
 msgid "{0} points higher than the previous period"
 msgstr ""
 
-#: frontend/src/views/Insights.vue:164
+#: frontend/src/views/Insights.vue:165
 msgid "{0} points lower than the previous period"
 msgstr ""
 
 #: frontend/src/views/Home.vue:54
 msgid "{0} requests await your approval"
+msgstr ""
+
+#: ms_hrms/app_notifications.py:268 ms_hrms/app_notifications.py:376
+msgid "{0} sent a {1} for your approval: {2}"
 msgstr ""
 
 #: frontend/src/components/CheckInPanel.vue:297
@@ -5741,7 +5822,7 @@ msgstr ""
 
 #: frontend/src/components/RequestActionSheet.vue:308
 #: frontend/src/components/RequestActionSheet.vue:377
-#: frontend/src/views/Approvals.vue:366
+#: frontend/src/views/Approvals.vue:367
 #: frontend/src/views/employee_advance/Form.vue:86
 msgid "{0} successfully!"
 msgstr ""
