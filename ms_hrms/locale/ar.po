@@ -7341,3 +7341,18 @@ msgstr "يُطبَّق على موظفي هذا القسم إذا لم يوجد 
 msgid "يُطبَّق على موظفي هذا المسمى أولاً."
 msgstr "يُطبَّق على موظفي هذا المسمى أولاً."
 
+
+msgid "Attendance of {0} on {1} was worked out again from the check-ins."
+msgstr "تمت إعادة حساب حضور {0} يوم {1} من البصمات."
+
+msgid "Approved Permission Request {0} changes the check-ins of {1} on {2}, whose attendance {3} was marked by hand. Review it."
+msgstr "طلب الإذن المعتمد {0} يغيّر بصمات {1} يوم {2}، وحضوره {3} مسجّل يدويًا. يرجى مراجعته."
+
+msgid "Approved Permission Request {0} changes the check-ins of {1} on {2}, whose attendance {3} is in the submitted Attendance Penalty Processing {4}. Review it."
+msgstr "طلب الإذن المعتمد {0} يغيّر بصمات {1} يوم {2}، وحضوره {3} محسوب في معالجة جزاءات الحضور المعتمدة {4}. يرجى مراجعته."
+
+msgid "The attendance of {0} on {1} could not be worked out again after Permission Request {2}. Review it."
+msgstr "تعذّرت إعادة حساب حضور {0} يوم {1} بعد طلب الإذن {2}. يرجى مراجعته."
+
+msgid "The attendance of {0} on {1} was not changed automatically; HR has been asked to review it."
+msgstr "لم يتغيّر حضور {0} يوم {1} تلقائيًا، وتم تنبيه الموارد البشرية لمراجعته."

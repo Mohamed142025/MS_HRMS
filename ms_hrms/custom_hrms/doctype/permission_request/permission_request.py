@@ -12,6 +12,8 @@ from frappe.utils import get_first_day, get_last_day, now_datetime, time_diff_in
 from ms_hrms.custom_hrms.doctype.permission_policy.permission_policy import (
     get_applicable_policy,
 )
+from ms_hrms.permission_attendance import get_shift_days
+from ms_hrms.permission_attendance import recalculate as recalculate_attendance
 
 
 # =============================================================================
@@ -249,7 +251,18 @@ class PermissionRequest(Document):
 
         Cancelled:
             Delete Employee Checkins created by this Permission Request.
+
+        Whenever the Checkins change, the attendance of the shifts they
+        belong to is worked out again (ms_hrms.permission_attendance).
         """
+
+        # ---------------------------------------------------------------------
+        # The shifts the Checkins belong to before they change, for their
+        # attendance to be worked out again afterwards.
+        # ---------------------------------------------------------------------
+
+        shift_days = get_shift_days(self.name)
+        checkins_changed = False
 
         # ---------------------------------------------------------------------
         # Approved
@@ -257,10 +270,12 @@ class PermissionRequest(Document):
 
         if self.has_been_approved():
             self.create_employee_checkins()
+            checkins_changed = True
 
         elif self.is_approved() and self.has_checkin_relevant_fields_changed():
             self.delete_employee_checkins()
             self.create_employee_checkins()
+            checkins_changed = True
 
         # ---------------------------------------------------------------------
         # Cancelled
@@ -268,6 +283,19 @@ class PermissionRequest(Document):
 
         if self.has_been_cancelled():
             self.delete_employee_checkins()
+            checkins_changed = True
+
+        # ---------------------------------------------------------------------
+        # Attendance
+        #
+        # Frappe HR marks a shift's attendance from its Checkins once:
+        # Checkins added or removed afterwards would not count. The
+        # attendance of every shift the Checkins left or joined is worked
+        # out again (ms_hrms.permission_attendance).
+        # ---------------------------------------------------------------------
+
+        if checkins_changed:
+            recalculate_attendance(self, shift_days | get_shift_days(self.name))
 
     def on_cancel(self):
         """
@@ -280,7 +308,10 @@ class PermissionRequest(Document):
             self.approval_date = None
 
         self.db_update()
+
+        shift_days = get_shift_days(self.name)
         self.delete_employee_checkins()
+        recalculate_attendance(self, shift_days)
 
     # =========================================================================
     # Employee Resolution
