@@ -594,8 +594,9 @@ def get_decision_remarks(doc):
 
 
 # Requests approved by submitting them, which Frappe HR leaves to a role (Expense
-# Approver) rather than to the employee's manager: their approvers submit them here.
-APPROVED_HERE = ("Employee Advance",)
+# Approver for advances, HR for attendance requests) rather than to the employee's
+# manager: their managers and approvers submit them here.
+APPROVED_HERE = ("Employee Advance", "Attendance Request")
 
 
 def can_approve(doc, user=None):

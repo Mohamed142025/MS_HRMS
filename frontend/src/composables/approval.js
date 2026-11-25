@@ -21,7 +21,7 @@ const FLOWS = {
 	"Shift Request": { field: "status", submitAfter: true },
 	"Permission Request": { field: "status", submitAfter: false },
 	"Overtime Request": { field: "status", submitAfter: false },
-	"Attendance Request": { field: null, submitAfter: true },
+	"Attendance Request": { field: null, submitAfter: true, approveMethod: "ms_hrms.request_approvers.approve" },
 	"Employee Advance": { field: null, submitAfter: true, approveMethod: "ms_hrms.request_approvers.approve" },
 }
 
