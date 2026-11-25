@@ -82,7 +82,8 @@ export function requestStatus(doc) {
 		case "Shift Request":
 			return doc.docstatus ? doc.status : "Open"
 		case "Attendance Request":
-			return doc.docstatus ? "Submitted" : "Draft"
+			// Approved by submitting it (ms_hrms.request_approvers.approve).
+			return doc.docstatus ? "Approved" : "Open"
 		case "Permission Request":
 		case "Overtime Request":
 			return doc.status || (doc.docstatus ? "Submitted" : "Draft")

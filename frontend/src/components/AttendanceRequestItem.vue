@@ -46,11 +46,14 @@ const props = defineProps({
 
 const status = computed(() => {
 	if (props.workflowStateField) return props.doc[props.workflowStateField]
-	return props.doc.docstatus ? "Submitted" : "Draft"
+	// An attendance request is approved by submitting it, so a submitted one reads as
+	// Approved, like the other requests the employee sees.
+	return props.doc.docstatus === 1 ? "Approved" : props.doc.docstatus === 2 ? "Cancelled" : "Open"
 })
 
 const colorMap = {
-	Draft: "gray",
-	Submitted: "blue",
+	Open: "orange",
+	Approved: "green",
+	Cancelled: "red",
 }
 </script>
